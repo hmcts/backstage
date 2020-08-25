@@ -1,0 +1,48 @@
+app:
+  title: HMCTS Backstage
+  baseUrl: http://localhost:3000
+
+organization:
+  name: HMCTS
+
+backend:
+  baseUrl: http://localhost:7000
+  listen:
+    port: 7000
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, POST, PUT, DELETE]
+    credentials: true
+
+proxy:
+  '/test':
+    target: 'https://example.com'
+    changeOrigin: true
+
+techdocs:
+  storageUrl: https://techdocs-mock-sites.storage.googleapis.com
+
+auth:
+  providers: {}
+
+# we don't use this but it falls over without it
+sentry:
+  organization: HMCTS
+
+catalog:
+  locations:
+    # Example Component
+    - type: github
+      target: https://github.com/timja-org/rpe-sweet-backend/blob/master/component-info.yaml
+
+    # Backstage Example Templates
+    - type: github
+      target: https://github.com/spotify/backstage/blob/master/plugins/scaffolder-backend/sample-templates/react-ssr-template/template.yaml
+    - type: github
+      target: https://github.com/timja-org/spring-boot-template/blob/master/template.yaml
+    - type: github
+      target: https://github.com/spotify/backstage/blob/master/plugins/scaffolder-backend/sample-templates/create-react-app/template.yaml
+    - type: github
+      target: https://github.com/spotify/cookiecutter-golang/blob/master/template.yaml
+    - type: github
+      target: https://github.com/spotify/backstage/blob/master/plugins/scaffolder-backend/sample-templates/docs-template/template.yaml
