@@ -48,6 +48,13 @@ jobs:
       - name: build
         run: yarn build
 
+      - id: get-short-sha
+        uses: actions/github-script@0.9.0
+        with:
+          script: |
+            const shortSha = context.sha.substring(0, 7)
+            core.setOutput('shortSha', shortSha)
+
       - name: 'Build and push image'
         uses: azure/docker-login@v1
         if: startsWith(github.ref, 'refs/pull')
@@ -56,8 +63,8 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:pr-${{github.event.number}}-${{ github.sha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage:pr-${{github.event.number}}-${{ github.sha }}
+          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
       - name: 'Build and push image'
         uses: azure/docker-login@v1
         if: github.ref == 'refs/heads/master'
@@ -66,5 +73,5 @@ jobs:
           username: ${{ secrets.REGISTRY_USERNAME }}
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
-          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:prod-${{ github.sha }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage:prod-${{ github.sha }}
+          docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:prod-${{ steps.get-short-sha.outputs.shortSha }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:prod-${{ steps.get-short-sha.outputs.shortSha }}
