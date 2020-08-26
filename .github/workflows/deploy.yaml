@@ -57,7 +57,6 @@ jobs:
 
       - name: 'Build and push image'
         uses: azure/docker-login@v1
-        if: startsWith(github.ref, 'refs/pull')
         with:
           login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           username: ${{ secrets.REGISTRY_USERNAME }}
@@ -65,13 +64,8 @@ jobs:
       - run: |
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}
-      - name: 'Build and push image'
-        uses: azure/docker-login@v1
-        if: github.ref == 'refs/heads/master'
-        with:
-          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-          username: ${{ secrets.REGISTRY_USERNAME }}
-          password: ${{ secrets.REGISTRY_PASSWORD }}
+        if: startsWith(github.ref, 'refs/pull')
       - run: |
           docker build . -t ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:prod-${{ steps.get-short-sha.outputs.shortSha }}
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/frontend:prod-${{ steps.get-short-sha.outputs.shortSha }}
+        if: github.ref == 'refs/heads/master'
