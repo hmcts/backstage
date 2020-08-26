@@ -6,6 +6,6 @@ WORKDIR /usr/src/app
 # Do not use this Dockerfile outside of that command, as it will copy in the source code instead.
 COPY . .
 
-#RUN yarn install --frozen-lockfile --production
+RUN yarn install --frozen-lockfile --production
 
 CMD ["node", "packages/backend"]
