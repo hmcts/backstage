@@ -60,7 +60,7 @@ jobs:
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage:pr-${{github.event.number}}-${{ github.sha }}
       - name: 'Build and push image'
         uses: azure/docker-login@v1
-        if: ! startsWith(github.ref, 'refs/pull')
+        if: github.ref == 'refs/heads/master'
         with:
           login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
           username: ${{ secrets.REGISTRY_USERNAME }}
