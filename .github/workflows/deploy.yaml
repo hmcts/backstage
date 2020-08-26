@@ -42,6 +42,9 @@ jobs:
         run: yarn install --frozen-lockfile
       # End of yarn setup
 
+      - name: type checking and declarations
+        run: yarn tsc --incremental false
+
       - name: build
         run: yarn build
           
