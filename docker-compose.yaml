@@ -3,8 +3,6 @@ services:
 
   backend:
     image: hmctspublic.azurecr.io/backstage/backend:v5
-    volumes:
-      - ./ca/server.crt:/tmp/cacert.pem
     environment:
       ROLLBAR_ACCOUNT_TOKEN: 'x'
       SENTRY_TOKEN: 'x'
@@ -18,9 +16,6 @@ services:
   frontend:
     build: .
     image: hmctspublic.azurecr.io/backstage/frontend:v8
-    environment:
-      APP_CONFIG_backend_baseUrl: https://backstage-api.sandbox.platform.hmcts.net
-      APP_CONFIG_baseUrl: https://backstage.sandbox.platform.hmcts.net
     ports:
       - "3000:80"
 
