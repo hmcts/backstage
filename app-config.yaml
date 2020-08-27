@@ -27,7 +27,7 @@ auth:
   providers:
     microsoft:
       development:
-        appOrigin: 'http://localhost:3000/'
+        appOrigin: 'https://backstage.sandbox.platform.hmcts.net'
         secure: false
         clientId:
           $secret:
