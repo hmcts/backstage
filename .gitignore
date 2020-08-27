@@ -5,3 +5,4 @@ ca/*.pem
 ca/*.crt
 ca/*.key
 ca/*.req
+coverage/
