@@ -6,6 +6,8 @@ import {
   ConfigApi,
   ErrorApiForwarder,
   ErrorAlerter,
+  MicrosoftAuth,
+  microsoftAuthApiRef,
   oauthRequestApiRef,
   OAuthRequestManager,
   storageApiRef,
@@ -15,12 +17,22 @@ import {
 import { catalogApiRef, CatalogClient } from '@backstage/plugin-catalog';
 
 import { scaffolderApiRef, ScaffolderApi } from '@backstage/plugin-scaffolder';
+import { jenkinsApiRef, JenkinsApi } from '@backstage/plugin-jenkins';
+import {
+  techdocsStorageApiRef,
+  TechDocsStorageApi,
+} from '@backstage/plugin-techdocs';
+import {
+  GithubPullRequestsClient,
+  githubPullRequestsApiRef,
+} from '@roadiehq/backstage-plugin-github-pull-requests';
 
 export const apis = (config: ConfigApi) => {
   // eslint-disable-next-line no-console
   console.log(`Creating APIs for ${config.getString('app.title')}`);
 
   const backendUrl = config.getString('backend.baseUrl');
+  const techdocsUrl = config.getString('techdocs.storageUrl');
 
   const builder = ApiRegistry.builder();
 
@@ -41,6 +53,23 @@ export const apis = (config: ConfigApi) => {
     }),
   );
 
+  builder.add(jenkinsApiRef, new JenkinsApi(`${backendUrl}/proxy/jenkins/api`));
+  builder.add(githubPullRequestsApiRef, new GithubPullRequestsClient());
+
+  const oauthRequestApi = builder.add(
+    oauthRequestApiRef,
+    new OAuthRequestManager(),
+  );
+
+  builder.add(
+    microsoftAuthApiRef,
+    MicrosoftAuth.create({
+      backendUrl,
+      basePath: '/auth/',
+      oauthRequestApi,
+    }),
+  );
+
   builder.add(
     scaffolderApiRef,
     new ScaffolderApi({
@@ -48,6 +77,14 @@ export const apis = (config: ConfigApi) => {
       basePath: '/scaffolder/v1',
     }),
   );
+
+  builder.add(
+    techdocsStorageApiRef,
+    new TechDocsStorageApi({
+      apiOrigin: techdocsUrl,
+    }),
+  );
+
 
   return builder.build();
 };
