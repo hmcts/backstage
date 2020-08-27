@@ -23,7 +23,22 @@ techdocs:
   storageUrl: https://techdocs-mock-sites.storage.googleapis.com
 
 auth:
-  providers: {}
+  enabled: false
+  providers:
+    microsoft:
+      development:
+        appOrigin: 'http://localhost:3000/'
+        secure: false
+        clientId:
+          $secret:
+            env: AUTH_MICROSOFT_CLIENT_ID
+        clientSecret:
+          $secret:
+            env: AUTH_MICROSOFT_CLIENT_SECRET
+        tenantId:
+          $secret:
+            env: AUTH_MICROSOFT_TENANT_ID
+
 
 # we don't use this but it falls over without it
 sentry:

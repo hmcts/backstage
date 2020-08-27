@@ -5,20 +5,11 @@ import {
   OAuthRequestDialog,
   SidebarPage,
   SignInPage,
-  microsoftAuthApiRef
 } from '@backstage/core';
 import { apis } from './apis';
 import * as plugins from './plugins';
 import { AppSidebar } from './sidebar';
-
-const providers = [
-  {
-    id: 'microsoft-auth-provider',
-    title: 'Microsoft',
-    message: 'Sign In using Microsoft Azure AD',
-    apiRef: microsoftAuthApiRef,
-  }
-]
+import { providers } from './identityProviders';
 
 const app = createApp({
   apis,
