@@ -27,6 +27,11 @@ import {
   githubPullRequestsApiRef,
 } from '@roadiehq/backstage-plugin-github-pull-requests';
 
+import {
+  GithubActionsClient,
+  githubActionsApiRef,
+} from '@backstage/plugin-github-actions';
+
 export const apis = (config: ConfigApi) => {
   // eslint-disable-next-line no-console
   console.log(`Creating APIs for ${config.getString('app.title')}`);
@@ -69,6 +74,8 @@ export const apis = (config: ConfigApi) => {
       oauthRequestApi,
     }),
   );
+
+  builder.add(githubActionsApiRef, new GithubActionsClient());
 
   builder.add(
     scaffolderApiRef,
