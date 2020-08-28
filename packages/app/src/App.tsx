@@ -2,20 +2,38 @@ import React, { FC } from 'react';
 import {
   createApp,
   AlertDisplay,
+  microsoftAuthApiRef,
   OAuthRequestDialog,
   SidebarPage,
   SignInPage,
 } from '@backstage/core';
+import { useApi, configApiRef } from '@backstage/core-api';
 import { apis } from './apis';
 import * as plugins from './plugins';
 import { AppSidebar } from './sidebar';
-import { providers } from './identityProviders';
 
 const app = createApp({
   apis,
   plugins: Object.values(plugins),
   components: {
     SignInPage: props => {
+      const configApi = useApi(configApiRef);
+      const appUrl = configApi.getString('app.baseUrl');
+
+      let providers;
+      if (appUrl.includes('localhost')) {
+        providers = ['guest']
+      } else {
+        providers = [
+          {
+            id: 'microsoft-auth-provider',
+            title: 'Microsoft',
+            message: 'Sign In using Microsoft Azure AD',
+            apiRef: microsoftAuthApiRef,
+          }
+        ]
+      }
+
       return (
         <SignInPage
           {...props}
