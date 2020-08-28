@@ -23,12 +23,9 @@ techdocs:
   storageUrl: https://techdocs-mock-sites.storage.googleapis.com
 
 auth:
-  enabled: false
   providers:
     microsoft:
       development:
-        appOrigin: 'https://backstage.sandbox.platform.hmcts.net'
-        secure: false
         clientId:
           $secret:
             env: AUTH_MICROSOFT_CLIENT_ID
