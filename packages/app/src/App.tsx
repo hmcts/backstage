@@ -20,7 +20,7 @@ const app = createApp({
       const configApi = useApi(configApiRef);
       const appUrl = configApi.getString('app.baseUrl');
 
-      let providers;
+      let providers : any;
       if (appUrl.includes('localhost')) {
         providers = ['guest']
       } else {
