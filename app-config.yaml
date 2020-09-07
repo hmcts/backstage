@@ -15,9 +15,15 @@ backend:
     credentials: true
 
 proxy:
-  '/test':
-    target: 'https://example.com'
+  '/jenkins/api':
+    target: 'http://jenkins.jenkins:8080'
     changeOrigin: true
+    headers:
+      Authorization:
+        $secret:
+          env: JENKINS_BASIC_AUTH_HEADER
+    pathRewrite:
+      '^/proxy/jenkins/api/': '/'
 
 techdocs:
   storageUrl: https://techdocs-mock-sites.storage.googleapis.com

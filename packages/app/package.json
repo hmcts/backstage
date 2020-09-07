@@ -5,7 +5,9 @@
   "dependencies": {
     "@backstage/cli": "^0.1.1-alpha.19",
     "@backstage/core": "^0.1.1-alpha.19",
+    "@backstage/core-api": "^0.1.1-alpha.20",
     "@backstage/plugin-catalog": "^0.1.1-alpha.19",
+    "@backstage/plugin-github-actions": "^0.1.1-alpha.20",
     "@backstage/plugin-jenkins": "^0.1.1-alpha.20",
     "@backstage/plugin-register-component": "^0.1.1-alpha.19",
     "@backstage/plugin-scaffolder": "^0.1.1-alpha.19",
