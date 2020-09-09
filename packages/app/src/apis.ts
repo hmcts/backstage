@@ -68,12 +68,10 @@ export const apis = (config: ConfigApi) => {
   builder.add(
     microsoftAuthApiRef,
     MicrosoftAuth.create({
-      backendUrl,
-      basePath: '/auth/',
+      discoveryApi,
       oauthRequestApi,
     }),
   );
-
 
   builder.add(githubActionsApiRef, new GithubActionsClient());
   builder.add(catalogApiRef, new CatalogClient({ discoveryApi }));
