@@ -25,7 +25,7 @@
     ]
   },
   "devDependencies": {
-    "@backstage/cli": "^0.1.1-alpha.19",
+    "@backstage/cli": "^0.1.1-alpha.21",
     "@spotify/prettier-config": "^7.0.0",
     "lerna": "^3.20.2",
     "prettier": "^1.19.1"
@@ -41,6 +41,11 @@
     ],
     "*.{json,md}": [
       "prettier --write"
+    ]
+  },
+  "jest": {
+    "transformModules": [
+      "@kyma-project/asyncapi-react"
     ]
   }
 }
