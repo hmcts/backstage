@@ -54,43 +54,14 @@ auth:
           $secret:
             env: AUTH_MICROSOFT_TENANT_ID
 
+# seems to be broken currently you need to manually add in UI
 catalog:
-  locations:
-    # Backstage example components
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/artist-lookup-component.yaml
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/playback-order-component.yaml
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/podcast-api-component.yaml
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/queue-proxy-component.yaml
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/searcher-component.yaml
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/playback-lib-component.yaml
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/www-artist-component.yaml
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/packages/catalog-model/examples/shuffle-api-component.yaml
-    # Backstage example templates
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/plugins/scaffolder-backend/sample-templates/react-ssr-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/plugins/scaffolder-backend/sample-templates/springboot-grpc-template/template.yaml
-      rules:
-        - allow: [Template]
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/plugins/scaffolder-backend/sample-templates/create-react-app/template.yaml
-      rules:
-        - allow: [Template]
-    - type: github
-      target: https://github.com/spotify/cookiecutter-golang/blob/master/template.yaml
-      rules:
-        - allow: [Template]
-    - type: github
-      target: https://github.com/spotify/backstage/blob/master/plugins/scaffolder-backend/sample-templates/docs-template/template.yaml
-      rules:
-        - allow: [Template]
+  rules:
+    - allow: [Component, API, Group, Template, Location]
+  exampleEntityLocations:
+    github:
+      - https://github.com/hmcts/template-product-infrastructure/blob/master/template.yaml
+      - https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
+      - https://github.com/hmcts/template-expressjs/blob/master/template.yaml
+      - https://github.com/timja-org/rpe-sweet-backend/blob/master/api.yaml # example till we have better ones
+      - https://github.com/timja-org/rpe-sweet-backend/blob/master/component-info.yaml # example till we have better ones
