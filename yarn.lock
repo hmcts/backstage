@@ -1057,7 +1057,7 @@
   resolved "https://registry.yarnpkg.com/@backstage/cli-common/-/cli-common-0.1.1-alpha.21.tgz#f0542ea366878b45447516676d811e83b381b913"
   integrity sha512-gq9V49gAsW5I+sqVy8VN8XPQMo1dMJoXzqlf86UrkwkDHdbhPsA6vxQUJOS2Uk/2O+9xb2gNKH6isbUHUDA5Xg==
 
-"@backstage/cli@^0.1.1-alpha.19", "@backstage/cli@^0.1.1-alpha.21", "@backstage/cli@^v0.1.1-alpha.21":
+"@backstage/cli@^0.1.1-alpha.19", "@backstage/cli@^0.1.1-alpha.21":
   version "0.1.1-alpha.21"
   resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.1.1-alpha.21.tgz#9827e6cc2c71259f6dd007c387908833a6577d12"
   integrity sha512-lSruF8gYD3pMMk+tUCf9nzqSHpWCcLd8aaNYYPInbhh1T9hSn7Fc0O1ggjTTBuolmZcR598EP1lR/pljZl50mw==
@@ -1164,7 +1164,7 @@
     react-use "^15.3.3"
     zen-observable "^0.8.15"
 
-"@backstage/core@^0.1.1-alpha.16", "@backstage/core@^0.1.1-alpha.21", "@backstage/core@^v0.1.1-alpha.21":
+"@backstage/core@^0.1.1-alpha.16", "@backstage/core@^0.1.1-alpha.21":
   version "0.1.1-alpha.21"
   resolved "https://registry.yarnpkg.com/@backstage/core/-/core-0.1.1-alpha.21.tgz#ab623cdbaa4188859f9359731262e920445c137d"
   integrity sha512-YXz+m8oXEf6AcXOfhjUojbo6jUeoHM58QVJPhro57isaGCHbbTYqnkBPZZpHRkW8ctGjzfW1haYh9HE9FJWzNw==
@@ -1269,7 +1269,7 @@
     yn "^4.0.0"
     yup "^0.29.1"
 
-"@backstage/plugin-catalog@^0.1.1-alpha.16", "@backstage/plugin-catalog@^0.1.1-alpha.21", "@backstage/plugin-catalog@^v0.1.1-alpha.21":
+"@backstage/plugin-catalog@^0.1.1-alpha.16", "@backstage/plugin-catalog@^0.1.1-alpha.21":
   version "0.1.1-alpha.21"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-0.1.1-alpha.21.tgz#d83b16a73f631513097ca022f28b267de0df2121"
   integrity sha512-TSTaSHUoC0T0QnDy+ES5fAevtknBVUM6VqyFzEK4mBPmHnGB4Y8m8/AlT6+LQY7J1b0NCfzVda5fQoSP0+A6aQ==
@@ -1368,7 +1368,7 @@
     yn "^4.0.0"
     yup "^0.29.1"
 
-"@backstage/plugin-register-component@^v0.1.1-alpha.21":
+"@backstage/plugin-register-component@^0.1.1-alpha.21":
   version "0.1.1-alpha.21"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-register-component/-/plugin-register-component-0.1.1-alpha.21.tgz#c605890412489c229e8fa1ad4ce358783ec45b31"
   integrity sha512-nQ8qAGlOSCUnC1LsnzcwyE8AnwNDN78An8nVDrdBqNnV7Y4Ih5uKineQLubzZxew+Oi3upAsjE9ByDGt2ojysw==
@@ -1435,7 +1435,7 @@
     winston "^3.2.1"
     yaml "^1.10.0"
 
-"@backstage/plugin-scaffolder@^0.1.1-alpha.21", "@backstage/plugin-scaffolder@^v0.1.1-alpha.21":
+"@backstage/plugin-scaffolder@^0.1.1-alpha.21":
   version "0.1.1-alpha.21"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder/-/plugin-scaffolder-0.1.1-alpha.21.tgz#b846519ca460fd91a58df2330f688e293d9c1e95"
   integrity sha512-28ss0CTu+7AW5rrxyg+6GO+ZxYK2l2peqK1xCp8JkSWj0ghTqJUEA5wPgq1QiHsBYsxlQ9qun5jis/bcIFbffA==
@@ -1512,7 +1512,7 @@
     react "^16.12.0"
     react-dom "^16.12.0"
 
-"@backstage/test-utils@^0.1.1-alpha.21", "@backstage/test-utils@^v0.1.1-alpha.21":
+"@backstage/test-utils@^0.1.1-alpha.21":
   version "0.1.1-alpha.21"
   resolved "https://registry.yarnpkg.com/@backstage/test-utils/-/test-utils-0.1.1-alpha.21.tgz#c0129d823ace027f7ba145a10f82caf225193988"
   integrity sha512-G+RNYNWTRpu6Fb0nQ+yQEpmA1/rmfoS6V1vh5mofetS9m7MMpIHWJmW0PxGYGONic3J57eCnrOH4444Z6lwXwA==
@@ -1532,7 +1532,7 @@
     react-router-dom "6.0.0-beta.0"
     zen-observable "^0.8.15"
 
-"@backstage/theme@^0.1.1-alpha.16", "@backstage/theme@^0.1.1-alpha.21", "@backstage/theme@^v0.1.1-alpha.21":
+"@backstage/theme@^0.1.1-alpha.16", "@backstage/theme@^0.1.1-alpha.21":
   version "0.1.1-alpha.21"
   resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.1.1-alpha.21.tgz#e5b483d48cebd651386b5b867a72357e2f1987da"
   integrity sha512-ZO/T1CvXBKA+fGspaBjDaD1zK9ffl2/GuKN0MmEJdQVIn4nq/dRdnG84+DB621j2BxExCjnyYeahX1o15JitNg==
@@ -7926,7 +7926,7 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
-"file-saver@github:eligrey/FileSaver.js#1.3.8":
+file-saver@eligrey/FileSaver.js#1.3.8:
   version "1.3.8"
   resolved "https://codeload.github.com/eligrey/FileSaver.js/tar.gz/e865e37af9f9947ddcced76b549e27dc45c1cb2e"
 
