@@ -1,11 +1,11 @@
-FROM node:12
+FROM nikolaik/python-nodejs:python3.8-nodejs12-alpine
 
 WORKDIR /usr/src/app
 
-# This will copy the contents of the dist-workspace when running the build-image command.
-# Do not use this Dockerfile outside of that command, as it will copy in the source code instead.
 COPY . .
 
 RUN yarn install --frozen-lockfile --production
+
+RUN pip install cookiecutter
 
 CMD ["node", "packages/backend"]
