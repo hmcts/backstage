@@ -42,11 +42,6 @@ auth:
           $secret:
             env: AUTH_MICROSOFT_TENANT_ID
 
-
-# we don't use this but it falls over without it
-sentry:
-  organization: HMCTS
-
 catalog:
   locations:
     - type: github
