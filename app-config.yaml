@@ -53,6 +53,8 @@ catalog:
       target: https://github.com/hmcts/template-product-infrastructure/blob/master/template.yaml
     - type: github
       target: https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
+    - type: github
+      target: https://github.com/hmcts/template-expressjs/blob/master/template.yaml
 
     # Example Component
     - type: github
