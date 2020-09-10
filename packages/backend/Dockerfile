@@ -4,8 +4,7 @@ WORKDIR /usr/src/app
 
 COPY . .
 
-RUN apt-get update -y
-RUN apt-get install -y cookiecutter
+RUN apt-get update -y && apt-get install -y cookiecutter
 
 RUN yarn install --frozen-lockfile --production
 
