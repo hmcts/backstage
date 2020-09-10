@@ -28,6 +28,9 @@ backend:
       password:
         $secret:
           env: POSTGRES_PASSWORD
+      ssl:
+        $secret:
+          env: POSTGRES_SSL_OPTIONS
 
 proxy:
   '/jenkins/api':
