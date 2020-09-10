@@ -30,7 +30,7 @@ backend:
           env: POSTGRES_PASSWORD
       ssl:
         $secret:
-          env: POSTGRES_SSL_OPTIONS
+          env: POSTGRES_SSL
 
 proxy:
   '/jenkins/api':
