@@ -1,11 +1,11 @@
-FROM nikolaik/python-nodejs:python3.8-nodejs12-alpine
+FROM node:12
 
 WORKDIR /usr/src/app
 
 COPY . .
 
-RUN yarn install --frozen-lockfile --production
+RUN apt-get update -y && apt-get install -y cookiecutter
 
-RUN pip install cookiecutter
+RUN yarn install --frozen-lockfile --production
 
 CMD ["node", "packages/backend"]
