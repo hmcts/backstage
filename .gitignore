@@ -6,3 +6,5 @@ ca/*.crt
 ca/*.key
 ca/*.req
 coverage/
+dist-types/
+yarn-error.log

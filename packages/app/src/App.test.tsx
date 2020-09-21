@@ -9,7 +9,7 @@ describe('App', () => {
       value: [
         {
           data: {
-            app: { title: 'Test', baseUrl: 'http://localhost:7000' },
+            app: { title: 'Test' },
             backend: { baseUrl: 'http://localhost:7000' },
             techdocs: {
               storageUrl: 'http://localhost:7000/techdocs/static/docs',
