@@ -1,9 +1,10 @@
-FROM node:12
+FROM node:12-buster
 
 WORKDIR /usr/src/app
 
-RUN apt-get update -y && apt-get install -y cookiecutter mkdocs \
-  && pip install mkdocs-techdocs-core
+RUN apt-get update -y && apt-get install -y cookiecutter mkdocs python3-pip
+
+RUN pip3 install mkdocs-techdocs-core
 
 # Copy repo skeleton first, to avoid unnecessary docker cache invalidation.
 # The skeleton contains the package.json of each package in the monorepo,
