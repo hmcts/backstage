@@ -21,6 +21,7 @@ import identity from './plugins/identity';
 import scaffolder from './plugins/scaffolder';
 import proxy from './plugins/proxy';
 import techdocs from './plugins/techdocs';
+import app from './plugins/app';
 import { PluginEnvironment } from './types';
 
 function makeCreateEnv(loadedConfigs: AppConfig[]) {
@@ -52,6 +53,7 @@ async function main() {
   const identityEnv = useHotMemoize(module, () => createEnv('identity'));
   const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
   const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
+  const appEnv = useHotMemoize(module, () => createEnv('app'));
 
   const service = createServiceBuilder(module)
     .loadConfig(configReader)
@@ -61,7 +63,8 @@ async function main() {
     .addRouter('/auth', await auth(authEnv))
     .addRouter('/identity', await identity(identityEnv))
     .addRouter('/techdocs', await techdocs(techdocsEnv))
-    .addRouter('/proxy', await proxy(proxyEnv, '/proxy'));
+    .addRouter('/proxy', await proxy(proxyEnv, '/proxy'))
+    .addRouter('', await app(appEnv));
 
   await service.start().catch(err => {
     console.log(err);
