@@ -96,3 +96,7 @@ catalog:
       target: https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
       rules:
         - allow: [Template]
+    - type: github
+      target: https://github.com/hmcts/template-java-client/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
