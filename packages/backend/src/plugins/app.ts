@@ -4,6 +4,6 @@ import { PluginEnvironment } from '../types';
 export default async function createPlugin({ logger }: PluginEnvironment) {
   return await createRouter({
     logger,
-    appPackageName: 'hmcts-backstage',
+    appPackageName: 'app',
   });
 }
