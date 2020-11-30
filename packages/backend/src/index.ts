@@ -22,7 +22,6 @@ import healthcheck from './plugins/healthcheck';
 import app from './plugins/app';
 import auth from './plugins/auth';
 import catalog from './plugins/catalog';
-import identity from './plugins/identity';
 import scaffolder from './plugins/scaffolder';
 import proxy from './plugins/proxy';
 import techdocs from './plugins/techdocs';
@@ -55,7 +54,6 @@ async function main() {
   const catalogEnv = useHotMemoize(module, () => createEnv('catalog'));
   const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
   const authEnv = useHotMemoize(module, () => createEnv('auth'));
-  const identityEnv = useHotMemoize(module, () => createEnv('identity'));
   const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
   const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
   const appEnv = useHotMemoize(module, () => createEnv('app'));
@@ -66,7 +64,6 @@ async function main() {
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
   apiRouter.use('/auth', await auth(authEnv));
   apiRouter.use('/techdocs', await techdocs(techdocsEnv));
-  apiRouter.use('/identity', await identity(identityEnv))
   apiRouter.use('/proxy', await proxy(proxyEnv));
   apiRouter.use(notFoundHandler());
 
