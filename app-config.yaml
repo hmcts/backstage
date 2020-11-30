@@ -1,6 +1,6 @@
 app:
   title: HMCTS Backstage
-  baseUrl: http://localhost:7000
+  baseUrl: http://localhost:3000
 
 organization:
   name: HMCTS
@@ -14,28 +14,28 @@ backend:
     client: pg
     connection:
       host:
-        $secret:
-          env: POSTGRES_HOST
+        $env: POSTGRES_HOST
       port:
-        $secret:
-          env: POSTGRES_PORT
+        $env: POSTGRES_PORT
       user:
-        $secret:
-          env: POSTGRES_USER
+        $env: POSTGRES_USER
       password:
-        $secret:
-          env: POSTGRES_PASSWORD
+        $env: POSTGRES_PASSWORD
       ssl:
-        $secret:
-          env: POSTGRES_SSL
+        $env: POSTGRES_SSL
+  csp:
+    connect-src: ["'self'", 'https:']
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, POST, PUT, DELETE]
+    credentials: true
 
 proxy:
   '/jenkins/api':
     target: 'http://jenkins.jenkins:8080'
     headers:
       Authorization:
-        $secret:
-          env: JENKINS_BASIC_AUTH_HEADER
+        $env: JENKINS_BASIC_AUTH_HEADER
 
 techdocs:
   storageUrl: http://localhost:7000/techdocs/static/docs
@@ -48,33 +48,27 @@ auth:
     microsoft:
       development:
         clientId:
-          $secret:
-            env: AUTH_MICROSOFT_CLIENT_ID
+          $env: AUTH_MICROSOFT_CLIENT_ID
         clientSecret:
-          $secret:
-            env: AUTH_MICROSOFT_CLIENT_SECRET
+          $env: AUTH_MICROSOFT_CLIENT_SECRET
         tenantId:
-          $secret:
-            env: AUTH_MICROSOFT_TENANT_ID
+          $env: AUTH_MICROSOFT_TENANT_ID
 
 
 scaffolder:
   github:
     token:
-      $secret:
-        env: GITHUB_ACCESS_TOKEN
+      $env: GITHUB_ACCESS_TOKEN
     visibility: public # or 'internal' or 'private'
+  integrations:
+    github:
+      - host: github.com
+        token:
+          $env: GITHUB_TOKEN
 
 catalog:
   rules:
     - allow: [Component, API, Group, Template, Location]
-  processors:
-    github:
-      providers:
-        - target: https://github.com
-          token:
-            $secret:
-              env: GITHUB_PRIVATE_TOKEN
   locations:
     # Backstage example components
     - type: github
