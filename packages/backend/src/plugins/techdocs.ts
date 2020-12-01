@@ -1,7 +1,7 @@
 import {
   createRouter,
   DirectoryPreparer,
-  GithubPreparer,
+  CommonGitPreparer,
   Preparers,
   Generators,
   LocalPublish,
@@ -13,6 +13,7 @@ import Docker from 'dockerode';
 export default async function createPlugin({
   logger,
   config,
+  discovery,
 }: PluginEnvironment) {
   const generators = new Generators();
   const techdocsGenerator = new TechdocsGenerator(logger, config);
@@ -21,12 +22,13 @@ export default async function createPlugin({
 
   const preparers = new Preparers();
   const directoryPreparer = new DirectoryPreparer(logger);
-  const githubPreparer = new GithubPreparer(logger);
+  const commonGitPreparer = new CommonGitPreparer(logger);
 
   preparers.register('dir', directoryPreparer);
-  preparers.register('github', githubPreparer);
+  preparers.register('github', commonGitPreparer);
+  preparers.register('gitlab', commonGitPreparer);
 
-  const publisher = new LocalPublish(logger);
+  const publisher = new LocalPublish(logger, discovery);
 
   const dockerClient = new Docker();
 
@@ -37,5 +39,6 @@ export default async function createPlugin({
     dockerClient,
     logger,
     config,
+    discovery,
   });
 }

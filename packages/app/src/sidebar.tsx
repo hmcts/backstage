@@ -8,6 +8,7 @@ import { Link, makeStyles } from '@material-ui/core';
 import { NavLink } from 'react-router-dom';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
+import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
 
 import {
   Sidebar,
@@ -16,8 +17,6 @@ import {
   sidebarConfig,
   SidebarContext,
   SidebarSpace,
-  SidebarUserSettings,
-  DefaultProviderSettings,
 } from '@backstage/core';
 
 export const AppSidebar = () => (
@@ -35,7 +34,7 @@ export const AppSidebar = () => (
     <SidebarDivider />
     <SidebarSpace />
     <SidebarDivider />
-    <SidebarUserSettings providerSettings={<DefaultProviderSettings />} />
+    <SidebarSettings />
   </Sidebar>
 );
 

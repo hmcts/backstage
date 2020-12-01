@@ -54,9 +54,9 @@ const CICDSwitcher = ({ entity }: { entity: Entity }) => {
 };
 
 const OverviewContent = ({ entity }: { entity: Entity }) => (
-  <Grid container spacing={3}>
+  <Grid container spacing={3} alignItems="stretch">
     <Grid item>
-      <AboutCard entity={entity} />
+      <AboutCard entity={entity} variant="gridItem" />
     </Grid>
     {isJenkinsAvailable(entity) && (
       <Grid item sm={4}>
@@ -83,7 +83,7 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
       title="API"
       element={<ApiDocsRouter entity={entity} />}
     />
-     <EntityPageLayout.Content
+    <EntityPageLayout.Content
       path="/docs/*"
       title="Docs"
       element={<DocsRouter entity={entity} />}
@@ -103,7 +103,7 @@ const WebsiteEntityPage = ({ entity }: { entity: Entity }) => (
       title="CI/CD"
       element={<CICDSwitcher entity={entity} />}
     />
-     <EntityPageLayout.Content
+    <EntityPageLayout.Content
       path="/docs/*"
       title="Docs"
       element={<DocsRouter entity={entity} />}
@@ -118,7 +118,7 @@ const DefaultEntityPage = ({ entity }: { entity: Entity }) => (
       title="Overview"
       element={<OverviewContent entity={entity} />}
     />
-     <EntityPageLayout.Content
+    <EntityPageLayout.Content
       path="/docs/*"
       title="Docs"
       element={<DocsRouter entity={entity} />}
