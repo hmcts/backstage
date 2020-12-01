@@ -7,3 +7,4 @@ export { plugin as TechDocsPlugin } from '@backstage/plugin-techdocs';
 export { plugin as Explore } from '@backstage/plugin-explore';
 export { plugin as TechRadar } from '@backstage/plugin-tech-radar';
 export { plugin as GithubActions } from '@backstage/plugin-github-actions';
+export { plugin as UserSettings } from '@backstage/plugin-user-settings';
