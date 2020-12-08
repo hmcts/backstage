@@ -32,7 +32,8 @@ backend:
 
 proxy:
   '/jenkins/api':
-    target: 'http://jenkins.jenkins:8080'
+    target: 
+      $env: JENKINS_URL
     headers:
       Authorization:
         $env: JENKINS_BASIC_AUTH_HEADER
