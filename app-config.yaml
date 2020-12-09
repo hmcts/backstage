@@ -39,8 +39,10 @@ proxy:
         $env: JENKINS_BASIC_AUTH_HEADER
 
 techdocs:
-  storageUrl: http://localhost:7000/api/techdocs/static/docs
-  requestUrl: http://localhost:7000/api/techdocs
+  storageUrl:
+    $env: TECHDOCS_STORAGE_URL
+  requestUrl:
+    $env: TECHDOCS_REQUEST_URL
   generators:
     techdocs: 'local'
 

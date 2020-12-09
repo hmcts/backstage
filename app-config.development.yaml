@@ -12,3 +12,8 @@ backend:
 proxy:
   '/jenkins/api':
     target: 'http://jenkins.jenkins:8080'
+techdocs:
+  storageUrl: http://localhost:7000/api/techdocs/static/docs
+  requestUrl: http://localhost:7000/api/techdocs
+  generators:
+    techdocs: 'docker'
