@@ -57,9 +57,9 @@ auth:
     github:
       development:
         clientId:
-          $env: GITHUB_CLIENT_ID
+          $env: AUTH_GITHUB_CLIENT_ID
         clientSecret:
-          $env: GITHUB_CLIENT_SECRET
+          $env: AUTH_GITHUB_CLIENT_SECRET
 scaffolder:
   github:
     token:
