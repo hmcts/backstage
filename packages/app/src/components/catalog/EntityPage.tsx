@@ -34,8 +34,10 @@ import {
 import { Entity } from '@backstage/catalog-model';
 import { Grid } from '@material-ui/core';
 import { WarningPanel } from '@backstage/core';
-import { Router as PullRequestsRouter } from '@roadiehq/backstage-plugin-github-pull-requests';
-import { PullRequestsStatsCard } from '@roadiehq/backstage-plugin-github-pull-requests';
+import { 
+  Router as PullRequestsRouter ,
+  PullRequestsStatsCard
+} from '@roadiehq/backstage-plugin-github-pull-requests';
 
 const CICDSwitcher = ({ entity }: { entity: Entity }) => {
   // This component is just an example of how you can implement your company's logic in entity page.
