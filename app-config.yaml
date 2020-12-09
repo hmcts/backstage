@@ -54,8 +54,12 @@ auth:
           $env: AUTH_MICROSOFT_CLIENT_SECRET
         tenantId:
           $env: AUTH_MICROSOFT_TENANT_ID
-
-
+    github:
+      development:
+        clientId:
+          $env: GITHUB_CLIENT_ID
+        clientSecret:
+          $env: GITHUB_CLIENT_SECRET
 scaffolder:
   github:
     token:
@@ -71,13 +75,6 @@ catalog:
   rules:
     - allow: [Component, API, Group, Template, Location]
   locations:
-    # Backstage example components
-    - type: github
-      target: https://github.com/timja-org/rpe-sweet-backend/blob/master/api.yaml
-
-    - type: github
-      target: https://github.com/timja-org/rpe-sweet-backend/blob/master/component-info.yaml
-
     # HMCTS templates
     - type: github
       target: https://github.com/hmcts/template-expressjs/blob/master/template.yaml

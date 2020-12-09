@@ -34,6 +34,8 @@ import {
 import { Entity } from '@backstage/catalog-model';
 import { Grid } from '@material-ui/core';
 import { WarningPanel } from '@backstage/core';
+import { Router as PullRequestsRouter } from '@roadiehq/backstage-plugin-github-pull-requests';
+import { PullRequestsStatsCard } from '@roadiehq/backstage-plugin-github-pull-requests';
 
 const CICDSwitcher = ({ entity }: { entity: Entity }) => {
   // This component is just an example of how you can implement your company's logic in entity page.
@@ -63,6 +65,9 @@ const OverviewContent = ({ entity }: { entity: Entity }) => (
         <JenkinsLatestRunCard branch="master" />
       </Grid>
     )}
+    <Grid item md={4}>
+      <PullRequestsStatsCard entity={entity} />
+    </Grid>
   </Grid>
 );
 
@@ -72,6 +77,11 @@ const ServiceEntityPage = ({ entity }: { entity: Entity }) => (
       path="/"
       title="Overview"
       element={<OverviewContent entity={entity} />}
+    />
+    <EntityPageLayout.Content
+            path="/pull-requests/*"
+            title="Pull Requests"
+            element={<PullRequestsRouter entity={entity} />}
     />
     <EntityPageLayout.Content
       path="/ci-cd/*"
