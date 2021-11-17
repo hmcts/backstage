@@ -1,4 +1,5 @@
-*
-
-!packages/app/dist
-!docker/
+.git
+node_modules
+packages
+!packages/backend/dist
+plugins

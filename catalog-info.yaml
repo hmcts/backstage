@@ -1,0 +1,11 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hmcts-backstage
+  description: Our HMCTS backstage
+  annotations:
+    github.com/project-slug: hmcts/backstage
+spec:
+  type: website
+  owner: dts_platform_operations
+  lifecycle: experimental

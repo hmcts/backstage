@@ -1,95 +1,107 @@
-import React, { FC } from 'react';
+import React from 'react';
+import { microsoftAuthApiRef } from '@backstage/core-plugin-api';
+import { Navigate, Route } from 'react-router';
+import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {
-  createApp,
-  AlertDisplay,
-  microsoftAuthApiRef,
-  OAuthRequestDialog,
-  SidebarPage,
-  SignInPage,
-  createRouteRef,
-} from '@backstage/core';
-import { useApi, configApiRef } from '@backstage/core-api';
+  CatalogEntityPage,
+  CatalogIndexPage,
+  catalogPlugin,
+} from '@backstage/plugin-catalog';
+import {
+  CatalogImportPage,
+  catalogImportPlugin,
+} from '@backstage/plugin-catalog-import';
+import { ScaffolderPage, scaffolderPlugin } from '@backstage/plugin-scaffolder';
+import { SearchPage } from '@backstage/plugin-search';
+import { TechRadarPage } from '@backstage/plugin-tech-radar';
+import {
+  DefaultTechDocsHome,
+  TechDocsIndexPage,
+  techdocsPlugin,
+  TechDocsReaderPage,
+} from '@backstage/plugin-techdocs';
+import { UserSettingsPage } from '@backstage/plugin-user-settings';
 import { apis } from './apis';
-import * as plugins from './plugins';
-import { AppSidebar } from './sidebar';
-import { Route, Routes, Navigate } from 'react-router';
-import { Router as CatalogRouter } from '@backstage/plugin-catalog';
-import { Router as DocsRouter } from '@backstage/plugin-techdocs';
-import { Router as RegisterComponentRouter } from '@backstage/plugin-register-component';
-import { Router as TechRadarRouter } from '@backstage/plugin-tech-radar';
-import { Router as SettingsRouter } from '@backstage/plugin-user-settings';
+import { entityPage } from './components/catalog/EntityPage';
+import { searchPage } from './components/search/SearchPage';
+import { Root } from './components/Root';
 
-import { EntityPage } from './components/catalog/EntityPage';
+import {
+  AlertDisplay,
+  OAuthRequestDialog,
+  SignInPage,
+  SignInProviderConfig,
+} from '@backstage/core-components';
+import { createApp, FlatRoutes } from '@backstage/core-app-api';
+
+const azureAdProvider: SignInProviderConfig = {
+  id: 'azuread-auth-provider',
+  title: 'Azure AD',
+  message: 'Sign in using Azure AD',
+  apiRef: microsoftAuthApiRef,
+};
 
 const app = createApp({
   apis,
-  plugins: Object.values(plugins),
+  bindRoutes({ bind }) {
+    bind(catalogPlugin.externalRoutes, {
+      createComponent: scaffolderPlugin.routes.root,
+      viewTechDoc: techdocsPlugin.routes.docRoot,
+    });
+    bind(apiDocsPlugin.externalRoutes, {
+      createComponent: scaffolderPlugin.routes.root,
+    });
+    bind(scaffolderPlugin.externalRoutes, {
+      registerComponent: catalogImportPlugin.routes.importPage,
+    });
+  },
   components: {
-    SignInPage: props => {
-      const configApi = useApi(configApiRef);
-      const appUrl = configApi.getString('app.baseUrl');
-
-      let providers : any;
-      if (appUrl.includes('localhost')) {
-        providers = ['guest']
-      } else {
-        providers = [
-          {
-            id: 'microsoft-auth-provider',
-            title: 'Microsoft',
-            message: 'Sign In using Microsoft Azure AD',
-            apiRef: microsoftAuthApiRef,
-          }
-        ]
-      }
-
-      return (
-        <SignInPage
-          {...props}
-          providers={[...providers]}
-          title="Select a sign-in method"
-          align="center"
-        />
-      );
-    },
+    SignInPage: props => (
+      <SignInPage {...props} auto provider={azureAdProvider} />
+    ),
   },
 });
 
 const AppProvider = app.getProvider();
 const AppRouter = app.getRouter();
-const deprecatedAppRoutes = app.getRoutes();
 
-const catalogRouteRef = createRouteRef({
-  path: '/catalog',
-  title: 'Service Catalog',
-});
+const routes = (
+  <FlatRoutes>
+    <Navigate key="/" to="catalog" />
+    <Route path="/catalog" element={<CatalogIndexPage initiallySelectedFilter="all" />} />
+    <Route
+      path="/catalog/:namespace/:kind/:name"
+      element={<CatalogEntityPage />}
+    >
+      {entityPage}
+    </Route>
+    <Route path="/docs" element={<TechDocsIndexPage />}>
+      <DefaultTechDocsHome />
+    </Route>
+    <Route
+      path="/docs/:namespace/:kind/:name/*"
+      element={<TechDocsReaderPage />}
+    />
+    <Route path="/create" element={<ScaffolderPage />} />
+    <Route path="/api-docs" element={<ApiExplorerPage />} />
+    <Route
+      path="/tech-radar"
+      element={<TechRadarPage width={1500} height={800} />}
+    />
+    <Route path="/catalog-import" element={<CatalogImportPage />} />
+    <Route path="/search" element={<SearchPage />}>
+      {searchPage}
+    </Route>
+    <Route path="/settings" element={<UserSettingsPage />} />
+  </FlatRoutes>
+);
 
-const App: FC<{}> = () => (
+const App = () => (
   <AppProvider>
     <AlertDisplay />
     <OAuthRequestDialog />
     <AppRouter>
-      <SidebarPage>
-        <AppSidebar />
-        <Routes>
-          <Navigate key="/" to="/catalog" />
-          <Route
-            path="/catalog/*"
-            element={<CatalogRouter EntityPage={EntityPage} />}
-          />
-          <Route path="/docs/*" element={<DocsRouter />} />
-          <Route
-            path="/tech-radar"
-            element={<TechRadarRouter width={1500} height={800} />}
-          />
-          <Route path="/settings" element={<SettingsRouter />} />
-          <Route
-            path="/register-component"
-            element={<RegisterComponentRouter catalogRouteRef={catalogRouteRef} />}
-          />
-          {deprecatedAppRoutes}
-        </Routes>
-      </SidebarPage>
+      <Root>{routes}</Root>
     </AppRouter>
   </AppProvider>
 );
