@@ -66,7 +66,6 @@ async function main() {
   const appEnv = useHotMemoize(module, () => createEnv('app'));
 
   const apiRouter = Router();
-  apiRouter.use('', await healthcheck(healthcheckEnv))
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/jenkins', await jenkins(jenkinsEnv));
   apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
@@ -78,6 +77,7 @@ async function main() {
 
   const service = createServiceBuilder(module)
     .loadConfig(config)
+    .addRouter('', await healthcheck(healthcheckEnv))
     .addRouter('/api', apiRouter)
     .addRouter('', await app(appEnv));
 
