@@ -32,7 +32,8 @@ import {
   SignInPage,
   SignInProviderConfig,
 } from '@backstage/core-components';
-import { createApp, FlatRoutes } from '@backstage/core-app-api';
+import { createApp } from '@backstage/app-defaults';
+import { FlatRoutes } from '@backstage/core-app-api';
 
 const azureAdProvider: SignInProviderConfig = {
   id: 'azuread-auth-provider',
