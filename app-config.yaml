@@ -127,7 +127,7 @@ catalog:
       rules:
         - allow: [Template]
     - type: url
-      target: https://github.com/hmcts/template-spring-boot/blob/switch-to-nunjucks/template.yaml
+      target: https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
       rules:
         - allow: [Template]
     - type: url
