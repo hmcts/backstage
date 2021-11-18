@@ -1,28 +1,33 @@
 import { useHotCleanup } from '@backstage/backend-common';
-import {
-CatalogBuilder,
-createRouter,
-runPeriodically,
-} from '@backstage/plugin-catalog-backend';
+import { CatalogBuilder, runPeriodically } from '@backstage/plugin-catalog-backend';
+import { ScaffolderEntitiesProcessor } from '@backstage/plugin-scaffolder-backend';
+import { Router } from 'express';
+import { MicrosoftGraphOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-msgraph'
 import { PluginEnvironment } from '../types';
 
-export default async function createPlugin(env: PluginEnvironment) {
-  const builder = new CatalogBuilder(env);
-  const {
-    entitiesCatalog,
-    locationsCatalog,
-    higherOrderOperation,
-  } = await builder.build();
+export default async function createPlugin(
+  env: PluginEnvironment,
+): Promise<Router> {
+  const builder = await CatalogBuilder.create(env);
+
+  const msGraphOrgEntityProvider = MicrosoftGraphOrgEntityProvider.fromConfig(
+    env.config,
+    {
+      id: 'https://graph.microsoft.com/v1.0',
+      target: 'https://graph.microsoft.com/v1.0',
+      logger: env.logger,
+    },
+  );
+
+  builder.addEntityProvider(msGraphOrgEntityProvider);
 
   useHotCleanup(
     module,
-    runPeriodically(() => higherOrderOperation.refreshAllLocations(), 100000),
+    runPeriodically(() => msGraphOrgEntityProvider.read(), 5 * 60 * 1000),
   );
 
-  return await createRouter({
-    entitiesCatalog,
-    locationsCatalog,
-    higherOrderOperation,
-    logger: env.logger,
-  });
+  builder.addProcessor(new ScaffolderEntitiesProcessor());
+  const { processingEngine, router } = await builder.build();
+  await processingEngine.start();
+  return router;
 }
