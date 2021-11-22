@@ -63,13 +63,13 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
           yarn workspace backend build-image
-          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}}-${{ github.run_number }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}}-${{ github.run_number }}
+          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}-${{ github.run_number }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-${{github.event.number}}-${{ steps.get-short-sha.outputs.shortSha }}-${{ github.run_number }}
         if: startsWith(github.ref, 'refs/pull')
       - run: |
           yarn workspace backend build-image
-          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-${{ steps.get-short-sha.outputs.shortSha }}}-${{ github.run_number }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-${{ steps.get-short-sha.outputs.shortSha }}}-${{ github.run_number }}
+          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-${{ steps.get-short-sha.outputs.shortSha }}-${{ github.run_number }}
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-${{ steps.get-short-sha.outputs.shortSha }}-${{ github.run_number }}
         if: github.ref == 'refs/heads/master'
 
 
