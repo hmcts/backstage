@@ -14,7 +14,7 @@ FROM node:14-buster-slim
 WORKDIR /usr/src/app
 
 RUN apt-get update -y && apt-get install -y mkdocs python3-pip openjdk-11-jre-headless
-
+RUN pip3 install mkdocs-techdocs-core
 # Copy repo skeleton first, to avoid unnecessary docker cache invalidation.
 # The skeleton contains the package.json of each package in the monorepo,
 # and along with yarn.lock and the root package.json, that's enough to run yarn install.
