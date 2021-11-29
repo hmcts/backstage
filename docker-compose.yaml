@@ -2,7 +2,7 @@ version: "3.8"
 services:
 
   backend:
-    image: docker.io/library/backstage
+    image: backstage
     environment:
       ROLLBAR_ACCOUNT_TOKEN: 'x'
       SENTRY_TOKEN: 'x'
@@ -18,11 +18,6 @@ services:
       AUTH_MICROSOFT_CLIENT_SECRET: ${AUTH_MICROSOFT_CLIENT_SECRET}
     ports:
       - "7000:7000"
-  frontend:
-    build: .
-    image: hmctspublic.azurecr.io/backstage/frontend:v8
-    ports:
-      - "3000:80"
 
   db:
     image: postgres:12.3
