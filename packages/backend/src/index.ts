@@ -15,6 +15,7 @@ import {
   notFoundHandler,
   CacheManager,
   DatabaseManager,
+  ServerTokenManager,
   SingleHostDiscovery,
   UrlReaders,
 } from '@backstage/backend-common';
@@ -39,12 +40,13 @@ function makeCreateEnv(config: Config) {
 
   const cacheManager = CacheManager.fromConfig(config);
   const databaseManager = DatabaseManager.fromConfig(config);
+  const tokenManager = ServerTokenManager.noop();
 
   return (plugin: string): PluginEnvironment => {
     const logger = root.child({ type: 'plugin', plugin });
     const database = databaseManager.forPlugin(plugin);
     const cache = cacheManager.forPlugin(plugin);
-    return { logger, database, cache, config, reader, discovery };
+    return { logger, database, cache, config, reader, discovery, tokenManager };
   };
 }
 

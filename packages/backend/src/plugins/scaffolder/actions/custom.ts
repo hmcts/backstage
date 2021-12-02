@@ -1,5 +1,4 @@
-import { createTemplateAction } from '@backstage/plugin-scaffolder-backend';
-import { runCommand } from '../helpers/runCommand';
+import { createTemplateAction, runCommand } from '@backstage/plugin-scaffolder-backend';
 
 export const scriptAction = () => {
   return createTemplateAction<{ scriptPath: string }>({
