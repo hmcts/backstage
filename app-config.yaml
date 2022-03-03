@@ -20,9 +20,9 @@ organization:
   name: HMCTS
 
 backend:
-  baseUrl: http://localhost:7000
+  baseUrl: http://localhost:7001
   listen:
-    port: 7000
+    port: 7001
   csp:
     connect-src: ["'self'", 'http:', 'https:']
     # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
