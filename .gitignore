@@ -3,6 +3,7 @@
 
 # IntelliJ
 .idea/
+.idea/workspace.xml
 *.iml
 
 # Visual Studio Code
@@ -81,6 +82,7 @@ typings/
 
 # Yarn Integrity file
 .yarn-integrity
+yarn.lock
 
 # dotenv environment variables file
 .env
