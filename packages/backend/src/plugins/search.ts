@@ -1,73 +1,26 @@
-/*
- * Copyright 2021 The Backstage Authors
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-import {
-  PluginDatabaseManager,
-  useHotCleanup,
-} from '@backstage/backend-common';
-import { Config } from '@backstage/config';
-import { DefaultCatalogCollatorFactory } from '@backstage/plugin-catalog-backend';
+import { useHotCleanup } from '@backstage/backend-common';
 import { createRouter } from '@backstage/plugin-search-backend';
-import { ElasticSearchSearchEngine } from '@backstage/plugin-search-backend-module-elasticsearch';
-import { PgSearchEngine } from '@backstage/plugin-search-backend-module-pg';
 import {
   IndexBuilder,
   LunrSearchEngine,
-  SearchEngine,
 } from '@backstage/plugin-search-backend-node';
-import { DefaultTechDocsCollatorFactory } from '@backstage/plugin-techdocs-backend';
-import { Logger } from 'winston';
 import { PluginEnvironment } from '../types';
-
-async function createSearchEngine({
-  logger,
-  database,
-  config,
-}: {
-  logger: Logger;
-  database: PluginDatabaseManager;
-  config: Config;
-}): Promise<SearchEngine> {
-  if (config.has('search.elasticsearch')) {
-    return await ElasticSearchSearchEngine.fromConfig({
-      logger,
-      config,
-    });
-  }
-
-  if (await PgSearchEngine.supported(database)) {
-    return await PgSearchEngine.from({ database });
-  }
-
-  return new LunrSearchEngine({ logger });
-}
+import { DefaultCatalogCollatorFactory } from '@backstage/plugin-catalog-backend';
+import { DefaultTechDocsCollatorFactory } from '@backstage/plugin-techdocs-backend';
 
 export default async function createPlugin({
   logger,
   permissions,
   discovery,
   config,
-  database,
   tokenManager,
 }: PluginEnvironment) {
   // Initialize a connection to a search engine.
-  const searchEngine = await createSearchEngine({ config, logger, database });
+  const searchEngine = new LunrSearchEngine({ logger });
   const indexBuilder = new IndexBuilder({ logger, searchEngine });
 
   // Collators are responsible for gathering documents known to plugins. This
-  // particular collator gathers entities from the software catalog.
+  // collator gathers entities from the software catalog.
   indexBuilder.addCollator({
     defaultRefreshIntervalSeconds: 600,
     factory: DefaultCatalogCollatorFactory.fromConfig(config, {
@@ -76,6 +29,7 @@ export default async function createPlugin({
     }),
   });
 
+  // collator gathers entities from techdocs.
   indexBuilder.addCollator({
     defaultRefreshIntervalSeconds: 600,
     factory: DefaultTechDocsCollatorFactory.fromConfig(config, {

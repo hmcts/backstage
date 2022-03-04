@@ -6,9 +6,9 @@
     "plugins/*/dev",
     "plugins/*/migrations"
   ],
+  "exclude": ["node_modules"],
   "compilerOptions": {
     "outDir": "dist-types",
-    "rootDir": ".",
-    "useUnknownInCatchVariables": false
+    "rootDir": "."
   }
 }

@@ -1,26 +1,23 @@
 app:
-  title: Backstage Example App
+  title: HMCTS Backstage
   baseUrl: http://localhost:3000
-  googleAnalyticsTrackingId: # UA-000000-0
-  #datadogRum:
-  #  clientToken: '123456789'
-  #  applicationId: qwerty
-  #   site: # datadoghq.eu default = datadoghq.com
-  #   env: # optional
 
   support:
-    url: https://github.com/backstage/backstage/issues # Used by common ErrorPage
+    url: https://github.com/hmcts/backstage/issues # Used by common ErrorPage
     items: # Used by common SupportButton component
       - title: Issues
         icon: github
         links:
-          - url: https://github.com/backstage/backstage/issues
+          - url: https://github.com/hmcts/backstage/issues
             title: GitHub Issues
-      - title: Discord Chatroom
+      - title: Slack
         icon: chat
         links:
-          - url: https://discord.gg/MUpMjP2
-            title: '#backstage'
+          - url: https://hmcts-reform.slack.com/app_redirect?channel=cloud-native
+            title: '#cloud-native'
+
+organization:
+  name: HMCTS
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
@@ -123,9 +120,6 @@ proxy:
     headers:
       Authorization: Basic ${GOCD_AUTH_CREDENTIALS}
 
-organization:
-  name: My Company
-
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
 # and an external cloud storage when deploying TechDocs for production use-case.
@@ -140,10 +134,10 @@ techdocs:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
 
 sentry:
-  organization: my-company
+  organization: HMCTS
 
 rollbar:
-  organization: my-company
+  organization: HMCTS
   # NOTE: The rollbar-backend & accountToken key may be deprecated in the future (replaced by a proxy config)
   accountToken: my-rollbar-account-token
 
@@ -220,24 +214,24 @@ catalog:
 
   processors:
     ldapOrg:
-      ### Example for how to add your enterprise LDAP server
-      # providers:
-      #   - target: ldaps://ds.example.net
-      #     bind:
-      #       dn: uid=ldap-reader-user,ou=people,ou=example,dc=example,dc=net
-      #       secret: ${LDAP_SECRET}
-      #     users:
-      #       dn: ou=people,ou=example,dc=example,dc=net
-      #       options:
-      #         filter: (uid=*)
-      #       map:
-      #         description: l
-      #     groups:
-      #       dn: ou=access,ou=groups,ou=example,dc=example,dc=net
-      #       options:
-      #         filter: (&(objectClass=some-group-class)(!(groupType=email)))
+    ### Example for how to add your enterprise LDAP server
+    # providers:
+    #   - target: ldaps://ds.example.net
+    #     bind:
+    #       dn: uid=ldap-reader-user,ou=people,ou=example,dc=example,dc=net
+    #       secret: ${LDAP_SECRET}
+    #     users:
+    #       dn: ou=people,ou=example,dc=example,dc=net
+    #       options:
+    #         filter: (uid=*)
+    #       map:
+    #         description: l
+    #     groups:
+    #       dn: ou=access,ou=groups,ou=example,dc=example,dc=net
+    #       options:
+    #         filter: (&(objectClass=some-group-class)(!(groupType=email)))
     microsoftGraphOrg:
-      ### Example for how to add your Microsoft Graph tenant
+    ### Example for how to add your Microsoft Graph tenant
       providers:
         - target: https://graph.microsoft.com/v1.0
           authority: https://login.microsoftonline.com
@@ -248,144 +242,45 @@ catalog:
           groupFilter: securityEnabled eq false and mailEnabled eq true and groupTypes/any(c:c+eq+'Unified')
 
   locations:
-    # Add a location here to ingest it, for example from a URL:
-    #
-    #     - type: url
-    #       target: https://github.com/backstage/backstage/blob/master/packages/catalog-model/examples/all-components.yaml
-    #
-    # For local development you can use a file location instead:
-    #
-    #     - type: file
-    #       target: ../catalog-model/examples/all-components.yaml
-    #
-    # File locations are relative to the current working directory of the
-    # backend, for example packages/backend/.
+    - type: url
+      target: https://github.com/hmcts/template-expressjs/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-java-client/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-product-infrastructure/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
 
-    # Backstage example components
-    - type: file
-      target: ../catalog-model/examples/all-components.yaml
-    # Example component for github-actions and TechDocs
-    - type: file
-      target: ../../plugins/github-actions/examples/sample.yaml
-    # Example component for TechDocs
-    - type: file
-      target: ../../plugins/techdocs-backend/examples/documented-component/catalog-info.yaml
-    # Backstage example APIs
-    - type: file
-      target: ../catalog-model/examples/all-apis.yaml
-    # Backstage example resources
-    - type: file
-      target: ../catalog-model/examples/all-resources.yaml
-    # Backstage example systems
-    - type: file
-      target: ../catalog-model/examples/all-systems.yaml
-    # Backstage example domains
-    - type: file
-      target: ../catalog-model/examples/all-domains.yaml
-    # Backstage example templates
-    - type: file
-      target: ../../plugins/scaffolder-backend/sample-templates/all-templates.yaml
-    # Backstage example groups and users
-    - type: file
-      target: ../catalog-model/examples/acme-corp.yaml
-    # Backstage end-to-end tests of TechDocs
-    - type: file
-      target: ../../cypress/e2e-fixture.catalog.info.yaml
 scaffolder:
-  # Use to customize default commit author info used when new components are created
-  # defaultAuthor:
-  #   name: Scaffolder
-  #   email: scaffolder@backstage.io
-  # Use to customize the default commit message when new components are created
-  # defaultCommitMessage: 'Initial commit'
+# Use to customize default commit author info used when new components are created
+# defaultAuthor:
+#   name: Scaffolder
+#   email: scaffolder@backstage.io
+# Use to customize the default commit message when new components are created
+# defaultCommitMessage: 'Initial commit'
 
 auth:
-  ### Add auth.keyStore.provider to more granularly control how to store JWK data when running
-  # the auth-backend.
-  #
-  # keyStore:
-  #  provider: firestore
-  #  firestore:
-  #    projectId: my-project
-  #    path: my-sessions
-
+  # see https://backstage.io/docs/auth/ to learn about auth providers
   environment: development
-  ### Providing an auth.session.secret will enable session support in the auth-backend
-  # session:
-  #   secret: custom session secret
   providers:
-    google:
-      development:
-        clientId: ${AUTH_GOOGLE_CLIENT_ID}
-        clientSecret: ${AUTH_GOOGLE_CLIENT_SECRET}
     github:
       development:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
         clientSecret: ${AUTH_GITHUB_CLIENT_SECRET}
-        enterpriseInstanceUrl: ${AUTH_GITHUB_ENTERPRISE_INSTANCE_URL}
-    gitlab:
-      development:
-        clientId: ${AUTH_GITLAB_CLIENT_ID}
-        clientSecret: ${AUTH_GITLAB_CLIENT_SECRET}
-        audience: ${GITLAB_BASE_URL}
-    saml:
-      entryPoint: 'http://localhost:7001/'
-      issuer: 'passport-saml'
-      cert: 'fake-cert-base64'
-    okta:
-      development:
-        clientId: ${AUTH_OKTA_CLIENT_ID}
-        clientSecret: ${AUTH_OKTA_CLIENT_SECRET}
-        audience: ${AUTH_OKTA_AUDIENCE}
-    oauth2:
-      development:
-        clientId: ${AUTH_OAUTH2_CLIENT_ID}
-        clientSecret: ${AUTH_OAUTH2_CLIENT_SECRET}
-        authorizationUrl: ${AUTH_OAUTH2_AUTH_URL}
-        tokenUrl: ${AUTH_OAUTH2_TOKEN_URL}
-        ###
-        # provide a list of scopes as needed for your OAuth2 Server:
-        #
-        # scope: saml-login-selector openid profile email
-    oidc:
-      # Note that you must define a session secret (see above) since the oidc provider requires session support.
-      # Note that by default, this provider will use the 'none' prompt which assumes that your are already logged on in the IDP.
-      # You should set prompt to:
-      # - auto: will let the IDP decide if you need to log on or if you can skip login when you have an active SSO session
-      # - login: will force the IDP to always present a login form to the user
-      development:
-        metadataUrl: ${AUTH_OIDC_METADATA_URL}
-        clientId: ${AUTH_OIDC_CLIENT_ID}
-        clientSecret: ${AUTH_OIDC_CLIENT_SECRET}
-        authorizationUrl: ${AUTH_OIDC_AUTH_URL}
-        tokenUrl: ${AUTH_OIDC_TOKEN_URL}
-        tokenSignedResponseAlg: ${AUTH_OIDC_TOKEN_SIGNED_RESPONSE_ALG} # default='RS256'
-        scope: ${AUTH_OIDC_SCOPE} # default='openid profile email'
-        prompt: ${AUTH_OIDC_PROMPT} # default=none (allowed values: auto, none, consent, login)
-    auth0:
-      development:
-        clientId: ${AUTH_AUTH0_CLIENT_ID}
-        clientSecret: ${AUTH_AUTH0_CLIENT_SECRET}
-        domain: ${AUTH_AUTH0_DOMAIN}
     microsoft:
       development:
         clientId: ${AUTH_MICROSOFT_CLIENT_ID}
         clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
         tenantId: ${AUTH_MICROSOFT_TENANT_ID}
-    onelogin:
-      development:
-        clientId: ${AUTH_ONELOGIN_CLIENT_ID}
-        clientSecret: ${AUTH_ONELOGIN_CLIENT_SECRET}
-        issuer: ${AUTH_ONELOGIN_ISSUER}
-    bitbucket:
-      development:
-        clientId: ${AUTH_BITBUCKET_CLIENT_ID}
-        clientSecret: ${AUTH_BITBUCKET_CLIENT_SECRET}
-    atlassian:
-      development:
-        clientId: ${AUTH_ATLASSIAN_CLIENT_ID}
-        clientSecret: ${AUTH_ATLASSIAN_CLIENT_SECRET}
-        scopes: ${AUTH_ATLASSIAN_SCOPES}
+
 costInsights:
   engineerCost: 200000
   products:
@@ -457,7 +352,7 @@ jenkins:
 azureDevOps:
   host: dev.azure.com
   token: my-token
-  organization: my-company
+  organization: HMCTS
 
 apacheAirflow:
   baseUrl: https://your.airflow.instance.com

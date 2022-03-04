@@ -102,7 +102,6 @@ import {
   EntityRollbarContent,
   isRollbarAvailable,
 } from '@backstage/plugin-rollbar';
-import { EntitySentryContent } from '@backstage/plugin-sentry';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
 import { EntityTodoContent } from '@backstage/plugin-todo';
 import { Button, Grid } from '@material-ui/core';
@@ -272,10 +271,6 @@ const errorsContent = (
   <EntitySwitch>
     <EntitySwitch.Case if={isRollbarAvailable}>
       <EntityRollbarContent />
-    </EntitySwitch.Case>
-
-    <EntitySwitch.Case>
-      <EntitySentryContent />
     </EntitySwitch.Case>
   </EntitySwitch>
 );
