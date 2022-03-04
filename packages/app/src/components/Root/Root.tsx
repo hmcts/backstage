@@ -18,23 +18,34 @@ import React, { useContext, PropsWithChildren } from 'react';
 import { Link, makeStyles } from '@material-ui/core';
 import HomeIcon from '@material-ui/icons/Home';
 import ExtensionIcon from '@material-ui/icons/Extension';
+import RuleIcon from '@material-ui/icons/AssignmentTurnedIn';
 import MapIcon from '@material-ui/icons/MyLocation';
+import LayersIcon from '@material-ui/icons/Layers';
 import LibraryBooks from '@material-ui/icons/LibraryBooks';
 import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@material-ui/icons/Menu';
+import MoneyIcon from '@material-ui/icons/MonetizationOn';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import { NavLink } from 'react-router-dom';
-import { Settings as SidebarSettings } from '@backstage/plugin-user-settings';
-import { SearchContextProvider, SidebarSearchModal } from '@backstage/plugin-search';
+import { GraphiQLIcon } from '@backstage/plugin-graphiql';
+import {
+  Settings as SidebarSettings,
+  UserSettingsSignInAvatar,
+} from '@backstage/plugin-user-settings';
+import { SidebarSearchModal } from '@backstage/plugin-search';
+import { Shortcuts } from '@backstage/plugin-shortcuts';
 import {
   Sidebar,
-  SidebarPage,
   sidebarConfig,
   SidebarContext,
-  SidebarItem,
   SidebarDivider,
-  SidebarSpace,
+  SidebarGroup,
+  SidebarItem,
+  SidebarPage,
   SidebarScrollWrapper,
+  SidebarSpace,
 } from '@backstage/core-components';
 
 const useSidebarLogoStyles = makeStyles({
@@ -74,23 +85,41 @@ export const Root = ({ children }: PropsWithChildren<{}>) => (
   <SidebarPage>
     <Sidebar>
       <SidebarLogo />
-      <SearchContextProvider>
+      <SidebarGroup label="Search" icon={<SearchIcon />} to="/search">
         <SidebarSearchModal />
-      </SearchContextProvider>
+      </SidebarGroup>
       <SidebarDivider />
-      {/* Global nav, not org-specific */}
-      <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
-      <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
-      <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
-      <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
-      {/* End global nav */}
-      <SidebarDivider />
-      <SidebarScrollWrapper>
-        <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
-      </SidebarScrollWrapper>
+      <SidebarGroup label="Menu" icon={<MenuIcon />}>
+        {/* Global nav, not org-specific */}
+        <SidebarItem icon={HomeIcon} to="catalog" text="Home" />
+        <SidebarItem icon={ExtensionIcon} to="api-docs" text="APIs" />
+        <SidebarItem icon={LibraryBooks} to="docs" text="Docs" />
+        <SidebarItem icon={LayersIcon} to="explore" text="Explore" />
+        <SidebarItem icon={CreateComponentIcon} to="create" text="Create..." />
+        {/* End global nav */}
+        <SidebarDivider />
+        <SidebarScrollWrapper>
+          <SidebarItem icon={MapIcon} to="tech-radar" text="Tech Radar" />
+          <SidebarItem icon={RuleIcon} to="lighthouse" text="Lighthouse" />
+          <SidebarItem
+            icon={MoneyIcon}
+            to="cost-insights"
+            text="Cost Insights"
+          />
+          <SidebarItem icon={GraphiQLIcon} to="graphiql" text="GraphiQL" />
+        </SidebarScrollWrapper>
+        <SidebarDivider />
+        <Shortcuts />
+      </SidebarGroup>
       <SidebarSpace />
       <SidebarDivider />
-      <SidebarSettings />
+      <SidebarGroup
+        label="Settings"
+        icon={<UserSettingsSignInAvatar />}
+        to="/settings"
+      >
+        <SidebarSettings />
+      </SidebarGroup>
     </Sidebar>
     {children}
   </SidebarPage>

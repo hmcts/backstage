@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="165051d3-873b-4ca3-ac12-b1455e8aa639" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app-config.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/app-config.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catalog-info.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/catalog-info.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lerna.json" beforeDir="false" afterPath="$PROJECT_DIR$/lerna.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/.eslintrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/.eslintrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/cypress.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/cypress.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/cypress/integration/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/cypress/integration/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/public/apple-touch-icon.png" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/public/apple-touch-icon.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/App.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/App.test.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/apis.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/apis.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/components/Root/Root.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/components/Root/Root.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/components/catalog/EntityPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/components/catalog/EntityPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/components/search/SearchPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/components/search/SearchPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/app/src/setupTests.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/app/src/setupTests.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/index.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/index.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/app.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/app.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/catalog.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/catalog.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/healthcheck.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/healthcheck.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/jenkins.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/jenkins.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/proxy.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/proxy.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/scaffolder.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/scaffolder.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/scaffolder/actions/custom.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/search.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/search.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/plugins/techdocs.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/plugins/techdocs.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/packages/backend/src/types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/packages/backend/src/types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CodeStyleSettingsInfer">
+    <option name="done" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitSEFilterConfiguration">
+    <file-type-list>
+      <filtered-out-file-type name="LOCAL_BRANCH" />
+      <filtered-out-file-type name="REMOTE_BRANCH" />
+      <filtered-out-file-type name="TAG" />
+      <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
+    </file-type-list>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectCodeStyleSettingsMigration">
+    <option name="version" value="2" />
+  </component>
+  <component name="ProjectId" id="25v9tvqM9zlt9ZOPRX8GSg3fOsf" />
+  <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
+    <option name="autoscrollToSource" value="true" />
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="165051d3-873b-4ca3-ac12-b1455e8aa639" name="Changes" comment="" />
+      <created>1646396910401</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1646396910401</updated>
+    </task>
+    <servers />
+  </component>
+</project>
