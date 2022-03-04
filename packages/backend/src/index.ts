@@ -97,6 +97,9 @@ async function main() {
   apiRouter.use('/techdocs', await techdocs(techdocsEnv));
   apiRouter.use('/proxy', await proxy(proxyEnv));
   apiRouter.use('/search', await search(searchEnv));
+  apiRouter.use('/todo', await todo(todoEnv));
+  apiRouter.use('/badges', await badges(badgesEnv));
+  apiRouter.use('/jenkins', await jenkins(jenkinsEnv));
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());
