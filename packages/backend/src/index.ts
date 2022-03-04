@@ -24,10 +24,14 @@ import { Config } from '@backstage/config';
 import app from './plugins/app';
 import auth from './plugins/auth';
 import catalog from './plugins/catalog';
+import codeCoverage from './plugins/codecoverage';
 import scaffolder from './plugins/scaffolder';
 import proxy from './plugins/proxy';
 import techdocs from './plugins/techdocs';
 import search from './plugins/search';
+import todo from './plugins/todo';
+import badges from './plugins/badges';
+import jenkins from './plugins/jenkins';
 import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
 
@@ -73,12 +77,18 @@ async function main() {
   const createEnv = makeCreateEnv(config);
 
   const catalogEnv = useHotMemoize(module, () => createEnv('catalog'));
+  const codeCoverageEnv = useHotMemoize(module, () =>
+    createEnv('code-coverage'),
+  );
   const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
   const authEnv = useHotMemoize(module, () => createEnv('auth'));
   const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
   const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
+  const todoEnv = useHotMemoize(module, () => createEnv('todo'));
   const searchEnv = useHotMemoize(module, () => createEnv('search'));
   const appEnv = useHotMemoize(module, () => createEnv('app'));
+  const badgesEnv = useHotMemoize(module, () => createEnv('badges'));
+  const jenkinsEnv = useHotMemoize(module, () => createEnv('jenkins'));
 
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
