@@ -77,8 +77,6 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
 
-sentry:
-  organization: HMCTS
 
 rollbar:
   organization: HMCTS
