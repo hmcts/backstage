@@ -33,12 +33,6 @@ import {
   EntityProvidedApisCard,
   EntityProvidingComponentsCard,
 } from '@backstage/plugin-api-docs';
-import {
-  EntityAzurePipelinesContent,
-  EntityAzurePullRequestsContent,
-  isAzureDevOpsAvailable,
-  isAzurePipelinesAvailable,
-} from '@backstage/plugin-azure-devops';
 import { EntityBadgesDialog } from '@backstage/plugin-badges';
 import {
   EntityAboutCard,
@@ -133,7 +127,6 @@ import {
   EntityNewRelicDashboardContent,
   EntityNewRelicDashboardCard,
 } from '@backstage/plugin-newrelic-dashboard';
-import { EntityGoCdContent, isGoCdAvailable } from '@backstage/plugin-gocd';
 
 import React, { ReactNode, useMemo, useState } from 'react';
 
@@ -194,16 +187,8 @@ export const cicdContent = (
       <EntityTravisCIContent />
     </EntitySwitch.Case>
 
-    <EntitySwitch.Case if={isGoCdAvailable}>
-      <EntityGoCdContent />
-    </EntitySwitch.Case>
-
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <EntityGithubActionsContent />
-    </EntitySwitch.Case>
-
-    <EntitySwitch.Case if={isAzurePipelinesAvailable}>
-      <EntityAzurePipelinesContent defaultLimit={25} />
     </EntitySwitch.Case>
 
     <EntitySwitch.Case>
@@ -277,10 +262,6 @@ const errorsContent = (
 
 const pullRequestsContent = (
   <EntitySwitch>
-    <EntitySwitch.Case if={isAzureDevOpsAvailable}>
-      <EntityAzurePullRequestsContent defaultLimit={25} />
-    </EntitySwitch.Case>
-
     <EntitySwitch.Case>
       <EntityGithubPullRequestsContent />
     </EntitySwitch.Case>

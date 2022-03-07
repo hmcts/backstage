@@ -224,14 +224,3 @@ jenkins:
       baseUrl: https://jenkins.example.com
       username: backstage-bot
       apiKey: 123456789abcdef0123456789abcedf012
-
-azureDevOps:
-  host: dev.azure.com
-  token: my-token
-  organization: HMCTS
-
-apacheAirflow:
-  baseUrl: https://your.airflow.instance.com
-
-gocd:
-  baseUrl: https://your.gocd.instance.com
