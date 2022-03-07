@@ -175,7 +175,6 @@ catalog:
     #       options:
     #         filter: (&(objectClass=some-group-class)(!(groupType=email)))
     microsoftGraphOrg:
-    ### Example for how to add your Microsoft Graph tenant
       providers:
         - target: https://graph.microsoft.com/v1.0
           authority: https://login.microsoftonline.com
