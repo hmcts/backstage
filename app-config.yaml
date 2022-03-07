@@ -283,8 +283,6 @@ homepage:
       timezone: 'Europe/Stockholm'
     - label: TYO
       timezone: 'Asia/Tokyo'
-pagerduty:
-  eventsBaseUrl: 'https://events.pagerduty.com/v2'
 jenkins:
   instances:
     - name: default
