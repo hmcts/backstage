@@ -78,10 +78,6 @@ techdocs:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
 
 
-rollbar:
-  organization: HMCTS
-  # NOTE: The rollbar-backend & accountToken key may be deprecated in the future (replaced by a proxy config)
-  accountToken: my-rollbar-account-token
 
 lighthouse:
   baseUrl: http://localhost:3003
