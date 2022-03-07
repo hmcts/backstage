@@ -109,23 +109,6 @@ catalog:
         - Location
 
   processors:
-    ldapOrg:
-    ### Example for how to add your enterprise LDAP server
-    # providers:
-    #   - target: ldaps://ds.example.net
-    #     bind:
-    #       dn: uid=ldap-reader-user,ou=people,ou=example,dc=example,dc=net
-    #       secret: ${LDAP_SECRET}
-    #     users:
-    #       dn: ou=people,ou=example,dc=example,dc=net
-    #       options:
-    #         filter: (uid=*)
-    #       map:
-    #         description: l
-    #     groups:
-    #       dn: ou=access,ou=groups,ou=example,dc=example,dc=net
-    #       options:
-    #         filter: (&(objectClass=some-group-class)(!(groupType=email)))
     microsoftGraphOrg:
       providers:
         - target: https://graph.microsoft.com/v1.0
