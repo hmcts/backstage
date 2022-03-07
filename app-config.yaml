@@ -77,16 +77,6 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
 
-
-
-kafka:
-  clientId: backstage
-  clusters:
-    - name: cluster
-      brokers:
-        - localhost:9092
-
-
 integrations:
   github:
     - host: github.com
@@ -221,6 +211,6 @@ homepage:
 jenkins:
   instances:
     - name: default
-      baseUrl: https://jenkins.example.com
+      baseUrl: https://sandbox-build.platform.hmcts.net/
       username: backstage-bot
       apiKey: 123456789abcdef0123456789abcedf012

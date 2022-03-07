@@ -75,7 +75,6 @@ import {
   EntityLatestJenkinsRunCard,
   isJenkinsAvailable,
 } from '@backstage/plugin-jenkins';
-import { EntityKafkaContent } from '@backstage/plugin-kafka';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import {
   EntityLastLighthouseAuditCard,
@@ -397,10 +396,6 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/code-coverage" title="Code Coverage">
       <EntityCodeCoverageContent />
-    </EntityLayout.Route>
-
-    <EntityLayout.Route path="/kafka" title="Kafka">
-      <EntityKafkaContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/todos" title="TODOs">
