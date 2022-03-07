@@ -31,9 +31,11 @@ import { FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { PermissionedRoute } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
+import { badgesPlugin } from '@backstage/plugin-badges';
 
 const app = createApp({
   apis,
+  plugins: [badgesPlugin],
   bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,
@@ -57,7 +59,10 @@ const AppRouter = app.getRouter();
 const routes = (
   <FlatRoutes>
     <Navigate key="/" to="catalog" />
-    <Route path="/catalog" element={<CatalogIndexPage initiallySelectedFilter="all" />} />
+    <Route
+      path="/catalog"
+      element={<CatalogIndexPage initiallySelectedFilter="all" />}
+    />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
