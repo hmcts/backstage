@@ -57,7 +57,7 @@ const AppRouter = app.getRouter();
 const routes = (
   <FlatRoutes>
     <Navigate key="/" to="catalog" />
-    <Route path="/catalog" element={<CatalogIndexPage />} />
+    <Route path="/catalog" element={<CatalogIndexPage initiallySelectedFilter="all" />} />
     <Route
       path="/catalog/:namespace/:kind/:name"
       element={<CatalogEntityPage />}
