@@ -79,16 +79,6 @@ techdocs:
 
 
 
-lighthouse:
-  baseUrl: http://localhost:3003
-
-kubernetes:
-  serviceLocatorMethod:
-    type: 'multiTenant'
-  clusterLocatorMethods:
-    - type: 'config'
-      clusters: []
-
 kafka:
   clientId: backstage
   clusters:
