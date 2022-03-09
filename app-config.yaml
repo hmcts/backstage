@@ -103,9 +103,9 @@ catalog:
       providers:
         - target: https://graph.microsoft.com/v1.0
           authority: https://login.microsoftonline.com
-          tenantId: ${MICROSOFT_GRAPH_TENANT_ID}
-          clientId: ${MICROSOFT_GRAPH_CLIENT_ID}
-          clientSecret: ${MICROSOFT_GRAPH_CLIENT_SECRET_TOKEN}
+          tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+          clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+          clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
           userFilter: accountEnabled eq true
           groupFilter: securityEnabled eq true
 
