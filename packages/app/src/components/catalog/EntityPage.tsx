@@ -56,14 +56,6 @@ import {
   Direction,
   EntityCatalogGraphCard,
 } from '@backstage/plugin-catalog-graph';
-import {
-  EntityCircleCIContent,
-  isCircleCIAvailable,
-} from '@backstage/plugin-circleci';
-import {
-  EntityCloudbuildContent,
-  isCloudbuildAvailable,
-} from '@backstage/plugin-cloudbuild';
 import { EntityCodeCoverageContent } from '@backstage/plugin-code-coverage';
 import {
   EntityGithubActionsContent,
@@ -77,11 +69,6 @@ import {
 } from '@backstage/plugin-jenkins';
 import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import {
-  EntityLastLighthouseAuditCard,
-  EntityLighthouseContent,
-  isLighthouseAvailable,
-} from '@backstage/plugin-lighthouse';
-import {
   EntityGroupProfileCard,
   EntityMembersListCard,
   EntityOwnershipCard,
@@ -91,10 +78,6 @@ import {
   EntityPagerDutyCard,
   isPagerDutyAvailable,
 } from '@backstage/plugin-pagerduty';
-import {
-  EntityRollbarContent,
-  isRollbarAvailable,
-} from '@backstage/plugin-rollbar';
 import { EntityTechdocsContent } from '@backstage/plugin-techdocs';
 import { EntityTodoContent } from '@backstage/plugin-todo';
 import { Button, Grid } from '@material-ui/core';
@@ -112,20 +95,6 @@ import {
   EntityGithubPullRequestsOverviewCard,
   isGithubPullRequestsAvailable,
 } from '@roadiehq/backstage-plugin-github-pull-requests';
-import {
-  EntityTravisCIContent,
-  EntityTravisCIOverviewCard,
-  isTravisciAvailable,
-} from '@roadiehq/backstage-plugin-travis-ci';
-import {
-  EntityBuildkiteContent,
-  isBuildkiteAvailable,
-} from '@roadiehq/backstage-plugin-buildkite';
-import {
-  isNewRelicDashboardAvailable,
-  EntityNewRelicDashboardContent,
-  EntityNewRelicDashboardCard,
-} from '@backstage/plugin-newrelic-dashboard';
 
 import React, { ReactNode, useMemo, useState } from 'react';
 
@@ -170,22 +139,6 @@ export const cicdContent = (
       <EntityJenkinsContent />
     </EntitySwitch.Case>
 
-    <EntitySwitch.Case if={isBuildkiteAvailable}>
-      <EntityBuildkiteContent />
-    </EntitySwitch.Case>
-
-    <EntitySwitch.Case if={isCircleCIAvailable}>
-      <EntityCircleCIContent />
-    </EntitySwitch.Case>
-
-    <EntitySwitch.Case if={isCloudbuildAvailable}>
-      <EntityCloudbuildContent />
-    </EntitySwitch.Case>
-
-    <EntitySwitch.Case if={isTravisciAvailable}>
-      <EntityTravisCIContent />
-    </EntitySwitch.Case>
-
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <EntityGithubActionsContent />
     </EntitySwitch.Case>
@@ -217,12 +170,6 @@ const cicdCard = (
       </Grid>
     </EntitySwitch.Case>
 
-    <EntitySwitch.Case if={isTravisciAvailable}>
-      <Grid item sm={6}>
-        <EntityTravisCIOverviewCard />
-      </Grid>
-    </EntitySwitch.Case>
-
     <EntitySwitch.Case if={isGithubActionsAvailable}>
       <Grid item sm={6}>
         <EntityRecentGithubActionsRunsCard limit={4} variant="gridItem" />
@@ -249,14 +196,6 @@ const entityWarningContent = (
       </EntitySwitch.Case>
     </EntitySwitch>
   </>
-);
-
-const errorsContent = (
-  <EntitySwitch>
-    <EntitySwitch.Case if={isRollbarAvailable}>
-      <EntityRollbarContent />
-    </EntitySwitch.Case>
-  </EntitySwitch>
 );
 
 const pullRequestsContent = (
@@ -286,14 +225,6 @@ const overviewContent = (
       </EntitySwitch.Case>
     </EntitySwitch>
 
-    <EntitySwitch>
-      <EntitySwitch.Case if={isNewRelicDashboardAvailable}>
-        <Grid item md={6} xs={12}>
-          <EntityNewRelicDashboardCard />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
-
     <Grid item md={4} xs={12}>
       <EntityLinksCard />
     </Grid>
@@ -308,14 +239,6 @@ const overviewContent = (
         </Grid>
         <Grid item md={6}>
           <EntityGithubInsightsReadmeCard maxHeight={350} />
-        </Grid>
-      </EntitySwitch.Case>
-    </EntitySwitch>
-
-    <EntitySwitch>
-      <EntitySwitch.Case if={isLighthouseAvailable}>
-        <Grid item sm={4}>
-          <EntityLastLighthouseAuditCard variant="gridItem" />
         </Grid>
       </EntitySwitch.Case>
     </EntitySwitch>
@@ -344,10 +267,6 @@ const serviceEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/errors" title="Errors">
-      {errorsContent}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/api" title="API">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item xs={12} md={6}>
@@ -372,14 +291,6 @@ const serviceEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       <EntityTechdocsContent />
-    </EntityLayout.Route>
-
-    <EntityLayout.Route
-      if={isNewRelicDashboardAvailable}
-      path="/newrelic-dashboard"
-      title="New Relic Dashboard"
-    >
-      <EntityNewRelicDashboardContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
@@ -414,14 +325,6 @@ const websiteEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/lighthouse" title="Lighthouse">
-      <EntityLighthouseContent />
-    </EntityLayout.Route>
-
-    <EntityLayout.Route path="/errors" title="Errors">
-      {errorsContent}
-    </EntityLayout.Route>
-
     <EntityLayout.Route path="/dependencies" title="Dependencies">
       <Grid container spacing={3} alignItems="stretch">
         <Grid item md={6}>
@@ -435,13 +338,6 @@ const websiteEntityPage = (
 
     <EntityLayout.Route path="/docs" title="Docs">
       <EntityTechdocsContent />
-    </EntityLayout.Route>
-    <EntityLayout.Route
-      if={isNewRelicDashboardAvailable}
-      path="/newrelic-dashboard"
-      title="New Relic Dashboard"
-    >
-      <EntityNewRelicDashboardContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/kubernetes" title="Kubernetes">
