@@ -14,6 +14,15 @@
  * limitations under the License.
  */
 
-// TODO(Rugvip): This plugin is currently not part of the app element tree,
-//               ideally we have an API for the context menu that permits that.
-export { badgesPlugin } from '@backstage/plugin-badges';
+import { createRouter } from '@backstage/plugin-code-coverage-backend';
+import { PluginEnvironment } from '../types';
+
+export default async function createPlugin(env: PluginEnvironment) {
+  return await createRouter({
+    config: env.config,
+    discovery: env.discovery,
+    database: env.database,
+    urlReader: env.reader,
+    logger: env.logger,
+  });
+}
