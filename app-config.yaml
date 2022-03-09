@@ -106,8 +106,8 @@ catalog:
           tenantId: ${MICROSOFT_GRAPH_TENANT_ID}
           clientId: ${MICROSOFT_GRAPH_CLIENT_ID}
           clientSecret: ${MICROSOFT_GRAPH_CLIENT_SECRET_TOKEN}
-          userFilter: accountEnabled eq true and userType eq 'member'
-          groupFilter: securityEnabled eq false and mailEnabled eq true and groupTypes/any(c:c+eq+'Unified')
+          userFilter: accountEnabled eq true
+          groupFilter: securityEnabled eq true
 
   locations:
     - type: url
