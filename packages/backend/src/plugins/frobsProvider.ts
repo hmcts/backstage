@@ -25,7 +25,6 @@ export class FrobsProvider implements EntityProvider {
 
   /** [2] **/
   getProviderName(): string {
-    logger.info("I am a test log2");
     return `frobs-${this.env}`;
   }
 
