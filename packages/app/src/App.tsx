@@ -1,4 +1,5 @@
 import React from 'react';
+import { microsoftAuthApiRef } from '@backstage/core-plugin-api';
 import { Navigate, Route } from 'react-router';
 import { apiDocsPlugin, ApiExplorerPage } from '@backstage/plugin-api-docs';
 import {
@@ -25,13 +26,20 @@ import { entityPage } from './components/catalog/EntityPage';
 import { searchPage } from './components/search/SearchPage';
 import { Root } from './components/Root';
 
-import { AlertDisplay, OAuthRequestDialog } from '@backstage/core-components';
+import { AlertDisplay, OAuthRequestDialog, SignInPage, SignInProviderConfig } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
 import { FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { PermissionedRoute } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
 import { badgesPlugin } from '@backstage/plugin-badges';
+
+const azureAdProvider: SignInProviderConfig = {
+   id: 'azuread-auth-provider',
+   title: 'Azure AD',
+   message: 'Sign in using Azure AD',
+   apiRef: microsoftAuthApiRef,
+ };
 
 const app = createApp({
   apis,
@@ -51,6 +59,11 @@ const app = createApp({
       catalogIndex: catalogPlugin.routes.catalogIndex,
     });
   },
+  components: {
+   SignInPage: props => (
+     <SignInPage {...props} auto provider={azureAdProvider} />
+   ),
+ },
 });
 
 const AppProvider = app.getProvider();
