@@ -210,7 +210,7 @@ homepage:
       timezone: 'Asia/Tokyo'
 jenkins:
   instances:
-    - name: default
-      baseUrl: https://sandbox-build.platform.hmcts.net/
-      username: backstage-bot
-      apiKey: 123456789abcdef0123456789abcedf012
+    - name: cft
+      baseUrl: http://localhost:8080
+      username: ${JENKINS_USERNAME}
+      apiKey: ${JENKINS_API_KEY}
