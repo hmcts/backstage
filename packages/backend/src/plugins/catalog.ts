@@ -8,15 +8,15 @@ import { Router } from 'express';
 import { MicrosoftGraphOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-msgraph';
 import { PluginEnvironment } from '../types';
 import { Duration } from 'luxon';
-import { FrobsProvider } from './frobsProvider';
+import { SwaggerProvider } from './swaggerProvider';
 
 export default async function createPlugin(
   env: PluginEnvironment,
 ): Promise<Router> {
   const builder = await CatalogBuilder.create(env);
 
-  const frobs = new FrobsProvider('production', env.reader, env.logger);
-  builder.addEntityProvider(frobs);
+  const swagger = new SwaggerProvider('production', env.reader, env.logger);
+  builder.addEntityProvider(swagger);
 
   const msGraphOrgEntityProvider = MicrosoftGraphOrgEntityProvider.fromConfig(
     env.config,
@@ -39,8 +39,8 @@ export default async function createPlugin(
   await processingEngine.start();
 
   await env.scheduler.scheduleTask({
-        id: 'run_frobs_refresh',
-        fn: async () => { await frobs.run(); },
+        id: 'run_swagger_provider_refresh',
+        fn: async () => { await swagger.run(); },
         frequency: Duration.fromObject({ minutes: 1 }),
         timeout: Duration.fromObject({ minutes: 2 }),
       });
