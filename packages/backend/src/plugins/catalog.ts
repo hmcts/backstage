@@ -15,7 +15,7 @@ export default async function createPlugin(
 ): Promise<Router> {
   const builder = await CatalogBuilder.create(env);
 
-  const swagger = new SwaggerProvider('production', env.reader, env.logger);
+  const swagger = new SwaggerProvider(env.config, 'production', env.reader, env.logger);
   builder.addEntityProvider(swagger);
 
   const msGraphOrgEntityProvider = MicrosoftGraphOrgEntityProvider.fromConfig(
