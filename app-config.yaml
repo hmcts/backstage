@@ -20,18 +20,15 @@ organization:
   name: HMCTS
 
 backend:
-  baseUrl: http://localhost:7001
+  # Used for enabling authentication, secret is shared by all backend plugins
+  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+  # information on the format
+  # auth:
+  #   keys:
+  #     - secret: ${BACKEND_SECRET}
+  baseUrl: http://localhost:7007
   listen:
-    port: 7001
-  csp:
-    connect-src: ["'self'", 'http:', 'https:']
-    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
-    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
-  cors:
-    origin: http://localhost:3000
-    methods: [GET, POST, PUT, DELETE]
-    credentials: true
-  # config options: https://node-postgres.com/api/client
+    port: 7007
   database:
     client: pg
     connection:
@@ -45,18 +42,27 @@ backend:
       #     $file: <file-path>/ca/server.crt
   cache:
     store: memory
+  cors:
+    origin: http://localhost:3000
+    methods: [GET, POST, PUT, DELETE]
+    credentials: true
+  csp:
+    connect-src: ["'self'", 'http:', 'https:']
+    # Content-Security-Policy directives follow the Helmet format: https://helmetjs.github.io/#reference
+    # Default Helmet Content-Security-Policy values can be removed by setting the key to false
+  reading:
+    allow:
+      - host: example.com
+      - host: '*.mozilla.org'
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
-integrations:
-  github:
-    - host: github.com
-      token: ${GITHUB_TOKEN}
-    ### Example for how to add your GitHub Enterprise instance using the API:
-    # - host: ghe.example.net
-    #   apiBaseUrl: https://ghe.example.net/api/v3
-    #   token: ${GHE_TOKEN}
-
+# See README.md in the proxy-backend plugin for information on the configuration format
 proxy:
+  '/jenkins/api':
+    target: http://localhost:8080
+    headers:
+      Authorization: ${JENKINS_BASIC_AUTH_HEADER}
+
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -65,16 +71,69 @@ proxy:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'local' # Alternatives - 'local'
+    runIn: 'local'
+    # dockerImage: my-org/techdocs # use a custom docker image
+    # pullImage: true # or false to disable automatic pulling of image (e.g. if custom docker login is required)
   publisher:
-    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
 
-jenkins:
-  instances:
-    - name: cft
-      baseUrl: http://localhost:8080
-      username: admin
-      apiKey: ${JENKINS_BASIC_AUTH_HEADER}
+integrations:
+  github:
+    - host: github.com
+      token: ${GITHUB_TOKEN}
+
+catalog:
+  import:
+    entityFilename: catalog-info.yaml
+    pullRequestBranchName: backstage-integration
+  rules:
+    - allow:
+        - Component
+        - API
+        - Resource
+        - Group
+        - User
+        - Template
+        - System
+        - Domain
+        - Location
+
+  processors:
+    microsoftGraphOrg:
+      providers:
+        - target: https://graph.microsoft.com/v1.0
+          authority: https://login.microsoftonline.com
+          tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+          clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+          clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
+          userFilter: accountEnabled eq true
+          groupFilter: securityEnabled eq true
+
+  locations:
+    - type: url
+      target: https://github.com/hmcts/template-expressjs/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-java-client/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-product-infrastructure/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+
+scaffolder:
+# Use to customize default commit author info used when new components are created
+# defaultAuthor:
+#   name: Scaffolder
+#   email: scaffolder@backstage.io
+# Use to customize the default commit message when new components are created
+# defaultCommitMessage: 'Initial commit'
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
@@ -90,51 +149,68 @@ auth:
         clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
         tenantId: ${AUTH_MICROSOFT_TENANT_ID}
 
-scaffolder:
-  github:
-    token: ${GITHUB_TOKEN}
-    visibility: public # or 'internal' or 'private'
-
-catalog:
-  rules:
-    - allow: [Component, System, API, Group, User, Resource, Location, Template]
-  processors:
-    microsoftGraphOrg:
-      providers:
-        - target: https://graph.microsoft.com/v1.0
-          authority: https://login.microsoftonline.com
-          # If you don't know you tenantId, you can use Microsoft Graph Explorer
-          # to query it
-          tenantId: ${AUTH_MICROSOFT_TENANT_ID}
-          # Client Id and Secret can be created under Certificates & secrets in
-          # the App registration in the Microsoft Azure Portal.
-          clientId: ${AUTH_MICROSOFT_CLIENT_ID}
-          clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
-          # Optional filter for user, see Microsoft Graph API for the syntax
-          # See https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
-          # and for the syntax https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter
-          # This and userGroupMemberFilter are mutually exclusive, only one can be specified
-          userFilter: accountEnabled eq true
-          # Optional filter for users, use group membership to get users.
-          # This and userFilter are mutually exclusive, only one can be specified
-          #userGroupMemberFilter: "displayName eq 'Backstage Users'"
-          # Optional filter for group, see Microsoft Graph API for the syntax
-          # See https://docs.microsoft.com/en-us/graph/api/resources/group?view=graph-rest-1.0#properties
-          groupFilter: securityEnabled eq true
-  locations:
-    - type: url
-      target: https://github.com/hmcts/template-expressjs/blob/master/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/hmcts/template-java-client/blob/master/template.yaml
-      rules:
-        - allow: [Template]
-    - type: url
-      target: https://github.com/hmcts/template-product-infrastructure/blob/master/template.yaml
-      rules:
-        - allow: [Template]
+costInsights:
+  engineerCost: 200000
+  products:
+    computeEngine:
+      name: Compute Engine
+      icon: compute
+    cloudDataflow:
+      name: Cloud Dataflow
+      icon: data
+    cloudStorage:
+      name: Cloud Storage
+      icon: storage
+    bigQuery:
+      name: BigQuery
+      icon: search
+    events:
+      name: Events
+      icon: data
+  metrics:
+    DAU:
+      name: Daily Active Users
+      default: true
+    MSC:
+      name: Monthly Subscribers
+  currencies:
+    engineers:
+      label: 'Engineers 🛠'
+      unit: 'engineer'
+    usd:
+      label: 'US Dollars 💵'
+      kind: 'USD'
+      unit: 'dollar'
+      prefix: '$'
+      rate: 1
+    carbonOffsetTons:
+      label: 'Carbon Offset Tons ♻️⚖️s'
+      kind: 'CARBON_OFFSET_TONS'
+      unit: 'carbon offset ton'
+      rate: 3.5
+    beers:
+      label: 'Beers 🍺'
+      kind: 'BEERS'
+      unit: 'beer'
+      rate: 4.5
+    pintsIceCream:
+      label: 'Pints of Ice Cream 🍦'
+      kind: 'PINTS_OF_ICE_CREAM'
+      unit: 'ice cream pint'
+      rate: 5.5
+homepage:
+  clocks:
+    - label: UTC
+      timezone: UTC
+    - label: NYC
+      timezone: 'America/New_York'
+    - label: STO
+      timezone: 'Europe/Stockholm'
+    - label: TYO
+      timezone: 'Asia/Tokyo'
+jenkins:
+  instances:
+    - name: cft
+      baseUrl: http://localhost:8080
+      username: ${JENKINS_USERNAME}
+      apiKey: ${JENKINS_API_KEY}

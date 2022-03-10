@@ -5,10 +5,12 @@ import {
   LunrSearchEngine,
 } from '@backstage/plugin-search-backend-node';
 import { PluginEnvironment } from '../types';
-import { DefaultCatalogCollator } from '@backstage/plugin-catalog-backend';
+import { DefaultCatalogCollatorFactory } from '@backstage/plugin-catalog-backend';
+import { DefaultTechDocsCollatorFactory } from '@backstage/plugin-techdocs-backend';
 
 export default async function createPlugin({
   logger,
+  permissions,
   discovery,
   config,
   tokenManager,
@@ -18,10 +20,23 @@ export default async function createPlugin({
   const indexBuilder = new IndexBuilder({ logger, searchEngine });
 
   // Collators are responsible for gathering documents known to plugins. This
-  // particular collator gathers entities from the software catalog.
+  // collator gathers entities from the software catalog.
   indexBuilder.addCollator({
     defaultRefreshIntervalSeconds: 600,
-    collator: DefaultCatalogCollator.fromConfig(config, { discovery, tokenManager }),
+    factory: DefaultCatalogCollatorFactory.fromConfig(config, {
+      discovery,
+      tokenManager,
+    }),
+  });
+
+  // collator gathers entities from techdocs.
+  indexBuilder.addCollator({
+    defaultRefreshIntervalSeconds: 600,
+    factory: DefaultTechDocsCollatorFactory.fromConfig(config, {
+      discovery,
+      logger,
+      tokenManager,
+    }),
   });
 
   // The scheduler controls when documents are gathered from collators and sent
@@ -35,6 +50,9 @@ export default async function createPlugin({
 
   return await createRouter({
     engine: indexBuilder.getSearchEngine(),
+    types: indexBuilder.getDocumentTypes(),
+    permissions,
+    config,
     logger,
   });
 }

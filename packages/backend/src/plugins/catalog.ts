@@ -1,8 +1,11 @@
 import { useHotCleanup } from '@backstage/backend-common';
-import { CatalogBuilder, runPeriodically } from '@backstage/plugin-catalog-backend';
+import {
+  CatalogBuilder,
+  runPeriodically,
+} from '@backstage/plugin-catalog-backend';
 import { ScaffolderEntitiesProcessor } from '@backstage/plugin-scaffolder-backend';
 import { Router } from 'express';
-import { MicrosoftGraphOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-msgraph'
+import { MicrosoftGraphOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-msgraph';
 import { PluginEnvironment } from '../types';
 
 export default async function createPlugin(
