@@ -36,16 +36,27 @@ export class FrobsProvider implements EntityProvider {
 
   /** [4] **/
   async run(): Promise<void> {
-    this.logger.info("I am a test log3");
+    this.logger.info("I am a test log1");
 
     if (!this.connection) {
       throw new Error('Not initialized');
     }
-
-    const raw = await this.reader.read(
+    this.logger.info("I am a test log2");
+    let raw = {}
+    try {
+     raw = await this.reader.read(
       `https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/backstage/labs-jackmaloney2-api.yaml`,
     );
+    } catch(err) {
+      console.log(err)
+      this.logger.error('Failed to fetch', err);
+    }
+    this.logger.info("I am a test log3 " + raw.toString());
     const data = JSON.parse(raw.toString());
+
+    this.logger.info("I am a test log4", data);
+    this.logger.info(data);
+    console.log(raw)
 
     /** [5] **/
     const entities: Entity[] = [];
