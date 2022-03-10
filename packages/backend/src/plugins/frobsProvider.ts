@@ -4,6 +4,7 @@ import {
   EntityProvider,
   EntityProviderConnection,
 } from '@backstage/plugin-catalog-backend';
+import { Logger } from 'winston';
 
 /**
  * Provides entities from fictional frobs service.
@@ -35,7 +36,7 @@ export class FrobsProvider implements EntityProvider {
 
   /** [4] **/
   async run(): Promise<void> {
-    logger.info("I am a test log3");
+    this.logger.info("I am a test log3");
 
     if (!this.connection) {
       throw new Error('Not initialized');
@@ -47,7 +48,7 @@ export class FrobsProvider implements EntityProvider {
     const data = JSON.parse(raw.toString());
 
     /** [5] **/
-    const entities: Entity[] = frobsToEntities(data);
+    const entities: Entity[] = [];
 
     /** [6] **/
     await this.connection.applyMutation({
