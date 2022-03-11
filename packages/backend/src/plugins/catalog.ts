@@ -8,14 +8,14 @@ import { Router } from 'express';
 import { MicrosoftGraphOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-msgraph';
 import { PluginEnvironment } from '../types';
 import { Duration } from 'luxon';
-import { CatalogProvider } from './catalogProvider';
+import { ApiCatalogProvider } from './apiCatalogProvider';
 
 export default async function createPlugin(
   env: PluginEnvironment,
 ): Promise<Router> {
   const builder = await CatalogBuilder.create(env);
 
-  const provider = new CatalogProvider(env.config, 'production', env.reader, env.logger);
+  const provider = new ApiCatalogProvider(env.config, 'production', env.reader, env.logger);
   builder.addEntityProvider(provider);
 
   const msGraphOrgEntityProvider = MicrosoftGraphOrgEntityProvider.fromConfig(
@@ -39,7 +39,7 @@ export default async function createPlugin(
   await processingEngine.start();
 
   await env.scheduler.scheduleTask({
-        id: 'run_catalog_provider_refresh',
+        id: 'run_api_catalog_provider_refresh',
         fn: async () => { await provider.run(); },
         frequency: Duration.fromObject({ minutes: 1 }),
         timeout: Duration.fromObject({ minutes: 2 }),

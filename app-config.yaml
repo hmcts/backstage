@@ -110,11 +110,28 @@ catalog:
 
   locations:
     - type: url
+      target: https://github.com/hmcts/template-expressjs/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-spring-boot/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-java-client/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+    - type: url
+      target: https://github.com/hmcts/template-product-infrastructure/blob/master/template.yaml
+      rules:
+        - allow: [ Template ]
+
+  apis:
+    - type: url
       target: https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/backstage/labs-jackmaloney2-api.yaml
     - type: url
       target: https://raw.githubusercontent.com/timja-org/backstage-manifests/master/api.yaml
-    - type: url
-      target: https://raw.githubusercontent.com/hmcts/labs-jackmaloney2/master/catalog-info.yaml
+
 
 scaffolder:
 # Use to customize default commit author info used when new components are created

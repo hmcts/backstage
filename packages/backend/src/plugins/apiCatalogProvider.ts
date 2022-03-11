@@ -10,9 +10,9 @@ import { locationSpecToLocationEntity } from '../util/conversion';
 import { getEntityLocationRef } from '../processing/util';
 
 /**
- * Provides entities to update swagger documentation.
+ * Provides entities to update API Swagger documentation.
  */
-export class CatalogProvider implements EntityProvider {
+export class ApiCatalogProvider implements EntityProvider {
   private readonly env: string;
   private readonly config: Config;
   private readonly reader: UrlReader;
@@ -27,7 +27,7 @@ export class CatalogProvider implements EntityProvider {
   }
 
   getProviderName(): string {
-    return `CatalogProvider`;
+    return `ApiCatalogProvider`;
   }
 
   async connect(connection: EntityProviderConnection): Promise<void> {
@@ -35,7 +35,7 @@ export class CatalogProvider implements EntityProvider {
   }
 
   async run(): Promise<void> {
-    this.logger.info("About to refresh Catalog list and APIs");
+    this.logger.info("About to refresh API catalog");
 
     const entities = this.getEntitiesFromConfig();
 
@@ -44,11 +44,11 @@ export class CatalogProvider implements EntityProvider {
       entities,
     });
 
-    this.logger.info("Catalog list and APIs updated ");
+    this.logger.info("API catalog updated");
   }
 
   private getEntitiesFromConfig() {
-    const locationConfigs = this.config.getOptionalConfigArray('catalog.locations') ?? [];
+    const locationConfigs = this.config.getOptionalConfigArray('catalog.apis') ?? [];
 
       return locationConfigs.map(location => {
         const type = location.getString('type');
