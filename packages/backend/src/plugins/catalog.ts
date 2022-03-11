@@ -41,7 +41,7 @@ export default async function createPlugin(
   await env.scheduler.scheduleTask({
         id: 'run_api_catalog_provider_refresh',
         fn: async () => { await provider.run(); },
-        frequency: Duration.fromObject({ minutes: 1 }),
+        frequency: Duration.fromObject({ minutes: 30 }),
         timeout: Duration.fromObject({ minutes: 2 }),
       });
 
