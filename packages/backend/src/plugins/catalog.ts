@@ -15,7 +15,7 @@ export default async function createPlugin(
 ): Promise<Router> {
   const builder = await CatalogBuilder.create(env);
 
-  const provider = new ApiCatalogProvider(env.config, 'production', env.reader, env.logger);
+  const provider = new ApiCatalogProvider(env.config, env.logger);
   builder.addEntityProvider(provider);
 
   const msGraphOrgEntityProvider = MicrosoftGraphOrgEntityProvider.fromConfig(

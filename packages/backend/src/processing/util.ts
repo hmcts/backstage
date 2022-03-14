@@ -25,9 +25,6 @@ import {
 } from '@backstage/catalog-model';
 import { JsonObject, JsonValue } from '@backstage/types';
 import { InputError } from '@backstage/errors';
-import { ScmIntegrationRegistry } from '@backstage/integration';
-import path from 'path';
-import { LocationSpec } from '../api';
 
 export function isLocationEntity(entity: Entity): entity is LocationEntity {
   return entity.kind === 'Location';
@@ -53,30 +50,6 @@ export function getEntityOriginLocationRef(entity: Entity): string {
     );
   }
   return ref;
-}
-
-export function toAbsoluteUrl(
-  integrations: ScmIntegrationRegistry,
-  base: LocationSpec,
-  type: string,
-  target: string,
-): string {
-  if (base.type !== type) {
-    return target;
-  }
-  try {
-    if (type === 'file') {
-      if (target.startsWith('.')) {
-        return path.join(path.dirname(base.target), target);
-      }
-      return target;
-    } else if (type === 'url') {
-      return integrations.resolveUrl({ url: target, base: base.target });
-    }
-    return target;
-  } catch (e) {
-    return target;
-  }
 }
 
 export function isObject(value: JsonValue | undefined): value is JsonObject {
