@@ -1727,31 +1727,6 @@
     node-fetch "^2.6.7"
     winston "^3.2.1"
 
-"@backstage/plugin-azure-devops-common@^0.2.2":
-  version "0.2.2"
-  resolved "https://registry.npmjs.org/@backstage/plugin-azure-devops-common/-/plugin-azure-devops-common-0.2.2.tgz#afc8028e6aea3be20bb13686bdd03f487742e580"
-  integrity sha512-orJFxvh3GcCiCUAFDwkOEES1DIsNfWuQKTMfkpfNjZVSraBrW2r/vg2t+DRAPYrW9uC1CDjP2HLNS95mlb9/Ww==
-
-"@backstage/plugin-azure-devops@^0.1.17":
-  version "0.1.17"
-  resolved "https://registry.npmjs.org/@backstage/plugin-azure-devops/-/plugin-azure-devops-0.1.17.tgz#a8a486c56a5e0a42962dd26b0af517ab914ef02c"
-  integrity sha512-Z/N/zPnIu83f7qTn8OtlbEuWBmepZ3PkFs+EaszpuUodyHgvszJeF3MYRxYd5Gi3sHyBqY5qHC7/QPYP2RhvkQ==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/errors" "^0.2.2"
-    "@backstage/plugin-azure-devops-common" "^0.2.2"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@backstage/theme" "^0.2.15"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    humanize-duration "^3.27.0"
-    luxon "^2.0.2"
-    react-router "6.0.0-beta.0"
-    react-use "^17.2.4"
-
 "@backstage/plugin-badges-backend@^0.1.22":
   version "0.1.22"
   resolved "https://registry.npmjs.org/@backstage/plugin-badges-backend/-/plugin-badges-backend-0.1.22.tgz#1717284b160d97a14a4b18247fdda9385aa04883"
@@ -1968,46 +1943,6 @@
     react-use "^17.2.4"
     zen-observable "^0.8.15"
 
-"@backstage/plugin-circleci@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/@backstage/plugin-circleci/-/plugin-circleci-0.3.1.tgz#8e993d3c1f6e6437ec5a585c830d27444dc27fff"
-  integrity sha512-y71DcWkjh9ZnkNd5L1K81Z9YC4ShOfS7VW8Urxxr/jBmN4i4fnIio3CgyDDcZoYLjLNalMivRuguwsUIOJRtdA==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@backstage/theme" "^0.2.15"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    circleci-api "^4.0.0"
-    humanize-duration "^3.27.0"
-    lodash "^4.17.21"
-    luxon "^2.0.2"
-    react-router "6.0.0-beta.0"
-    react-router-dom "6.0.0-beta.0"
-    react-use "^17.2.4"
-
-"@backstage/plugin-cloudbuild@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/@backstage/plugin-cloudbuild/-/plugin-cloudbuild-0.3.1.tgz#3b032b5b0fa2afa93d48d83c8a338e34699379f0"
-  integrity sha512-rfGiYEUe9Uqz8pKYlr+V/xs+r4JUjmUEn1Z6vSblK5wWSNgtaWv+VtgsVOBHQCEARSWrve5ZRnsyBn9Zje3JUw==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@backstage/theme" "^0.2.15"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    luxon "^2.0.2"
-    qs "^6.9.4"
-    react-router "6.0.0-beta.0"
-    react-router-dom "6.0.0-beta.0"
-    react-use "^17.2.4"
-
 "@backstage/plugin-code-coverage-backend@^0.1.26":
   version "0.1.26"
   resolved "https://registry.npmjs.org/@backstage/plugin-code-coverage-backend/-/plugin-code-coverage-backend-0.1.26.tgz#6b6efe617bcad1586f8114a3672e734a34e12100"
@@ -2214,38 +2149,6 @@
     react-router-dom "6.0.0-beta.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-lighthouse@^0.3.1":
-  version "0.3.1"
-  resolved "https://registry.npmjs.org/@backstage/plugin-lighthouse/-/plugin-lighthouse-0.3.1.tgz#9a17624a476ebd8c67ad45bf1f169a271b793818"
-  integrity sha512-KUh3/gTFOMBakBLrpu8/d/UbUYV6nRBAB7MEH5NAGAh+6PKmQV/6EsPhGRyVyPMgraiUwQQO56EmY7gr05k8yw==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/config" "^0.1.15"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@backstage/theme" "^0.2.15"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    react-router-dom "6.0.0-beta.0"
-    react-use "^17.2.4"
-
-"@backstage/plugin-newrelic-dashboard@^0.1.9":
-  version "0.1.9"
-  resolved "https://registry.npmjs.org/@backstage/plugin-newrelic-dashboard/-/plugin-newrelic-dashboard-0.1.9.tgz#7487b3f693777627a440f5908689c2263964e863"
-  integrity sha512-aY64QZ2O9jCtMy7E4GMcEtSVULX3eELLXrtGsgyq3sA4AMCwn9tQyqfUWb7l2Y3XO4xolVjPTl6swHaeWFCujg==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/errors" "^0.2.2"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    react-use "^17.2.4"
-
 "@backstage/plugin-org@^0.5.1":
   version "0.5.1"
   resolved "https://registry.npmjs.org/@backstage/plugin-org/-/plugin-org-0.5.1.tgz#c8f2c2fdaf80b2d7d23fef116b1e6ff0ade5e714"
@@ -2380,25 +2283,6 @@
     node-fetch "^2.6.7"
     winston "^3.2.1"
     yn "^4.0.0"
-
-"@backstage/plugin-rollbar@^0.4.1":
-  version "0.4.1"
-  resolved "https://registry.npmjs.org/@backstage/plugin-rollbar/-/plugin-rollbar-0.4.1.tgz#09887e84cae6ea24d5f0b38be228e2fe70e992ae"
-  integrity sha512-H0qlKowo9oDgLxOSc7mb27dmytiSzTyUCKxIMFc3qC7i5Vi802U8gZRjANgAhMfI+GdZXCmO78NATzYcUFs0RA==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@backstage/theme" "^0.2.15"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    lodash "^4.17.21"
-    react-router "6.0.0-beta.0"
-    react-router-dom "6.0.0-beta.0"
-    react-sparklines "^1.7.0"
-    react-use "^17.2.4"
 
 "@backstage/plugin-scaffolder-backend-module-cookiecutter@^0.2.3":
   version "0.2.3"
@@ -2852,7 +2736,7 @@
     react-router-dom "6.0.0-beta.0"
     zen-observable "^0.8.15"
 
-"@backstage/theme@^0.2.15", "@backstage/theme@^0.2.6", "@backstage/theme@^0.2.7", "@backstage/theme@^0.2.9":
+"@backstage/theme@^0.2.15", "@backstage/theme@^0.2.7":
   version "0.2.15"
   resolved "https://registry.npmjs.org/@backstage/theme/-/theme-0.2.15.tgz#478491c9bca9dca85d5af08767ba512eabcd3669"
   integrity sha512-Srl5q0X47tFofw6wuElkUqtlbYSfA3J3zlfN6jcQF4801mTrFRw+pVxZmrdxayt4gUzCN+me3mO7tij6F6xQUQ==
@@ -4414,7 +4298,7 @@
     react-double-scrollbar "0.0.15"
     uuid "^3.4.0"
 
-"@material-ui/core@^4.11.0", "@material-ui/core@^4.11.3", "@material-ui/core@^4.12.1", "@material-ui/core@^4.12.2":
+"@material-ui/core@^4.11.0", "@material-ui/core@^4.12.2":
   version "4.12.3"
   resolved "https://registry.npmjs.org/@material-ui/core/-/core-4.12.3.tgz#80d665caf0f1f034e52355c5450c0e38b099d3ca"
   integrity sha512-sdpgI/PL56QVsEJldwEe4FFaFTLUqN+rd7sSZiRCdx2E/C7z5yK0y/khAWVBH24tXwto7I1hCzNWfJGZIYJKnw==
@@ -4974,25 +4858,6 @@
   resolved "https://registry.npmjs.org/@rjsf/material-ui/-/material-ui-3.2.1.tgz#84fbf322485aee3a84101e189161f0687779ec8d"
   integrity sha512-8UiDeDbjCImFSfOegGu13otQ7OdP9FOYpcLjeouppnhs+MPeIEAtYS+jCcBKmi3reyTagC15/KVSRhde1wS1vg==
 
-"@roadiehq/backstage-plugin-buildkite@^1.3.8":
-  version "1.3.12"
-  resolved "https://registry.npmjs.org/@roadiehq/backstage-plugin-buildkite/-/backstage-plugin-buildkite-1.3.12.tgz#00f2c049f80a4702be1e8493d07cd96d2e899f10"
-  integrity sha512-mD8EG6vl0++lNRM+U47veEtXUueLGoqTmGI0ub2dIUpAuV5TL63Kp1KCtibS9QVs6xD+mwAzqQ326dWVQzPMdw==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@backstage/theme" "^0.2.6"
-    "@material-ui/core" "^4.12.1"
-    "@material-ui/icons" "^4.11.2"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    history "^5.0.0"
-    moment "^2.29.1"
-    react-router "6.0.0-beta.0"
-    react-router-dom "6.0.0-beta.0"
-    react-use "^17.2.4"
-
 "@roadiehq/backstage-plugin-github-insights@^1.5.0":
   version "1.5.4"
   resolved "https://registry.npmjs.org/@roadiehq/backstage-plugin-github-insights/-/backstage-plugin-github-insights-1.5.4.tgz#c86c6403f89299ab0d3548ea9cb5a074dc76ed8e"
@@ -5036,27 +4901,6 @@
     moment "^2.27.0"
     node-fetch "^2.6.1"
     react-router "6.0.0-beta.0"
-    react-use "^17.2.4"
-
-"@roadiehq/backstage-plugin-travis-ci@^1.3.6":
-  version "1.3.10"
-  resolved "https://registry.npmjs.org/@roadiehq/backstage-plugin-travis-ci/-/backstage-plugin-travis-ci-1.3.10.tgz#783d157f11acce05b62ecca04fbd12035ed1036a"
-  integrity sha512-uW9/SE16uG/X68f5lLazR4pK18eWPmExF05d2inPUCaG/3gI2wRzOAgT4PB/sYp7YxCewm9sycw+ECGgsurrPw==
-  dependencies:
-    "@backstage/catalog-model" "^0.12.0"
-    "@backstage/core-components" "^0.9.0"
-    "@backstage/core-plugin-api" "^0.8.0"
-    "@backstage/plugin-catalog-react" "^0.8.0"
-    "@backstage/theme" "^0.2.9"
-    "@material-ui/core" "^4.11.3"
-    "@material-ui/icons" "^4.11.2"
-    "@material-ui/lab" "4.0.0-alpha.57"
-    cross-fetch "^3.1.3"
-    date-fns "^2.18.0"
-    history "^5.0.0"
-    moment "^2.29.1"
-    react-router "6.0.0-beta.0"
-    react-router-dom "6.0.0-beta.0"
     react-use "^17.2.4"
 
 "@rollup/plugin-commonjs@^21.0.1":
@@ -7859,13 +7703,6 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-circleci-api@^4.0.0:
-  version "4.1.4"
-  resolved "https://registry.npmjs.org/circleci-api/-/circleci-api-4.1.4.tgz#6880a28eb021879d81789b50996640dc6373c5ad"
-  integrity sha512-49F0P2mhmfqYzJR/V4+oM+1SfI/VjKPcurvkzuuawNqgW5Eo00ZufgpHgdT+qRrvRymk6yt45bWOIP/f0FKhJA==
-  dependencies:
-    axios "^0.21.1"
-
 cjs-module-lexer@^0.6.0:
   version "0.6.0"
   resolved "https://registry.npmjs.org/cjs-module-lexer/-/cjs-module-lexer-0.6.0.tgz#4186fcca0eae175970aee870b9fe2d6cf8d5655f"
@@ -8618,7 +8455,7 @@ cross-env@^7.0.0:
   dependencies:
     cross-spawn "^7.0.1"
 
-cross-fetch@^3.1.3, cross-fetch@^3.1.5:
+cross-fetch@^3.1.5:
   version "3.1.5"
   resolved "https://registry.npmjs.org/cross-fetch/-/cross-fetch-3.1.5.tgz#e1389f44d9e7ba767907f7af8454787952ab534f"
   integrity sha512-lvb1SBsI0Z7GDwmuid+mU3kWVBwTVUbe7S0H52yaaAdQOXq2YktTCZdlAcNKFzE6QtRz0snpw9bNiPeOIkkQvw==
@@ -9120,7 +8957,7 @@ date-and-time@^2.0.0:
   resolved "https://registry.npmjs.org/date-and-time/-/date-and-time-2.2.1.tgz#70691b7d8a17633f3abe32aab148e194f9f2e215"
   integrity sha512-i5lrLPmRbdtb9/Tcu+NWWvff29ejNZtnL/6TI5VbhuPtqgea7bovY0F2AtFSX9QDQEQLUtqJ3R8ypM2c6alGoA==
 
-date-fns@^2.16.1, date-fns@^2.18.0:
+date-fns@^2.16.1:
   version "2.28.0"
   resolved "https://registry.npmjs.org/date-fns/-/date-fns-2.28.0.tgz#9570d656f5fc13143e50c975a3b6bbeb46cd08b2"
   integrity sha512-8d35hViGYx/QH0icHYCeLmsLmMUheMmTyV9Fcm6gvNwdw31yXXH+O85sOBJ+OLnLQMKZowvpKb6FgMIQjcpvQw==
@@ -11981,7 +11818,7 @@ human-signals@^2.1.0:
   resolved "https://registry.npmjs.org/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha512-B4FFZ6q/T2jhhksgkbEW3HBvWIfDW85snkQgawt07S7J5QXTk6BkNV+0yAeZrM5QpMAdYlocGoljn0sJ/WQkFw==
 
-humanize-duration@^3.25.1, humanize-duration@^3.27.0:
+humanize-duration@^3.25.1:
   version "3.27.1"
   resolved "https://registry.npmjs.org/humanize-duration/-/humanize-duration-3.27.1.tgz#2cd4ea4b03bd92184aee6d90d77a8f3d7628df69"
   integrity sha512-jCVkMl+EaM80rrMrAPl96SGG4NRac53UyI1o/yAzebDntEY6K6/Fj2HOjdPg8omTqIe5Y0wPBai2q5xXrIbarA==
@@ -14339,9 +14176,9 @@ lunr@^2.3.9:
   resolved "https://registry.npmjs.org/lunr/-/lunr-2.3.9.tgz#18b123142832337dd6e964df1a5a7707b25d35e1"
   integrity sha512-zTU3DaZaF3Rt9rhN3uBMGQD3dD2/vFQqnvZCDv4dl5iOzq2IZQqTxu90r4E5J+nP70J3ilqVCrbho2eWaeW8Ow==
 
-luxon@^2.0.2:
+luxon@^2.0.2, luxon@^2.3.1:
   version "2.3.1"
-  resolved "https://registry.npmjs.org/luxon/-/luxon-2.3.1.tgz#f276b1b53fd9a740a60e666a541a7f6dbed4155a"
+  resolved "https://registry.yarnpkg.com/luxon/-/luxon-2.3.1.tgz#f276b1b53fd9a740a60e666a541a7f6dbed4155a"
   integrity sha512-I8vnjOmhXsMSlNMZlMkSOvgrxKJl0uOsEzdGgGNZuZPaS9KlefpE9KV95QFftlJSC+1UyCC9/I69R02cz/zcCA==
 
 lz-string@^1.4.4:
@@ -15250,7 +15087,7 @@ moment-timezone@^0.5.31:
   dependencies:
     moment ">= 2.9.0"
 
-"moment@>= 2.9.0", moment@^2.27.0, moment@^2.29.1:
+"moment@>= 2.9.0", moment@^2.27.0:
   version "2.29.1"
   resolved "https://registry.npmjs.org/moment/-/moment-2.29.1.tgz#b2be769fa31940be9eeea6469c075e35006fa3d3"
   integrity sha512-kHmoybcPV8Sqy59DwNDY3Jefr64lK/by/da0ViFcuA4DH0vQg5Q6Ze5VimxkfQNSC+Mls/Kx53s7TjP1RhFEDQ==
