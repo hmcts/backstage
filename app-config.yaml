@@ -131,6 +131,36 @@ catalog:
       target: https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/backstage/labs-jackmaloney2-api.yaml
     - type: url
       target: https://raw.githubusercontent.com/timja-org/backstage-manifests/master/api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/ccd-definition-store-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/bulk-scan-orchestrator-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/bulk-scan-processor-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/ccd-data-store-api.v1_external.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/ccd-data-store-api.v1_internal.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/ccd-user-profile-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/hmc-hmi-inbound-adapter-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/rd-caseworker-ref-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/rd-commondata-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/rd-judicial-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/rd-location-ref-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/rd-professional-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/rd-user-profile-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/wa-task-management-api.yaml
+    - type: url
+      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/backstage-test/docs/backstage/wa-workflow-api.yaml
 
 
 scaffolder:
