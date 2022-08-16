@@ -21,7 +21,7 @@
     "@backstage/config": "^0.1.15",
     "@backstage/errors": "^0.2.2",
     "@backstage/integration": "^0.8.0",
-    "@backstage/plugin-app-backend": "^0.3.28",
+    "@backstage/plugin-app-backend": "0.3.35",
     "@backstage/plugin-auth-backend": "^0.12.0",
     "@backstage/plugin-auth-node": "^0.1.4",
     "@backstage/plugin-badges-backend": "^0.1.22",
