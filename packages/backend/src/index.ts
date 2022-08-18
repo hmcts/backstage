@@ -106,9 +106,9 @@ async function main() {
   apiRouter.use(notFoundHandler());
 
   const service = createServiceBuilder(module)
-    .loadConfig(config)
-    .addRouter('/api', apiRouter)
-    .addRouter('', await app(appEnv));
+      .loadConfig(config)
+      .addRouter('/api', apiRouter)
+      .addRouter('', await app(appEnv));
 
   await service.start().catch(err => {
     console.log(err);
@@ -118,6 +118,6 @@ async function main() {
 
 module.hot?.accept();
 main().catch(error => {
-  console.error(`Backend failed to start up, ${error}`);
+  console.error('Backend failed to start up', error);
   process.exit(1);
 });
