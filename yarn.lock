@@ -3134,6 +3134,11 @@
   resolved "https://registry.yarnpkg.com/@backstage/version-bridge/-/version-bridge-1.0.1.tgz#719082a88d33e0a35a2bafec648cc63069da20f7"
   integrity sha512-UZvcmONji6iFHfxUU+hM/Wd1N65K+adFrjifZ7JyfdZnQgo3C2D8YE+j34i/yd0MCjGs/TjaixtF9Jb3viDXow==
 
+"@balena/dockerignore@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@balena/dockerignore/-/dockerignore-1.0.2.tgz#9ffe4726915251e8eb69f44ef3547e0da2c03e0d"
+  integrity sha512-wMue2Sy4GAVTk6Ic4tJVcnfdau+gx2EnG7S+uAEe+TWJFqE4YoWN4/H8MSLj4eYJKxGg26lZwboEniNiNwZQ6Q==
+
 "@bcoe/v8-coverage@^0.2.3":
   version "0.2.3"
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
@@ -6450,7 +6455,7 @@
   resolved "https://registry.yarnpkg.com/@types/range-parser/-/range-parser-1.2.4.tgz#cd667bcfdd025213aafb7ca5915a932590acdcdc"
   integrity sha512-EEhsLsD6UsDM1yFhAvy0Cjr6VwmpMWqFBCb9w07wVugF7w9nfajxLuVmngTIpgS6svCnm6Vaw+MZhoDCKnOfsw==
 
-"@types/react-dom@*", "@types/react-dom@<18.0.0":
+"@types/react-dom@*", "@types/react-dom@<18.0.0", "@types/react-dom@^17":
   version "17.0.17"
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-17.0.17.tgz#2e3743277a793a96a99f1bf87614598289da68a1"
   integrity sha512-VjnqEmqGnasQKV0CWLevqMTXBYG9GbwuE6x3VetERLh0cq2LTptFE73MrQi2S7GkKXCf2GgwItB/melLnxfnsg==
@@ -7305,6 +7310,7 @@ apollo-server@^3.0.0:
     "@backstage/plugin-catalog-react" "^1.1.3"
     "@backstage/plugin-code-coverage" "^0.2.1"
     "@backstage/plugin-github-actions" "^0.5.1"
+    "@backstage/plugin-home" "^0.4.24"
     "@backstage/plugin-jenkins" "^0.7.0"
     "@backstage/plugin-kubernetes" "^0.7.1"
     "@backstage/plugin-org" "^0.5.1"
@@ -7312,9 +7318,11 @@ apollo-server@^3.0.0:
     "@backstage/plugin-permission-react" "^0.4.4"
     "@backstage/plugin-scaffolder" "^1.5.0"
     "@backstage/plugin-search" "^1.0.1"
+    "@backstage/plugin-search-react" "^1.0.1"
     "@backstage/plugin-tech-radar" "^0.5.8"
     "@backstage/plugin-techdocs" "^1.3.1"
     "@backstage/plugin-techdocs-module-addons-contrib" "^1.0.3"
+    "@backstage/plugin-techdocs-react" "^1.0.3"
     "@backstage/plugin-todo" "^0.2.3"
     "@backstage/plugin-user-settings" "^0.4.0"
     "@backstage/theme" "^0.2.15"
@@ -9973,6 +9981,15 @@ docker-modem@^3.0.0:
     readable-stream "^3.5.0"
     split-ca "^1.0.1"
     ssh2 "^1.4.0"
+
+dockerode@3.3.4:
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/dockerode/-/dockerode-3.3.4.tgz#875de614a1be797279caa9fe27e5637cf0e40548"
+  integrity sha512-3EUwuXnCU+RUlQEheDjmBE0B7q66PV9Rw5NiH1sXwINq0M9c5ERP9fxgkw36ZHOtzf4AGEEYySnkx/sACC9EgQ==
+  dependencies:
+    "@balena/dockerignore" "^1.0.2"
+    docker-modem "^3.0.0"
+    tar-fs "~2.0.1"
 
 dockerode@^3.3.1:
   version "3.3.3"
