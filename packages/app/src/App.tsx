@@ -1,5 +1,5 @@
 import React from 'react';
-import {Navigate, Route} from 'react-router';
+import {Route} from 'react-router';
 import {apiDocsPlugin, ApiExplorerPage} from '@backstage/plugin-api-docs';
 import {
     CatalogEntityPage,
