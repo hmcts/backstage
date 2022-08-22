@@ -8,3 +8,7 @@ To start the app, run:
 yarn install
 yarn dev
 ```
+
+## Try it out
+
+Try it out at https://backstage.platform.hmcts.net
