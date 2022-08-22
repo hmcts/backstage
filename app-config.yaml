@@ -252,5 +252,5 @@ jenkins:
   instances:
     - name: cft
       baseUrl: http://localhost:8080
-      username: ${JENKINS_USERNAME}
-      apiKey: ${JENKINS_API_KEY}
+      username: ${JENKINS_CFT_USERNAME}
+      apiKey: ${JENKINS_CFT_API_KEY}
