@@ -4,7 +4,6 @@ import {
     HomePageCompanyLogo,
     HomePageStarredEntities,
     TemplateBackstageLogo,
-    TemplateBackstageLogoIcon
 } from '@backstage/plugin-home';
 
 import { Content, Page } from '@backstage/core-components';
@@ -13,6 +12,10 @@ import {
 } from '@backstage/plugin-search';
 import { SearchContextProvider } from '@backstage/plugin-search-react';
 import { Grid, makeStyles } from '@material-ui/core';
+import {JenkinsLogo} from "./JenkinsLogo";
+import {SlackLogo} from "./SlackLogo";
+import {VPNLogo} from "./VPNIcon";
+import {PlatformDocsLogo} from "./PlatformDocsLogo";
 
 const useStyles = makeStyles(theme => ({
     searchBar: {
@@ -46,18 +49,28 @@ export const HomePage = () => {
     const links = [
         {
             url: 'https://hmcts.github.io',
-            label: 'Platform',
-            icon: <TemplateBackstageLogoIcon />,
+            label: 'Platform docs',
+            icon: <PlatformDocsLogo />,
         },
         {
             url: 'https://hmcts-reform.slack.com',
             label: 'Slack',
-            icon: <TemplateBackstageLogoIcon />,
+            icon: <SlackLogo />,
         },
         {
             url: 'https://portal.platform.hmcts.net',
             label: 'VPN',
-            icon: <TemplateBackstageLogoIcon />,
+            icon: <VPNLogo />,
+        },
+        {
+            url: 'https://sds-build.platform.hmcts.net',
+            label: 'SDS Jenkins',
+            icon: <JenkinsLogo />,
+        },
+        {
+            url: 'https://build.platform.hmcts.net',
+            label: 'CFT Jenkins',
+            icon: <JenkinsLogo />,
         },
     ]
 
