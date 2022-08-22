@@ -29,6 +29,9 @@ backend:
   baseUrl: http://localhost:7007
   listen:
     port: 7007
+    # Uncomment the following host directive to bind to all IPv4 interfaces and
+    # not just the baseUrl hostname.
+    # host: 0.0.0.0
   database:
     client: pg
     connection:
@@ -44,7 +47,7 @@ backend:
     store: memory
   cors:
     origin: http://localhost:3000
-    methods: [GET, POST, PUT, DELETE]
+    methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
   csp:
     connect-src: ["'self'", 'http:', 'https:']
@@ -54,14 +57,6 @@ backend:
     allow:
       - host: raw.githubusercontent.com
   # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
-
-# See README.md in the proxy-backend plugin for information on the configuration format
-proxy:
-  '/jenkins/api':
-    target: http://localhost:8080
-    headers:
-      Authorization: ${JENKINS_BASIC_AUTH_HEADER}
-
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -78,9 +73,12 @@ techdocs:
 
 integrations:
   github:
+    # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+    # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
     - host: github.com
       token: ${GITHUB_TOKEN}
 
+# see https://backstage.io/docs/features/software-templates/configuration for software template options
 catalog:
   import:
     entityFilename: catalog-info.yaml
@@ -97,16 +95,52 @@ catalog:
         - Domain
         - Location
 
-  processors:
+
+  providers:
     microsoftGraphOrg:
-      providers:
-        - target: https://graph.microsoft.com/v1.0
-          authority: https://login.microsoftonline.com
-          tenantId: ${AUTH_MICROSOFT_TENANT_ID}
-          clientId: ${AUTH_MICROSOFT_CLIENT_ID}
-          clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
-          userFilter: accountEnabled eq true
-          groupFilter: securityEnabled eq true
+      default:
+        target: https://graph.microsoft.com/v1.0
+        # If you don't know you tenantId, you can use Microsoft Graph Explorer
+        # to query it
+        tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+        # Optional ClientId and ClientSecret if you don't want to use `DefaultAzureCredential`
+        # for authentication
+        # Client Id and Secret can be created under Certificates & secrets in
+        # the App registration in the Microsoft Azure Portal.
+        clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+        clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
+        # Optional mode for querying which defaults to "basic".
+        # By default, the Microsoft Graph API only provides the basic feature set
+        # for querying. Certain features are limited to advanced querying capabilities.
+        # (See https://docs.microsoft.com/en-us/graph/aad-advanced-queries)
+        queryMode: basic # basic | advanced
+        # Optional configuration block
+        user:
+          # Optional parameter to include the expanded resource or collection referenced
+          # by a single relationship (navigation property) in your results.
+          # Only one relationship can be expanded in a single request.
+          # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
+          # Can be combined with userGroupMember[...] instead of userFilter.
+          expand: manager
+          # Optional filter for user, see Microsoft Graph API for the syntax
+          # See https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
+          # and for the syntax https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter
+          # This and userGroupMemberFilter are mutually exclusive, only one can be specified
+          filter: accountEnabled eq true
+        group:
+          # Optional parameter to include the expanded resource or collection referenced
+          # by a single relationship (navigation property) in your results.
+          # Only one relationship can be expanded in a single request.
+          # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
+          # Can be combined with userGroupMember[...] instead of userFilter.
+          expand: member
+          # Optional filter for group, see Microsoft Graph API for the syntax
+          # See https://docs.microsoft.com/en-us/graph/api/resources/group?view=graph-rest-1.0#properties
+          filter: securityEnabled eq true
+          # Optional select for groups, this will allow you work with schemaExtensions
+          # in order to add extra information to your groups that can be used on you custom groupTransformers
+          # See  https://docs.microsoft.com/en-us/graph/api/resources/schemaextension?view=graph-rest-1.0
+          select: ['id', 'displayName', 'description']
 
   locations:
     - type: url
@@ -218,5 +252,5 @@ jenkins:
   instances:
     - name: cft
       baseUrl: http://localhost:8080
-      username: ${JENKINS_USERNAME}
-      apiKey: ${JENKINS_API_KEY}
+      username: ${JENKINS_CFT_USERNAME}
+      apiKey: ${JENKINS_CFT_API_KEY}
