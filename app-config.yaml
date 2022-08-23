@@ -97,6 +97,10 @@ catalog:
 
 
   providers:
+    github:
+      default:
+        organization: 'hmcts' # string
+        catalogPath: '/catalog-info.yaml' # string
     microsoftGraphOrg:
       default:
         target: https://graph.microsoft.com/v1.0
@@ -166,6 +170,8 @@ catalog:
     - type: url
       target: https://raw.githubusercontent.com/timja-org/backstage-manifests/master/api.yaml
 
+search:
+  pg:
 
 scaffolder:
 # Use to customize default commit author info used when new components are created
