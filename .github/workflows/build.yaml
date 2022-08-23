@@ -47,6 +47,8 @@ jobs:
       - name: yarn install
         run: yarn install --frozen-lockfile
       # End of yarn setup
+      - name: setup dummy credentials file
+        run: touch github-app-backstage-hmcts-credentials.yaml
 
       - name: lint
         run: yarn lerna -- run lint

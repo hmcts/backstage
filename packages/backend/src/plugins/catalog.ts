@@ -7,11 +7,22 @@ import { MicrosoftGraphOrgEntityProvider } from '@backstage/plugin-catalog-backe
 import { PluginEnvironment } from '../types';
 import { Duration } from 'luxon';
 import { ApiCatalogProvider } from './apiCatalogProvider';
+import { GitHubEntityProvider } from '@backstage/plugin-catalog-backend-module-github';
 
 export default async function createPlugin(
   env: PluginEnvironment,
 ): Promise<Router> {
   const builder = await CatalogBuilder.create(env);
+
+    builder.addEntityProvider(
+        GitHubEntityProvider.fromConfig(env.config, {
+            logger: env.logger,
+            schedule: env.scheduler.createScheduledTaskRunner({
+                frequency: {hours: 3},
+                timeout: {minutes: 60},
+            }),
+        }),
+    );
 
     builder.addEntityProvider(
         MicrosoftGraphOrgEntityProvider.fromConfig(env.config, {

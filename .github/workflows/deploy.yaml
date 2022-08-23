@@ -46,6 +46,8 @@ jobs:
       - name: yarn install
         run: yarn install --frozen-lockfile
       # End of yarn setup
+      - name: setup dummy credentials file
+        run: touch github-app-backstage-hmcts-credentials.yaml
 
       - name: type checking and declarations
         run: yarn tsc --incremental false
@@ -59,6 +61,8 @@ jobs:
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
           echo "::set-output name=BUILD_ID::${sha}-${ts}"
+      - name: remove dummy credentials file
+        run: rm -f github-app-backstage-hmcts-credentials.yaml
 
       - name: 'Build and push image'
         uses: azure/docker-login@v1
