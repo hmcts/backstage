@@ -18,8 +18,9 @@ export default async function createPlugin(
         GitHubEntityProvider.fromConfig(env.config, {
             logger: env.logger,
             schedule: env.scheduler.createScheduledTaskRunner({
-                frequency: {hours: 3},
-                timeout: {minutes: 60},
+                frequency: {hours: 20},
+                timeout: {hours: 3},
+                initialDelay: {minutes: 2}
             }),
         }),
     );
