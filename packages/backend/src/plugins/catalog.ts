@@ -20,7 +20,7 @@ export default async function createPlugin(
             schedule: env.scheduler.createScheduledTaskRunner({
                 frequency: {hours: 20},
                 timeout: {hours: 3},
-                initialDelay: {minutes: 2}
+                initialDelay: {seconds: 5}
             }),
         }),
     );
@@ -46,8 +46,9 @@ export default async function createPlugin(
   await env.scheduler.scheduleTask({
         id: 'run_api_catalog_provider_refresh',
         fn: async () => { await provider.run(); },
-        frequency: Duration.fromObject({ minutes: 30 }),
-        timeout: Duration.fromObject({ minutes: 2 }),
+        frequency: Duration.fromObject({ hours: 3 }),
+        timeout: Duration.fromObject({ minutes: 3 }),
+        initialDelay: {minutes: 20}
       });
 
   return router;

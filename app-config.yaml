@@ -102,6 +102,9 @@ catalog:
       default:
         organization: 'hmcts' # string
         catalogPath: '/catalog-info.yaml' # string
+        filters:
+          topic:
+            include: ['backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds']
     microsoftGraphOrg:
       default:
         target: https://graph.microsoft.com/v1.0
@@ -258,6 +261,6 @@ homepage:
 jenkins:
   instances:
     - name: cft
-      baseUrl: http://localhost:8080
+      baseUrl: ${JENKINS_CFT_URL}
       username: ${JENKINS_CFT_USERNAME}
       apiKey: ${JENKINS_CFT_API_KEY}
