@@ -8479,10 +8479,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.18.25":
-  version: 14.18.25
-  resolution: "@types/node@npm:14.18.25"
-  checksum: 8d4e3fcf0e2c90d5a2da61f336b754455fa025a4705f55f8d1be1d19fcd32e7e3af9e04f08d497032cebc59f84ea8c0bb4431390100b1d799d4d0d2c5d501cca
+"@types/node@npm:14.18.29":
+  version: 14.18.29
+  resolution: "@types/node@npm:14.18.29"
+  checksum: 43481c1c066dd01578ff137f437a8a901f8fcd3cdc068c36047c444861ab4aac8a62fb4eb6d03738df02006336c90619bfc7860d4e5b259916956942d2e68e88
   languageName: node
   linkType: hard
 
@@ -9787,7 +9787,7 @@ __metadata:
     "@testing-library/jest-dom": 5.16.5
     "@testing-library/react": 10.4.9
     "@testing-library/user-event": 12.8.3
-    "@types/node": 14.18.25
+    "@types/node": 14.18.29
     "@types/react-dom": "*"
     cross-env: 7.0.3
     cypress: 9.7.0
