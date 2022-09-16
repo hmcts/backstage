@@ -26,7 +26,7 @@ export default async function createPlugin(
                   'Login failed, user profile does not contain an email',
               );
             }
-            // We again use the local part of the email as the user name.
+            // We again use the local part of the email as the username.
             const [localPart] = profile.email.split('@');
 
             // By using `stringifyEntityRef` we ensure that the reference is formatted correctly
