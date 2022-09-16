@@ -6867,19 +6867,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@octokit/rest@npm:18.12.0, @octokit/rest@npm:^18.1.0, @octokit/rest@npm:^18.5.3":
-  version: 18.12.0
-  resolution: "@octokit/rest@npm:18.12.0"
-  dependencies:
-    "@octokit/core": ^3.5.1
-    "@octokit/plugin-paginate-rest": ^2.16.8
-    "@octokit/plugin-request-log": ^1.0.4
-    "@octokit/plugin-rest-endpoint-methods": ^5.12.0
-  checksum: c18bd6676a60b66819b016b0f969fcd04d8dfa04d01b7af9af9a7410ff028c621c995185e29454c23c47906da506c1e01620711259989a964ebbfd9106f5b715
-  languageName: node
-  linkType: hard
-
-"@octokit/rest@npm:^19.0.3":
+"@octokit/rest@npm:19.0.4, @octokit/rest@npm:^19.0.3":
   version: 19.0.4
   resolution: "@octokit/rest@npm:19.0.4"
   dependencies:
@@ -6888,6 +6876,18 @@ __metadata:
     "@octokit/plugin-request-log": ^1.0.4
     "@octokit/plugin-rest-endpoint-methods": ^6.0.0
   checksum: 7eba9148b707c713705ba8d75c25fbb22488f30abef7967ce92884a51e411e709b90ff56b0e6fa5521b261f343a7fd33b8ad5d0b87cab4bc2e178002b2566cf2
+  languageName: node
+  linkType: hard
+
+"@octokit/rest@npm:^18.1.0, @octokit/rest@npm:^18.5.3":
+  version: 18.12.0
+  resolution: "@octokit/rest@npm:18.12.0"
+  dependencies:
+    "@octokit/core": ^3.5.1
+    "@octokit/plugin-paginate-rest": ^2.16.8
+    "@octokit/plugin-request-log": ^1.0.4
+    "@octokit/plugin-rest-endpoint-methods": ^5.12.0
+  checksum: c18bd6676a60b66819b016b0f969fcd04d8dfa04d01b7af9af9a7410ff028c621c995185e29454c23c47906da506c1e01620711259989a964ebbfd9106f5b715
   languageName: node
   linkType: hard
 
@@ -10449,7 +10449,7 @@ __metadata:
     "@backstage/plugin-todo-backend": ^0.1.33-next.2
     "@backstage/types": 1.0.0
     "@gitbeaker/node": 35.7.0
-    "@octokit/rest": 18.12.0
+    "@octokit/rest": 19.0.4
     "@types/dockerode": 3.3.9
     "@types/express": 4.17.13
     "@types/express-serve-static-core": 4.17.30
