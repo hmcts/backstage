@@ -10462,7 +10462,7 @@ __metadata:
     luxon: 2.5.0
     pg: 8.8.0
     pg-connection-string: 2.5.0
-    prom-client: 14.0.1
+    prom-client: 14.1.0
     winston: 3.8.2
   languageName: unknown
   linkType: soft
@@ -23189,7 +23189,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prom-client@npm:14.0.1, prom-client@npm:^14.0.1":
+"prom-client@npm:14.1.0":
+  version: 14.1.0
+  resolution: "prom-client@npm:14.1.0"
+  dependencies:
+    tdigest: ^0.1.1
+  checksum: 88f8e67020c0af07d09ab8f15caaa2a3d0810b01d903d0977d82947d3b0100a539db77bcccfde0bf2449a85060475f7fb05b64e7c34951c8a54b84240ae7ae81
+  languageName: node
+  linkType: hard
+
+"prom-client@npm:^14.0.1":
   version: 14.0.1
   resolution: "prom-client@npm:14.0.1"
   dependencies:
