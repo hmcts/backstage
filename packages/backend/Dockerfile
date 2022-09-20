@@ -22,6 +22,7 @@ RUN apt-get update -y && \
 # From here on we use the least-privileged `node` user to run the backend.
 USER node
 WORKDIR /app
+RUN chown node:node /app
 
 # This switches many Node.js dependencies to production mode.
 ENV NODE_ENV production
