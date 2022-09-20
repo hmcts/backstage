@@ -7340,12 +7340,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@spotify/prettier-config@npm:12.0.0":
-  version: 12.0.0
-  resolution: "@spotify/prettier-config@npm:12.0.0"
+"@spotify/prettier-config@npm:14.1.0":
+  version: 14.1.0
+  resolution: "@spotify/prettier-config@npm:14.1.0"
   peerDependencies:
     prettier: 2.x
-  checksum: 04732b96af895269bb8a988ba309e80bd7b87c785837e06f72ff938e8895c5a3a3211fa37b54c6a2b502e88587a437c2be3ccb486a84aff02c2f6fb4582a4a97
+  checksum: e3ab33524944bbf424b38ee1a22fae42442997f3288208b0933f1d9aa0db258540a188e7695be842c00cbda0321a335f74a171204f4b9d90a75187f303a92b17
   languageName: node
   linkType: hard
 
@@ -24891,7 +24891,7 @@ __metadata:
   resolution: "root@workspace:."
   dependencies:
     "@backstage/cli": 0.19.0-next.3
-    "@spotify/prettier-config": 12.0.0
+    "@spotify/prettier-config": 14.1.0
     concurrently: 6.5.1
     lerna: 5.5.1
     lint-staged: 12.5.0
