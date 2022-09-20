@@ -20,9 +20,9 @@ RUN apt-get update -y && \
   pip3 install mkdocs-techdocs-core
 
 # From here on we use the least-privileged `node` user to run the backend.
-USER node
 WORKDIR /app
 RUN chown node:node /app
+USER node
 
 # This switches many Node.js dependencies to production mode.
 ENV NODE_ENV production
