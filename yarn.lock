@@ -2000,6 +2000,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@backstage/cli-common@npm:^0.1.10":
+  version: 0.1.10
+  resolution: "@backstage/cli-common@npm:0.1.10"
+  checksum: 3a8182832011eefd1e0d087bc211ee9e6f467bc380dc6716343543f7bc6547adb867b437602057e4f196decaf34b68dc59353e9361a8f344b8fc2724b7b713f4
+  languageName: node
+  linkType: hard
+
 "@backstage/cli-common@npm:^0.1.10-next.0":
   version: 0.1.10-next.0
   resolution: "@backstage/cli-common@npm:0.1.10-next.0"
@@ -2007,15 +2014,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/cli@npm:0.19.0-next.3":
-  version: 0.19.0-next.3
-  resolution: "@backstage/cli@npm:0.19.0-next.3"
+"@backstage/cli@npm:0.19.0":
+  version: 0.19.0
+  resolution: "@backstage/cli@npm:0.19.0"
   dependencies:
-    "@backstage/cli-common": ^0.1.10-next.0
-    "@backstage/config": ^1.0.2-next.0
-    "@backstage/config-loader": ^1.1.4-next.2
-    "@backstage/errors": ^1.1.1-next.0
-    "@backstage/release-manifests": ^0.0.6-next.2
+    "@backstage/cli-common": ^0.1.10
+    "@backstage/config": ^1.0.2
+    "@backstage/config-loader": ^1.1.4
+    "@backstage/errors": ^1.1.1
+    "@backstage/release-manifests": ^0.0.6
     "@backstage/types": ^1.0.0
     "@manypkg/get-packages": ^1.1.3
     "@octokit/request": ^6.0.0
@@ -2115,7 +2122,30 @@ __metadata:
       optional: true
   bin:
     backstage-cli: bin/backstage-cli
-  checksum: dfeebcdaedf1063fce9d6d564fb0d0ca36f0686e6751b7a6b7b32cbc0fbe3f4ca4923bcf71e6de997b5a638168478f3fd128bb64c1203fa84048e39a438a64f2
+  checksum: ff8e4e94c640c1592923314b28d6c22f3fca68c23ea2859c8fac2e68a26983cfad4effc00924c04292e3d6888c0ce04b78550ec3467c1cbd09c4384a5b0af7b6
+  languageName: node
+  linkType: hard
+
+"@backstage/config-loader@npm:^1.1.4":
+  version: 1.1.4
+  resolution: "@backstage/config-loader@npm:1.1.4"
+  dependencies:
+    "@backstage/cli-common": ^0.1.10
+    "@backstage/config": ^1.0.2
+    "@backstage/errors": ^1.1.1
+    "@backstage/types": ^1.0.0
+    "@types/json-schema": ^7.0.6
+    ajv: ^8.10.0
+    chokidar: ^3.5.2
+    fs-extra: 10.1.0
+    json-schema: ^0.4.0
+    json-schema-merge-allof: ^0.8.1
+    json-schema-traverse: ^1.0.0
+    node-fetch: ^2.6.7
+    typescript-json-schema: ^0.54.0
+    yaml: ^2.0.0
+    yup: ^0.32.9
+  checksum: dbadcbaca4981fe58465d31bdc75c852c9c049bd0e86d10db4bc7d6d113dc90f95fcea1909caf4f5f5f5507d24a20469e8ac87d3f3015056e4841e49b28ccb8b
   languageName: node
   linkType: hard
 
@@ -2159,6 +2189,16 @@ __metadata:
     "@backstage/types": ^1.0.0
     lodash: ^4.17.21
   checksum: 08ec95a9ddbfc8410c949314c464c63c0723a0681e21607463495454d7b06a9e7884110874efe7a9f7a8c9c864eb20a528a7a407dba7da84516d47d929e7ebc3
+  languageName: node
+  linkType: hard
+
+"@backstage/config@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@backstage/config@npm:1.0.2"
+  dependencies:
+    "@backstage/types": ^1.0.0
+    lodash: ^4.17.21
+  checksum: 452c9fd47247974552bb8d53cfebcab120d37f60a209da74ec06b1408b1ae6464c8f61404d0d071eb7b70ece0aaa5462d02e9cc5713a21744795a8b9db3f80ce
   languageName: node
   linkType: hard
 
@@ -2340,6 +2380,17 @@ __metadata:
     cross-fetch: ^3.1.5
     serialize-error: ^8.0.1
   checksum: b21d35803ce1adf7c7d7219e02636340780dc7f007bdaa966f62120f3607548a5e7a557b364abf54da29081f30efe3df72c5bfefebde335c305034961c6ae620
+  languageName: node
+  linkType: hard
+
+"@backstage/errors@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@backstage/errors@npm:1.1.1"
+  dependencies:
+    "@backstage/types": ^1.0.0
+    cross-fetch: ^3.1.5
+    serialize-error: ^8.0.1
+  checksum: 8983eba72212a545bd3543d71f796b9836aacecfd85d6ac67a5a37da4af5566b8267533547ffc9caa01969c6c08a2197569626206aa84cb18fbfe4bf03ca8328
   languageName: node
   linkType: hard
 
@@ -3971,12 +4022,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/release-manifests@npm:^0.0.6-next.2":
-  version: 0.0.6-next.2
-  resolution: "@backstage/release-manifests@npm:0.0.6-next.2"
+"@backstage/release-manifests@npm:^0.0.6":
+  version: 0.0.6
+  resolution: "@backstage/release-manifests@npm:0.0.6"
   dependencies:
     cross-fetch: ^3.1.5
-  checksum: df2b3cce6fbea360361c97708e556bd80ac54398b76c69da54e391e20d838bb7bbd51d9851cbd696649a7b117d5b22d4587e166d4aaa1c525ebdbf77e72cc198
+  checksum: 9d6f0a2d5d6004f7f2c08938b84d55e0b54f45e83b1d93a3293b5702ad3709ad490794b46c10951a407f42525977ae1665db2eacd2fae8cf58a991b5e76996b2
   languageName: node
   linkType: hard
 
@@ -9691,7 +9742,7 @@ __metadata:
   dependencies:
     "@backstage/app-defaults": 1.0.6-next.2
     "@backstage/catalog-model": 1.1.1-next.0
-    "@backstage/cli": 0.19.0-next.3
+    "@backstage/cli": 0.19.0
     "@backstage/core-app-api": 1.1.0-next.3
     "@backstage/core-components": 0.11.1-next.3
     "@backstage/core-plugin-api": 1.0.6-next.3
@@ -10340,7 +10391,7 @@ __metadata:
     "@backstage/backend-tasks": 0.3.5-next.1
     "@backstage/catalog-client": 1.1.0-next.2
     "@backstage/catalog-model": 1.1.1-next.0
-    "@backstage/cli": 0.19.0-next.3
+    "@backstage/cli": 0.19.0
     "@backstage/config": 1.0.2-next.0
     "@backstage/errors": 1.1.1-next.0
     "@backstage/integration": 1.3.1-next.2
@@ -24890,7 +24941,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@backstage/cli": 0.19.0-next.3
+    "@backstage/cli": 0.19.0
     "@spotify/prettier-config": 14.1.0
     concurrently: 6.5.1
     lerna: 5.5.1
