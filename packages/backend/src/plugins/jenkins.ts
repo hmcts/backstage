@@ -26,6 +26,7 @@ export default async function createPlugin({
   logger,
   config,
   discovery,
+  permissions,
 }: PluginEnvironment): Promise<Router> {
   const catalog = new CatalogClient({ discoveryApi: discovery });
 
@@ -35,5 +36,6 @@ export default async function createPlugin({
       catalog,
       config,
     }),
+    permissions: permissions
   });
 }
