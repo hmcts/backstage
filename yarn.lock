@@ -2142,13 +2142,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/config@npm:1.0.2-next.0, @backstage/config@npm:^1.0.2-next.0":
-  version: 1.0.2-next.0
-  resolution: "@backstage/config@npm:1.0.2-next.0"
+"@backstage/config@npm:1.0.2":
+  version: 1.0.2
+  resolution: "@backstage/config@npm:1.0.2"
   dependencies:
     "@backstage/types": ^1.0.0
     lodash: ^4.17.21
-  checksum: 9e11c348ee68c48cbe058a8605347aa4429a2d9ce0bc5b5780550f9bfed8d13b57fd2dabc3881a28fe7db2a4c0d8afa59d4e0312e42471bd4675422c09b5b2fa
+  checksum: 452c9fd47247974552bb8d53cfebcab120d37f60a209da74ec06b1408b1ae6464c8f61404d0d071eb7b70ece0aaa5462d02e9cc5713a21744795a8b9db3f80ce
   languageName: node
   linkType: hard
 
@@ -2159,6 +2159,16 @@ __metadata:
     "@backstage/types": ^1.0.0
     lodash: ^4.17.21
   checksum: 08ec95a9ddbfc8410c949314c464c63c0723a0681e21607463495454d7b06a9e7884110874efe7a9f7a8c9c864eb20a528a7a407dba7da84516d47d929e7ebc3
+  languageName: node
+  linkType: hard
+
+"@backstage/config@npm:^1.0.2-next.0":
+  version: 1.0.2-next.0
+  resolution: "@backstage/config@npm:1.0.2-next.0"
+  dependencies:
+    "@backstage/types": ^1.0.0
+    lodash: ^4.17.21
+  checksum: 9e11c348ee68c48cbe058a8605347aa4429a2d9ce0bc5b5780550f9bfed8d13b57fd2dabc3881a28fe7db2a4c0d8afa59d4e0312e42471bd4675422c09b5b2fa
   languageName: node
   linkType: hard
 
@@ -10341,7 +10351,7 @@ __metadata:
     "@backstage/catalog-client": 1.1.0-next.2
     "@backstage/catalog-model": 1.1.1-next.0
     "@backstage/cli": 0.19.0-next.3
-    "@backstage/config": 1.0.2-next.0
+    "@backstage/config": 1.0.2
     "@backstage/errors": 1.1.1-next.0
     "@backstage/integration": 1.3.1-next.2
     "@backstage/plugin-app-backend": 0.3.36-next.3
