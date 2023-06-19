@@ -1970,18 +1970,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/catalog-model@npm:1.1.1, @backstage/catalog-model@npm:^1.1.1":
-  version: 1.1.1
-  resolution: "@backstage/catalog-model@npm:1.1.1"
+"@backstage/catalog-model@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@backstage/catalog-model@npm:1.2.0"
   dependencies:
-    "@backstage/config": ^1.0.2
-    "@backstage/errors": ^1.1.1
-    "@backstage/types": ^1.0.0
+    "@backstage/config": ^1.0.6
+    "@backstage/errors": ^1.1.4
+    "@backstage/types": ^1.0.2
     ajv: ^8.10.0
     json-schema: ^0.4.0
     lodash: ^4.17.21
     uuid: ^8.0.0
-  checksum: 32b38c59b40b8ebbabbced27fe996305ba739015eb20fad20c6e106d9058a81f05fee4878fac801e074a8f316702fd2c5c16af35c4b827defe83400320070658
+  checksum: d4e07e91e501b4ecbc9d0b754518277dd2ed93f22f801740cc539dbcbd905ba8111b1651d20fb725e44d7cd99a96faec6fd56cd51fdf8e1d7f39a6e177f31efa
   languageName: node
   linkType: hard
 
@@ -1997,6 +1997,21 @@ __metadata:
     lodash: ^4.17.21
     uuid: ^8.0.0
   checksum: 81db2da7f960e6207f2eeab3944d5bc54d739b6172575cf4cb9096a2058835af75534fd5232c450efddc8d656952ebbf130501ac0bba43690a3d742c3e11143d
+  languageName: node
+  linkType: hard
+
+"@backstage/catalog-model@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@backstage/catalog-model@npm:1.1.1"
+  dependencies:
+    "@backstage/config": ^1.0.2
+    "@backstage/errors": ^1.1.1
+    "@backstage/types": ^1.0.0
+    ajv: ^8.10.0
+    json-schema: ^0.4.0
+    lodash: ^4.17.21
+    uuid: ^8.0.0
+  checksum: 32b38c59b40b8ebbabbced27fe996305ba739015eb20fad20c6e106d9058a81f05fee4878fac801e074a8f316702fd2c5c16af35c4b827defe83400320070658
   languageName: node
   linkType: hard
 
@@ -9834,7 +9849,7 @@ __metadata:
   resolution: "app@workspace:packages/app"
   dependencies:
     "@backstage/app-defaults": 1.0.6
-    "@backstage/catalog-model": 1.1.1
+    "@backstage/catalog-model": 1.2.0
     "@backstage/cli": 0.19.0
     "@backstage/core-app-api": 1.1.0
     "@backstage/core-components": 0.12.4
@@ -10483,7 +10498,7 @@ __metadata:
     "@backstage/backend-common": 0.15.1
     "@backstage/backend-tasks": 0.3.5
     "@backstage/catalog-client": 1.1.0
-    "@backstage/catalog-model": 1.1.1
+    "@backstage/catalog-model": 1.2.0
     "@backstage/cli": 0.19.0
     "@backstage/config": 1.0.2
     "@backstage/errors": 1.1.1
