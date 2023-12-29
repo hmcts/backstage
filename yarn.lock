@@ -7956,14 +7956,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@testing-library/user-event@npm:12.8.3":
-  version: 12.8.3
-  resolution: "@testing-library/user-event@npm:12.8.3"
-  dependencies:
-    "@babel/runtime": ^7.12.5
+"@testing-library/user-event@npm:14.5.2":
+  version: 14.5.2
+  resolution: "@testing-library/user-event@npm:14.5.2"
   peerDependencies:
     "@testing-library/dom": ">=7.21.4"
-  checksum: c9fb5ee07cbe79ddf32d81e1a353e556d02a1f1619456ccfad6abcdf1b7db400fdc9d7a8e0be3994f456e7135a0dfb7fa10b29fb98a0f5fc417b99fce0ce8166
+  checksum: d76937dffcf0082fbf3bb89eb2b81a31bf5448048dd61c33928c5f10e33a58e035321d39145cefd469bb5a499c68a5b4086b22f1a44e3e7c7e817dc5f6782867
   languageName: node
   linkType: hard
 
@@ -9872,7 +9870,7 @@ __metadata:
     "@roadiehq/backstage-plugin-github-pull-requests": 2.2.7
     "@testing-library/jest-dom": 5.16.5
     "@testing-library/react": 10.4.9
-    "@testing-library/user-event": 12.8.3
+    "@testing-library/user-event": 14.5.2
     "@types/node": 16.11.59
     "@types/react-dom": "*"
     cross-env: 7.0.3
