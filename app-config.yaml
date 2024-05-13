@@ -71,13 +71,13 @@ techdocs:
   publisher:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
 
-integrations:
-  github:
-    # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-    # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
-    - host: github.com
-      apps:
-        - $include: github-app-backstage-hmcts-credentials.yaml
+# integrations:
+#   github:
+#     # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+#     # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
+#     - host: github.com
+#       apps:
+#         - $include: github-app-backstage-hmcts-credentials.yaml
 
 # see https://backstage.io/docs/features/software-templates/configuration for software template options
 catalog:
@@ -258,9 +258,9 @@ homepage:
       timezone: 'Europe/Stockholm'
     - label: TYO
       timezone: 'Asia/Tokyo'
-jenkins:
-  instances:
-    - name: cft
-      baseUrl: ${JENKINS_CFT_URL}
-      username: ${JENKINS_CFT_USERNAME}
-      apiKey: ${JENKINS_CFT_API_KEY}
+# jenkins:
+#   instances:
+#     - name: cft
+#       baseUrl: ${JENKINS_CFT_URL}
+#       username: ${JENKINS_CFT_USERNAME}
+#       apiKey: ${JENKINS_CFT_API_KEY}

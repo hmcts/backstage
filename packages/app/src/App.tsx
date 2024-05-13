@@ -35,6 +35,7 @@ import {microsoftAuthApiRef} from '@backstage/core-plugin-api';
 
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
+import { CreateDnsRecordPage } from '@internal/plugin-create-dns-record';
 
 const microsoftAuthProvider: SignInProviderConfig = {
     id: 'azure-auth-provider',
@@ -109,6 +110,7 @@ const routes = (
         </Route>
         <Route path="/settings" element={<UserSettingsPage/>}/>
         <Route path="/catalog-graph" element={<CatalogGraphPage/>}/>
+        <Route path="/create-dns-record" element={<CreateDnsRecordPage />}/>
     </FlatRoutes>
 );
 
