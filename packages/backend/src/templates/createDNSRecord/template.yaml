@@ -1,0 +1,162 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: create-dns-record
+  title: Create Public DNS Record 
+  description: PR to create a public DNS record
+  tags:
+    - infrastructure
+    - terraform
+    - azure
+    - dns
+  links:
+    - title: Documentation
+      url: https://backstage.io/docs/features/software-templates
+      icon: docs
+    - title: Source
+      url: https://github.com.br/gabriel-dantas98/backstage-scaffolders/blob/main/basic-react-app/create-web-app.yaml
+      icon: github
+
+  
+spec:
+  owner: cloud_platform
+  type: infra-a-code
+
+  parameters:
+  - title: Create a DNS record
+    required:
+        - dns_zone
+        - record_name
+        - record_value
+        - record_ttl
+    properties:
+      dns_zone:
+        title: DNS Zone name
+        type: string
+        enum:
+          - platforms.hmcts.net
+          - hmcts.net
+      record_name:
+        title: DNS record name
+        type: string
+        description: |
+          The name of the record to create
+      record_value:
+        title: DNS record value
+        type: string
+        description: |
+          The value of the record to create
+      record_ttl:
+        title: DNS record time to live
+        type: number
+        description: |
+          The TTL of the record
+  - title: Which environments to deploy the record to?
+    required:
+      - environments
+    properties:
+      environments:
+        title: Select environments
+        type: array
+        items:
+          type: string
+          enum:
+            - sbox 
+            - dev 
+            - ithc
+            - demo
+            - staging
+            - prod
+        uniqueItems: true
+        ui:widget: checkboxes
+  - title: Which platform is this for?
+    required:
+      - cft_sds
+    properties:
+      cft_sds:
+        title: Which platform does this DNS belong to? 
+        type: string
+        description: The DNS record should be assigned to a platform
+        enum:
+          - cft
+          - sds
+        ui:widget: radio
+  # - title: Information about ownership (using in tags)
+  #   properties:
+  #     tribe:
+  #       title: Tribe
+  #       type: string
+  #       description: |
+  #         Select the Tribe owner of resource, we used as a tags in AWS
+  #       ui:field: OwnerPicker
+  #       ui:options:
+  #         allowedKinds:
+  #           - group
+  #     squad:
+  #       title: Squad
+  #       type: string
+  #       description: |
+  #         Select the Tribe owner of resource, we used as a tags in AWS
+  #       ui:field: OwnerPicker
+  #       ui:options:
+  #         allowedKinds:
+  #           - group
+
+  steps:
+    - id: template
+      name: Render terraform files
+      action: fetch:template
+      input:
+        targetPath: ./templates/outputs
+        url: ./skeleton
+        values:
+          queue_name: ${{ parameters.queue_name }}
+          create_dlq: ${{ parameters.create_dlq }}
+          environment: ${{ parameters.environment }}
+          squad: ${{ parameters.squad }}
+          tribe: ${{ parameters.tribe }}
+
+  #   - id: show_workspace
+  #     name: Show workspace files
+  #     action: debug:log
+  #     input:
+  #       listWorkspace: true
+  
+  #   - id: terraform_pr
+  #     name: Create terraform PR
+  #     action: publish:github:pull-request
+  #     input:
+  #       repoUrl: github.com?owner=gabriel-dantas98&repo=piltover-infrastructure
+  #       branchName: 'sw-template/sqs/${{ parameters.queue_name }}'
+  #       title: '🔩 Create ${{ parameters.queue_name }} AWS SQS'
+  #       description: |
+  #         ## Creating SQS ${{ parameters.queue_name }}
+          
+  #         This is an initial pull request to create an SQS queue and was created based on the Backstage template.
+
+  #         If you need to add more parameters, check the official documentation - https://registry.terraform.io/modules/terraform-aws-modules/sqs/aws/latest
+
+  #         *created by: [Backstage Software Template](https://hextech-portal.gdantas.com.br/create)* 👷‍♂️⚙️👷‍♀️
+  #       sourcePath: ./templates/outputs
+  #       targetPath: 'aws/production/sqs/${{ parameters.queue_name }}'
+
+  #   - id: label_pr
+  #     name: Add labels to PR
+  #     action: github:issues:label
+  #     input:
+  #       repoUrl: github.com?owner=gabriel-dantas98&repo=piltover-infrastructure
+  #       number: '${{ steps.terraform_pr.output.pullRequestNumber }}'
+  #       labels:
+  #         - terraform
+  #         - created-by-backstage
+  #         - ${{ parameters.environment }}
+  #         - sqs
+
+  output:
+    links:
+      - title: 'Go to pull request :D'
+        url: ${{ steps.terraform_pr .output.remoteUrl }}
+        icon: github
+      - title: 'To view more check documentation'
+        icon: docs
+        url: "https://registry.terraform.io/modules/terraform-aws-modules/sqs/aws/latest"
