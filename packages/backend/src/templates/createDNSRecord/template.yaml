@@ -1,0 +1,148 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: createDNSRecord
+  title: Create a Public DNS Record 
+  description: PR to create a public DNS record
+  tags:
+    - infrastructure
+    - terraform
+    - azure
+    - dns
+  annotations:
+    backstage.io/techdocs-ref: https://backstage.io/docs/features/software-templates
+  links:
+    - title: Documentation
+      url: https://backstage.io/docs/features/software-templates
+      icon: docs
+    - title: Source
+      url: https://github.com.br/gabriel-dantas98/backstage-scaffolders/blob/main/basic-react-app/create-web-app.yaml
+      icon: github
+
+spec:
+  owner: cloud_platform
+  type: infra-as-code
+
+  parameters:
+  - title: Create a DNS record
+    required:
+        - dns_zone
+        - record_name
+        - record_value
+        - record_ttl
+    properties:
+      dns_zone:
+        title: DNS Zone name
+        type: string
+        enum:
+          - platforms.hmcts.net
+          - hmcts.net
+        ui:autofocus: true
+      record_name:
+        title: DNS record name
+        type: string
+        description: |
+          The name of the record to create
+      record_value:
+        title: DNS record value
+        type: string
+        description: |
+          The value of the record to create
+      record_ttl:
+        title: DNS record time to live
+        type: number
+        description: |
+          The TTL of the record
+  - title: Which environments to deploy the record to?
+    required:
+      - environments
+    properties:
+      environments:
+        title: Select environments
+        type: array
+        items:
+          type: string
+          enum:
+            - sbox 
+            - dev 
+            - ithc
+            - demo
+            - staging
+            - prod
+        uniqueItems: true
+        ui:widget: checkboxes
+  - title: Which platform is this for?
+    required:
+      - cft_sds
+    properties:
+      cft_sds:
+        title: Which platform does this DNS belong to? 
+        type: string
+        description: The DNS record should be assigned to a platform
+        enum:
+          - cft
+          - sds
+        ui:widget: radio
+
+  steps:
+
+    - id: log-message
+      name: Log Message
+      action: debug:log
+      input:
+        message: Template execution started
+
+    - id: create-file
+      name: Create file
+      action: roadiehq:utils:fs:write
+      input:
+        path: ./template.yaml
+        content: >
+          extend:
+            dns_zone: ${{ parameters.dns_zone }}
+            record_name: ${{ parameters.record_name }}
+            record_value: ${{ parameters.record_value }}
+            
+    - id: merge
+      name: Merge
+      action: roadiehq:utils:merge
+      input:
+        path: ./template.yaml
+        content: >
+          record_ttl: ${{ parameters.record_ttl }}
+
+    - id: parse
+      name: read file
+      action: roadiehq:utils:fs:parse
+      input:
+        path: ./template.yaml
+        parser: yaml
+
+    - id: serializeyaml
+      name: Serialize
+      action: roadiehq:utils:serialize:yaml
+      input:
+        data: ${{ steps['parse'].output.content }}
+
+    - id: serializejson
+      name: Serialize
+      action: roadiehq:utils:serialize:json
+      input:
+        data: ${{ steps['parse'].output.content }}
+
+    - id: log
+      name: Console.log
+      action: debug:log
+      input:
+        message: |
+          YAML: `${{ steps['serializeyaml'].output.serialized }}`
+          JSON: `${{ steps['serializejson'].output.serialized }}`
+
+  output:
+    text:
+      - title: YAML Parsed
+        content: |
+          **YAML:** `${{ steps['serializeyaml'].output.serialized }}`    
+      - title: JSON Serialized
+        content: |
+          **JSON:** `${{ steps['serializejson'].output.serialized }}`
