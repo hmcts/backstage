@@ -1,9 +1,9 @@
 apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
-  name: createDNSRecord
-  title: Create a Public DNS Record 
-  description: PR to create a public DNS record
+  name: triggerGitHubAction
+  title: Trigger a GitHub Action
+  description: Trigger a GitHub Action workflow with inputs
   tags:
     - infrastructure
     - terraform
@@ -11,13 +11,6 @@ metadata:
     - dns
   annotations:
     backstage.io/techdocs-ref: https://backstage.io/docs/features/software-templates
-  links:
-    - title: Documentation
-      url: https://backstage.io/docs/features/software-templates
-      icon: docs
-    - title: Source
-      url: https://github.com.br/gabriel-dantas98/backstage-scaffolders/blob/main/basic-react-app/create-web-app.yaml
-      icon: github
 
 spec:
   owner: cloud_platform
@@ -50,7 +43,7 @@ spec:
           The value of the record to create
       record_ttl:
         title: DNS record time to live
-        type: number
+        type: string
         description: |
           The TTL of the record
   - title: Which environments to deploy the record to?
@@ -92,58 +85,18 @@ spec:
       input:
         message: Template execution started
 
-    - id: create-file
-      name: Create file
-      action: roadiehq:utils:fs:write
+    - id: trigger-ga
+      name: Trigger GA workflow
+      action: github:actions:dispatch
       input:
-        path: ./template.yaml
-        content: >
-          extend:
-            dns_zone: ${{ parameters.dns_zone }}
-            record_name: ${{ parameters.record_name }}
-            record_value: ${{ parameters.record_value }}
-            environments: ${{ parameters.environments }}
-            
-    - id: merge
-      name: Merge
-      action: roadiehq:utils:fs:append
-      input:
-        path: ./template.yaml
-        content: >
+        repoUrl: github.com?repo=labs-mfox-nodejs&owner=hmcts
+        branchOrTagName: master
+        workflowId: backstage.yaml
+        workflowInputs:
+          dns_zone: ${{ parameters.dns_zone }}
+          record_name: ${{ parameters.record_name }}
+          record_value: ${{ parameters.record_value }}
           record_ttl: ${{ parameters.record_ttl }}
-
-    - id: parse
-      name: read file
-      action: roadiehq:utils:fs:parse
-      input:
-        path: ./template.yaml
-        parser: yaml
-
-    - id: serializeyaml
-      name: Serialize
-      action: roadiehq:utils:serialize:yaml
-      input:
-        data: ${{ steps['parse'].output.content }}
-
-    - id: serializejson
-      name: Serialize
-      action: roadiehq:utils:serialize:json
-      input:
-        data: ${{ steps['parse'].output.content }}
-
-    - id: log
-      name: Console.log
-      action: debug:log
-      input:
-        message: |
-          YAML: `${{ steps['serializeyaml'].output.serialized }}`
-          JSON: `${{ steps['serializejson'].output.serialized }}`
-
-  output:
-    text:
-      - title: YAML Parsed
-        content: |
-          **YAML:** `${{ steps['serializeyaml'].output.serialized }}`    
-      - title: JSON Serialized
-        content: |
-          **JSON:** `${{ steps['serializejson'].output.serialized }}`
+          # environments: ${{ parameters.environments }}
+          cft_sds: ${{ parameters.cft_sds }}
+        # token:
