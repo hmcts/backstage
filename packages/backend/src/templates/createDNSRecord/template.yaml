@@ -95,6 +95,7 @@ spec:
           title: DNS Zone name
           type: string
           enum:
+            - prod.internal.hmcts.net
             - platforms.hmcts.net
             - hmcts.net
           ui:autofocus: true
