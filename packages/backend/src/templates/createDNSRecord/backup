@@ -88,6 +88,7 @@ spec:
       required:
           - dns_zone
           - record_name
+          - record_value
           - record_ttl
           - recordType
       properties:
@@ -121,87 +122,46 @@ spec:
             - properties:
                 recordType:
                   enum:
-                    - CNAME
-                CNAME record Value:
-                  type: "string"
-                  description: A Record value to use with this CNAME entry
-              required: 
-                - CNAME record Value
-            - properties:
-                recordType:
-                  enum:
                     - A
-                A record value options:
+                shutter_resource:
                   type: "string"
-                  description: Choose the values you want to provide for your DNS record
                   enum:
-                    - Record value and Shutter Resource Id
-                    - Record value and Alias Target Resource Id
-                    - Alias Target Resource Id and Shutter Resource Id
-                    - Record value, Alias Target Resource Id and Shutter Resource Id
-              required: 
-                - A record value options
+                    - shutter_resource_Id
+                    - alias_target_resource_id
+
               # Creating a dependency based on the selected java version (not necessary, just for example)
               dependencies:
-                A record value options:
+                shutter_resource:
                   oneOf:
                     - properties: 
-                        A record value options: 
+                        shutter_resource:
                           enum:
-                            - Record value and Shutter Resource Id
-                        record_Value:
-                          title: The value to use for this A record
-                          type: string
+                            - shutter_resource_Id
                         shutter_resource_id:
-                          title: The resource Id for the shutter page
+                          title: Shutter Resource Id
                           type: string
+                          description: |
+                            The Id for a shutter resource to use for this A record
+                        record_value:
+                          title: DNS record value
+                          type: string
+                          description: |
+                            The value of the record to create
                       required: 
-                        - record_Value
                         - shutter_resource_id
                     - properties: 
-                        A record value options: 
+                        shutter_resource:
                           enum:
-                            - Record value and Alias Target Resource Id
-                        record_Value:
-                          title: The value to use for this A record
+                            - alias_target_resource_id
+                        Alias_Target_Resource_Id:
+                          title: Alias Target Resource Id
                           type: string
-                        alias_target_resource_id:
-                          title: The resource Id for the alias target e.g. Frontdoor
-                          type: string
+                          description: |
+                            The Id for an Alias Target Resource when using Azure resources as targets e.g. Front Door
                       required: 
-                        - record_Value
-                        - alias_target_resource_id
-                    - properties: 
-                        A record value options: 
-                          enum:
-                            - Alias Target Resource Id and Shutter Resource Id
-                        alias_target_resource_id:
-                          title: The resource Id for the alias target e.g. Frontdoor
-                          type: string
-                        shutter_resource_id:
-                          title: The resource Id for the shutter page
-                          type: string
-                      required: 
-                        - alias_target_resource_id
-                        - shutter_resource_id
-                    - properties: 
-                        A record value options: 
-                          enum:
-                            - Record value, Alias Target Resource Id and Shutter Resource Id
-                        record_Value:
-                          title: The value to use for this A record
-                          type: string
-                        alias_target_resource_id:
-                          title: The resource Id for the alias target e.g. Frontdoor
-                          type: string
-                        shutter_resource_id:
-                          title: The resource Id for the shutter page
-                          type: string
-                      required: 
-                        - record_Value
-                        - alias_target_resource_id
-                        - shutter_resource_id
-
+                        - Alias_Target_Resource_Id
+              required: 
+                - shutter_resource  
     - title: Which environments to deploy the record to?
       required:
         - environments

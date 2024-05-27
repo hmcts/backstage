@@ -55,8 +55,8 @@ const app = createApp({
             <SignInPage
                 {...props}
                 auto
-                provider={microsoftAuthProvider}
-                // providers={['guest', microsoftAuthProvider]}
+                // provider={microsoftAuthProvider}
+                providers={['guest', microsoftAuthProvider]}
                 title="Select a sign-in method"
                 align="center"
             />
