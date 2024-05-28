@@ -86,12 +86,12 @@ spec:
   parameters:
     - title: Create a DNS record
       required:
-          - dns_zone
-          - record_name
-          - record_ttl
+          - dnsZone
+          - recordName
+          - recordTTL
           - recordType
       properties:
-        dns_zone:
+        dnsZone:
           title: DNS Zone name
           type: string
           enum:
@@ -99,12 +99,12 @@ spec:
             - platforms.hmcts.net
             - hmcts.net
           ui:autofocus: true
-        record_name:
+        recordName:
           title: DNS record name
           type: string
           description: |
             The name of the record to create
-        record_ttl:
+        recordTTL:
           title: DNS record time to live
           type: string
           description: |
@@ -114,6 +114,7 @@ spec:
           enum:
             - A
             - CNAME
+          ui:widget: radio
 
       # Creating a dependency based on the selected technology above
       dependencies:
@@ -123,85 +124,55 @@ spec:
                 recordType:
                   enum:
                     - CNAME
-                CNAME record Value:
+                recordValue:
                   type: "string"
                   description: A Record value to use with this CNAME entry
               required: 
-                - CNAME record Value
+                - recordValue
             - properties:
                 recordType:
                   enum:
                     - A
-                A record value options:
-                  type: "string"
-                  description: Choose the values you want to provide for your DNS record
-                  enum:
-                    - Record value and Shutter Resource Id
-                    - Record value and Alias Target Resource Id
-                    - Alias Target Resource Id and Shutter Resource Id
-                    - Record value, Alias Target Resource Id and Shutter Resource Id
-              required: 
-                - A record value options
+                Include record value:
+                  type: boolean
+                  default: false
+                Include Shutter Resource Id:
+                  type: boolean
+                  default: false
+                Include Alias Target Resource Id:
+                  type: boolean
+                  default: false
               # Creating a dependency based on the selected java version (not necessary, just for example)
               dependencies:
-                A record value options:
-                  oneOf:
-                    - properties: 
-                        A record value options: 
-                          enum:
-                            - Record value and Shutter Resource Id
-                        record_Value:
-                          title: The value to use for this A record
-                          type: string
-                        shutter_resource_id:
-                          title: The resource Id for the shutter page
-                          type: string
-                      required: 
-                        - record_Value
-                        - shutter_resource_id
-                    - properties: 
-                        A record value options: 
-                          enum:
-                            - Record value and Alias Target Resource Id
-                        record_Value:
-                          title: The value to use for this A record
-                          type: string
-                        alias_target_resource_id:
-                          title: The resource Id for the alias target e.g. Frontdoor
-                          type: string
-                      required: 
-                        - record_Value
-                        - alias_target_resource_id
-                    - properties: 
-                        A record value options: 
-                          enum:
-                            - Alias Target Resource Id and Shutter Resource Id
-                        alias_target_resource_id:
-                          title: The resource Id for the alias target e.g. Frontdoor
-                          type: string
-                        shutter_resource_id:
-                          title: The resource Id for the shutter page
-                          type: string
-                      required: 
-                        - alias_target_resource_id
-                        - shutter_resource_id
-                    - properties: 
-                        A record value options: 
-                          enum:
-                            - Record value, Alias Target Resource Id and Shutter Resource Id
-                        record_Value:
-                          title: The value to use for this A record
-                          type: string
-                        alias_target_resource_id:
-                          title: The resource Id for the alias target e.g. Frontdoor
-                          type: string
-                        shutter_resource_id:
-                          title: The resource Id for the shutter page
-                          type: string
-                      required: 
-                        - record_Value
-                        - alias_target_resource_id
-                        - shutter_resource_id
+                Include record value:
+                  allOf:
+                    - if:
+                        properties:
+                          Include record value:
+                            const: true
+                      then:
+                        properties:
+                          recordValue:
+                            title: Record Value
+                            type: string
+                    - if:
+                        properties:
+                          Include Shutter Resource Id:
+                            const: true
+                      then:
+                        properties:
+                          shutterResourceId:
+                            title: Shutter Value
+                            type: string
+                    - if:
+                        properties:
+                          Include Alias Target Resource Id:
+                            const: true
+                      then:
+                        properties:
+                          aliasTargetResourceId:
+                            title: Alias Value
+                            type: string
 
     - title: Which environments to deploy the record to?
       required:
@@ -242,26 +213,39 @@ spec:
       input:
         message: Template execution started
 
+    - id: log
+      name: Show Params
+      action: debug:log
+      input:
+        dns_zone: ${{ parameters.dnsZone }}
+        record_name: ${{ parameters.recordName }}
+        record_ttl: ${{ parameters.recordTTL }}
+        record_type: ${{ parameters.recordType }}
+        record_value: ${{ parameters.recordValue }}
+        shutter_resource_id: ${{ parameters.shutterResourceId }}
+        alias_target_id: ${{ parameters.aliasTargetResourceId }}
+        environments: ${{ parameters.environments }}
+        cft_sds: ${{ parameters.cft_sds }}
+
     - id: trigger-ga
       name: Trigger GA workflow
       action: github:actions:dispatch
       input:
-        repoUrl: github.com?repo=labs-mfox-nodejs&owner=hmcts
+        repoUrl: github.com?repo=azure-public-dns&owner=hmcts
         branchOrTagName: master
         workflowId: backstage.yaml
         workflowInputs:
-          dns_zone: ${{ parameters.dns_zone }}
-          record_name: ${{ parameters.record_name }}
-          record_value: ${{ parameters.record_value }}
-          record_ttl: ${{ parameters.record_ttl }}
+          dns_zone: ${{ parameters.dnsZone }}
+          record_name: ${{ parameters.recordName }}
+          record_ttl: ${{ parameters.recordTTL }}
           record_type: ${{ parameters.recordType }}
-          shutter_resource_id: ${{ parameters.shutter_resource_id }}
-          alias_target_id: ${{ parameters.Alias_Target_Resource_Id }}
+          record_value: ${{ parameters.recordValue }}
+          shutter_resource_id: ${{ parameters.shutterResourceId }}
+          alias_target_id: ${{ parameters.aliasTargetResourceId }}
           # environments: ${{ parameters.environments }}
           cft_sds: ${{ parameters.cft_sds }}
-        # token:
   
   output:
     links:
-      - title: Public DNS Repo
-        url: https://github.com/hmcts/labs-mfox-nodejs
+      - title: Azure Public DNS Repo - your PR will be created here!
+        url: https://github.com/hmcts/azure-public-dns
