@@ -1,0 +1,102 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: triggerGitHubAction
+  title: Trigger a GitHub Action
+  description: Trigger a GitHub Action workflow with inputs
+  tags:
+    - infrastructure
+    - terraform
+    - azure
+    - dns
+  annotations:
+    backstage.io/techdocs-ref: https://backstage.io/docs/features/software-templates
+
+spec:
+  owner: cloud_platform
+  type: infra-as-code
+
+  parameters:
+  - title: Create a DNS record
+    required:
+        - dns_zone
+        - record_name
+        - record_value
+        - record_ttl
+    properties:
+      dns_zone:
+        title: DNS Zone name
+        type: string
+        enum:
+          - platforms.hmcts.net
+          - hmcts.net
+        ui:autofocus: true
+      record_name:
+        title: DNS record name
+        type: string
+        description: |
+          The name of the record to create
+      record_value:
+        title: DNS record value
+        type: string
+        description: |
+          The value of the record to create
+      record_ttl:
+        title: DNS record time to live
+        type: string
+        description: |
+          The TTL of the record
+  - title: Which environments to deploy the record to?
+    required:
+      - environments
+    properties:
+      environments:
+        title: Select environments
+        type: array
+        items:
+          type: string
+          enum:
+            - sbox 
+            - dev 
+            - ithc
+            - demo
+            - staging
+            - prod
+        uniqueItems: true
+        ui:widget: checkboxes
+  - title: Which platform is this for?
+    required:
+      - cft_sds
+    properties:
+      cft_sds:
+        title: Which platform does this DNS belong to? 
+        type: string
+        description: The DNS record should be assigned to a platform
+        enum:
+          - cft
+          - sds
+        ui:widget: radio
+
+  steps:
+
+    - id: log-message
+      name: Log Message
+      action: debug:log
+      input:
+        message: Template execution started
+
+    - id: trigger-ga
+      name: Trigger GA workflow
+      action: github:actions:dispatch
+      input:
+        repoUrl: github.com?repo=labs-mfox-nodejs&owner=hmcts
+        branchOrTagName: master
+        workflowId: backstage.yaml
+        workflowInputs:
+          dns_zone: ${{ parameters.dns_zone }}
+          record_name: ${{ parameters.record_name }}
+          record_value: ${{ parameters.record_value }}
+          record_ttl: ${{ parameters.record_ttl }}
+          # environments: ${{ parameters.environments }}
+          cft_sds: ${{ parameters.cft_sds }}
+        # token:

@@ -21,7 +21,7 @@ organization:
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
-  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+  # See https://backstage.io/docs/auth/service-to-service-auth for
   # information on the format
   # auth:
   #   keys:
@@ -29,9 +29,8 @@ backend:
   baseUrl: http://localhost:7007
   listen:
     port: 7007
-    # Uncomment the following host directive to bind to all IPv4 interfaces and
-    # not just the baseUrl hostname.
-    # host: 0.0.0.0
+    # Uncomment the following host directive to bind to specific interfaces
+    # host: 127.0.0.1
   database:
     client: pg
     connection:
@@ -56,7 +55,7 @@ backend:
   reading:
     allow:
       - host: raw.githubusercontent.com
-  # workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
+  workingDirectory: /tmp # Use this to configure a working directory for the scaffolder, defaults to the OS temp-dir
 
 # Reference documentation http://backstage.io/docs/features/techdocs/configuration
 # Note: After experimenting with basic setup, use CI/CD to generate docs
@@ -73,12 +72,13 @@ techdocs:
 
 integrations:
   github:
-    # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-    # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
+  #   # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
+    # - host: github.com
+    #   apps:
+    #     - $include: github-app-backstage-hmcts-credentials.yaml
     - host: github.com
-      apps:
-        - $include: github-app-backstage-hmcts-credentials.yaml
-
+      token: ${GITHUB_TOKEN}
 # see https://backstage.io/docs/features/software-templates/configuration for software template options
 catalog:
   import:
@@ -105,52 +105,74 @@ catalog:
         filters:
           topic:
             include: ['backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds']
-    microsoftGraphOrg:
-      default:
-        target: https://graph.microsoft.com/v1.0
-        # If you don't know you tenantId, you can use Microsoft Graph Explorer
-        # to query it
-        tenantId: ${AUTH_MICROSOFT_TENANT_ID}
-        # Optional ClientId and ClientSecret if you don't want to use `DefaultAzureCredential`
-        # for authentication
-        # Client Id and Secret can be created under Certificates & secrets in
-        # the App registration in the Microsoft Azure Portal.
-        clientId: ${AUTH_MICROSOFT_CLIENT_ID}
-        clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
-        # Optional mode for querying which defaults to "basic".
-        # By default, the Microsoft Graph API only provides the basic feature set
-        # for querying. Certain features are limited to advanced querying capabilities.
-        # (See https://docs.microsoft.com/en-us/graph/aad-advanced-queries)
-        queryMode: basic # basic | advanced
-        # Optional configuration block
-        user:
-          # Optional parameter to include the expanded resource or collection referenced
-          # by a single relationship (navigation property) in your results.
-          # Only one relationship can be expanded in a single request.
-          # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
-          # Can be combined with userGroupMember[...] instead of userFilter.
-          expand: manager
-          # Optional filter for user, see Microsoft Graph API for the syntax
-          # See https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
-          # and for the syntax https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter
-          # This and userGroupMemberFilter are mutually exclusive, only one can be specified
-          filter: accountEnabled eq true
-        group:
-          # Optional parameter to include the expanded resource or collection referenced
-          # by a single relationship (navigation property) in your results.
-          # Only one relationship can be expanded in a single request.
-          # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
-          # Can be combined with userGroupMember[...] instead of userFilter.
-          expand: member
-          # Optional filter for group, see Microsoft Graph API for the syntax
-          # See https://docs.microsoft.com/en-us/graph/api/resources/group?view=graph-rest-1.0#properties
-          filter: securityEnabled eq true
-          # Optional select for groups, this will allow you work with schemaExtensions
-          # in order to add extra information to your groups that can be used on you custom groupTransformers
-          # See  https://docs.microsoft.com/en-us/graph/api/resources/schemaextension?view=graph-rest-1.0
-          select: ['id', 'displayName', 'description']
+          
+    # microsoftGraphOrg:
+    #   default:
+    #     tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+    #     clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+    #     clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
+    #     user:
+    #       expand: manager
+    #       filter: accountEnabled eq true and userType eq 'member'
+    #       loadPhotos: false
+    #     group:
+    #       expand: member
+    #       select: ['id', 'displayName', 'description']
+    #       filter: securityEnabled eq true
+    #     schedule:
+    #       frequency: PT1H
+    #       timeout: PT50M
+    # microsoftGraphOrg:
+    #   default:
+    #     target: https://graph.microsoft.com/v1.0
+    #     # If you don't know you tenantId, you can use Microsoft Graph Explorer
+    #     # to query it
+    #     tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+    #     # Optional ClientId and ClientSecret if you don't want to use `DefaultAzureCredential`
+    #     # for authentication
+    #     # Client Id and Secret can be created under Certificates & secrets in
+    #     # the App registration in the Microsoft Azure Portal.
+    #     clientId: ${AUTH_MICROSOFT_CLIENT_ID}
+    #     clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
+    #     # Optional mode for querying which defaults to "basic".
+    #     # By default, the Microsoft Graph API only provides the basic feature set
+    #     # for querying. Certain features are limited to advanced querying capabilities.
+    #     # (See https://docs.microsoft.com/en-us/graph/aad-advanced-queries)
+    #     queryMode: basic # basic | advanced
+    #     # Optional configuration block
+    #     user:
+    #       # Optional parameter to include the expanded resource or collection referenced
+    #       # by a single relationship (navigation property) in your results.
+    #       # Only one relationship can be expanded in a single request.
+    #       # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
+    #       # Can be combined with userGroupMember[...] instead of userFilter.
+    #       expand: manager
+    #       # Optional filter for user, see Microsoft Graph API for the syntax
+    #       # See https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
+    #       # and for the syntax https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter
+    #       # This and userGroupMemberFilter are mutually exclusive, only one can be specified
+    #       filter: accountEnabled eq true
+    #       loadPhotos: false
+    #     group:
+    #       # Optional parameter to include the expanded resource or collection referenced
+    #       # by a single relationship (navigation property) in your results.
+    #       # Only one relationship can be expanded in a single request.
+    #       # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
+    #       # Can be combined with userGroupMember[...] instead of userFilter.
+    #       expand: member
+    #       # Optional filter for group, see Microsoft Graph API for the syntax
+    #       # See https://docs.microsoft.com/en-us/graph/api/resources/group?view=graph-rest-1.0#properties
+    #       filter: securityEnabled eq true
+    #       # Optional select for groups, this will allow you work with schemaExtensions
+    #       # in order to add extra information to your groups that can be used on you custom groupTransformers
+    #       # See  https://docs.microsoft.com/en-us/graph/api/resources/schemaextension?view=graph-rest-1.0
+    #       select: ['id', 'displayName', 'description']
 
   locations:
+    - type: file
+      target: src/templates/createDNSRecord/template.yaml
+    - type: file
+      target: src/templates/gaTrigger/template.yaml
     - type: url
       target: https://github.com/hmcts/template-expressjs/blob/master/template.yaml
       rules:
@@ -169,10 +191,10 @@ catalog:
         - allow: [ Template ]
 
   apis:
-    - type: url
-      target: https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/backstage/labs-jackmaloney2-api.yaml
-    - type: url
-      target: https://raw.githubusercontent.com/timja-org/backstage-manifests/master/api.yaml
+    # - type: url
+    #   target: https://raw.githubusercontent.com/hmcts/reform-api-docs/master/docs/backstage/labs-jackmaloney2-api.yaml
+    # - type: url
+    #   target: https://raw.githubusercontent.com/timja-org/backstage-manifests/master/api.yaml
 
 search:
   pg:
@@ -185,10 +207,20 @@ scaffolder:
 # Use to customize the default commit message when new components are created
 # defaultCommitMessage: 'Initial commit'
 
+# proxy:
+  ### Example for how to add a proxy endpoint for the frontend.
+  ### A typical reason to do this is to handle HTTPS and CORS for internal services.
+  # endpoints:
+  #   '/test':
+  #     target: 'https://example.com'
+  #     changeOrigin: true
+
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   environment: development
   providers:
+    # See https://backstage.io/docs/auth/guest/provider
+    guest: {}
     github:
       development:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
@@ -198,7 +230,14 @@ auth:
         clientId: ${AUTH_MICROSOFT_CLIENT_ID}
         clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
         tenantId: ${AUTH_MICROSOFT_TENANT_ID}
-
+        domainHint: ${AUTH_MICROSOFT_TENANT_ID}
+        signIn:
+          resolvers:
+            # typically you would pick one of these
+            - resolver: emailMatchingUserEntityProfileEmail
+            - resolver: emailLocalPartMatchingUserEntityName
+            - resolver: emailMatchingUserEntityAnnotation
+            
 costInsights:
   engineerCost: 200000
   products:
@@ -258,9 +297,9 @@ homepage:
       timezone: 'Europe/Stockholm'
     - label: TYO
       timezone: 'Asia/Tokyo'
-jenkins:
-  instances:
-    - name: cft
-      baseUrl: ${JENKINS_CFT_URL}
-      username: ${JENKINS_CFT_USERNAME}
-      apiKey: ${JENKINS_CFT_API_KEY}
+# jenkins:
+#   instances:
+#     - name: cft
+#       baseUrl: ${JENKINS_CFT_URL}
+#       username: ${JENKINS_CFT_USERNAME}
+#       apiKey: ${JENKINS_CFT_API_KEY}

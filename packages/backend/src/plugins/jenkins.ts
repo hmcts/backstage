@@ -17,25 +17,26 @@
 import {
   createRouter,
   DefaultJenkinsInfoProvider,
-} from '@backstage/plugin-jenkins-backend';
+} from '@backstage-community/plugin-jenkins-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 import { CatalogClient } from '@backstage/catalog-client';
 
-export default async function createPlugin({
-  logger,
-  config,
-  discovery,
-  permissions,
-}: PluginEnvironment): Promise<Router> {
-  const catalog = new CatalogClient({ discoveryApi: discovery });
+export default async function createPlugin(
+  env: PluginEnvironment,
+): Promise<Router> {
+  const catalog = new CatalogClient({
+    discoveryApi: env.discovery,
+  });
 
   return await createRouter({
-    logger,
+    logger: env.logger,
     jenkinsInfoProvider: DefaultJenkinsInfoProvider.fromConfig({
+      config: env.config,
       catalog,
-      config,
+      discovery: env.discovery
     }),
-    permissions: permissions
+    permissions: env.permissions,
+    discovery: env.discovery
   });
 }

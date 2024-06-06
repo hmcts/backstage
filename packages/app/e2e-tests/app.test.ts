@@ -13,19 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-import { createRouter } from '@backstage-community/plugin-code-coverage-backend';
-import { Router } from 'express';
-import { PluginEnvironment } from '../types';
-
-export default async function createPlugin(
-  env: PluginEnvironment,
-): Promise<Router> {
-  return await createRouter({
-    config: env.config,
-    discovery: env.discovery,
-    database: env.database,
-    urlReader: env.reader,
-    logger: env.logger,
-  });
-}
+import { test, expect } from '@playwright/test';
+test('App should render the welcome page', async ({ page }) => {
+    await page.goto('/');
+    const enterButton = page.getByRole('button', { name: 'Enter' });
+    await expect(enterButton).toBeVisible();
+    await enterButton.click();
+    await expect(page.getByText('My Company Catalog')).toBeVisible();
+});
