@@ -27,7 +27,7 @@
     "@backstage/plugin-auth-backend": "0.16.0",
     "@backstage/plugin-auth-node": "0.2.5",
     "@backstage/plugin-badges-backend": "0.1.30",
-    "@backstage/plugin-catalog-backend": "1.4.0",
+    "@backstage/plugin-catalog-backend": "1.26.0",
     "@backstage/plugin-catalog-backend-module-github": "0.1.7",
     "@backstage/plugin-catalog-backend-module-msgraph": "0.4.2",
     "@backstage/plugin-code-coverage-backend": "0.2.2",
