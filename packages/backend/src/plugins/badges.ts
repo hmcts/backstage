@@ -17,7 +17,7 @@
 import {
   createRouter,
   createDefaultBadgeFactories,
-} from '@backstage/plugin-badges-backend';
+} from '@backstage-community/plugin-badges-backend';
 import { PluginEnvironment } from '../types';
 
 export default async function createPlugin({

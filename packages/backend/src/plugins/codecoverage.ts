@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-import { createRouter } from '@backstage/plugin-code-coverage-backend';
+import { createRouter } from '@backstage-community/plugin-code-coverage-backend';
 import { PluginEnvironment } from '../types';
 
 export default async function createPlugin(env: PluginEnvironment) {

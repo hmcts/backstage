@@ -70,8 +70,7 @@ You will need to run the following commands to setup the application locally fro
 
 ```sh
 yarn install
-yarn tsc
-yarn build
+yarn dev
 ```
 Once built you will need to also bring online the docker postgres database before you can start Backstage.
 
@@ -95,7 +94,7 @@ jenkins:
 integrations:
   github:
     # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-    # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
+    # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/github-apps/#including-in-integrations-config
     - host: github.com
       apps:
         - $include: github-app-backstage-hmcts-credentials.yaml
@@ -107,7 +106,7 @@ Finally before you can start the application you need to setup environment varia
 ```sh
 export AUTH_MICROSOFT_CLIENT_ID="< Found in Key Vault dtscftptl>"
 export AUTH_MICROSOFT_CLIENT_SECRET="< Found in Key Vault dtscftptl>"
-export AUTH_MICROSOFT_TENANT_ID="<Tenant ID>"
+export AUTH_MICROSOFT_TENANT_ID="531ff96d-0ae9-462a-8d2d-bec7c0b42082"
 ```
 
 The following are based on the `docker-compose.yaml` file settings:
