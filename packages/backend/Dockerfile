@@ -5,12 +5,14 @@
 #
 # yarn install
 # yarn tsc
-# yarn build
+# yarn build:backend
 #
 # Once the commands have been run, you can build the image using `yarn build-image`
 
-FROM node:16-bullseye-slim
+FROM node:20-bookworm-slim
 
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON=/usr/bin/python3
 RUN apt-get update -y && \
   apt-get install -y --no-install-recommends \
     mkdocs \
@@ -24,12 +26,15 @@ WORKDIR /app
 RUN chown node:node /app
 USER node
 
-# This switches many Node.js dependencies to production mode.
-ENV NODE_ENV production
-
-# Copy over Yarn 3 configuration, release, and plugins
+# Copy files needed by Yarn
 COPY --chown=node:node .yarn ./.yarn
 COPY --chown=node:node .yarnrc.yml ./
+
+# This switches many Node.js dependencies to production mode.
+ENV NODE_ENV=production
+
+# This disables node snapshot for Node 20 to work with the Scaffolder
+ENV NODE_OPTIONS="--no-node-snapshot"
 
 # Copy repo skeleton first, to avoid unnecessary docker cache invalidation.
 # The skeleton contains the package.json of each package in the monorepo,
@@ -41,7 +46,7 @@ RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
 RUN yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
 
 # Then copy the rest of the backend bundle, along with any other files we might want.
-COPY --chown=node:node packages/backend/dist/bundle.tar.gz app-config.yaml ./
+COPY --chown=node:node packages/backend/dist/bundle.tar.gz app-config*.yaml ./
 RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 
-CMD ["node", "packages/backend", "--config", "app-config.yaml"]
+CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.production.yaml"]

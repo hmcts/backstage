@@ -17,7 +17,7 @@
 import {
   createRouter,
   DefaultJenkinsInfoProvider,
-} from '@backstage/plugin-jenkins-backend';
+} from '@backstage-community/plugin-jenkins-backend';
 import { Router } from 'express';
 import { PluginEnvironment } from '../types';
 import { CatalogClient } from '@backstage/catalog-client';
