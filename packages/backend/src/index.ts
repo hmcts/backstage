@@ -11,11 +11,11 @@ import { createBackend } from '@backstage/backend-defaults';
 
 const backend = createBackend();
 
-backend.add(legacyPlugin('code-coverage', import('./plugins/codecoverage')));
 backend.add(legacyPlugin('todo', import('./plugins/todo')));
-backend.add(legacyPlugin('badges', import('./plugins/badges')));
-backend.add(legacyPlugin('jenkins', import('./plugins/jenkins')));
 
+backend.add(import('@backstage-community/plugin-code-coverage-backend'));
+backend.add(import('@backstage-community/plugin-badges-backend'));
+backend.add(import('@backstage-community/plugin-jenkins-backend'));
 backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
@@ -51,7 +51,7 @@ backend.add(import('@backstage/plugin-search-backend/alpha'));
 backend.add(import('@backstage/plugin-search-backend-module-pg/alpha'));
 
 // search collators
-backend.add(import('@backstage/plugin-search-backend-module-catalog/alpha'));
+backend.add(import('@backstage/plugin-search-backend-module-catalog'));
 backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 
 // kubernetes

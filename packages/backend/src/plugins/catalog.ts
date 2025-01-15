@@ -13,7 +13,12 @@ const catalogModuleCustomExtensions = createBackendModule({
         catalog: catalogProcessingExtensionPoint,
       },
       async init({ catalog }) {
-        catalog.addEntityProvider(new ApiCatalogProvider());
+        catalog.addEntityProvider(
+          new ApiCatalogProvider(
+            null as unknown as any,
+            null as unknown as any,
+          ),
+        );
         catalog.addProcessor(new ScaffolderEntitiesProcessor());
       },
     });
