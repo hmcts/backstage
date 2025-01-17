@@ -267,9 +267,9 @@ homepage:
       timezone: 'Europe/Stockholm'
     - label: TYO
       timezone: 'Asia/Tokyo'
-jenkins:
-  instances:
-    - name: cft
-      baseUrl: ${JENKINS_CFT_URL}
-      username: ${JENKINS_CFT_USERNAME}
-      apiKey: ${JENKINS_CFT_API_KEY}
+#jenkins:
+#  instances:
+#    - name: cft
+#      baseUrl: ${JENKINS_CFT_URL}
+#      username: ${JENKINS_CFT_USERNAME}
+#      apiKey: ${JENKINS_CFT_API_KEY}

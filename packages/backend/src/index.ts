@@ -6,16 +6,14 @@
  * Happy hacking!
  */
 
-import { legacyPlugin } from '@backstage/backend-common';
 import { createBackend } from '@backstage/backend-defaults';
 
 const backend = createBackend();
 
-backend.add(legacyPlugin('todo', import('./plugins/todo')));
-
 backend.add(import('@backstage-community/plugin-code-coverage-backend'));
 backend.add(import('@backstage-community/plugin-badges-backend'));
 backend.add(import('@backstage-community/plugin-jenkins-backend'));
+backend.add(import('@backstage-community/plugin-todo-backend'));
 backend.add(import('@backstage/plugin-app-backend/alpha'));
 backend.add(import('@backstage/plugin-proxy-backend/alpha'));
 backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
@@ -23,7 +21,7 @@ backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
-//backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
+// backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
 backend.add(import('@backstage/plugin-auth-backend-module-microsoft-provider'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
 
@@ -41,7 +39,7 @@ backend.add(
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 
 // permission plugin
-//backend.add(import('@backstage/plugin-permission-backend/alpha'));
+// backend.add(import('@backstage/plugin-permission-backend/alpha'));
 
 // search plugin
 backend.add(import('@backstage/plugin-search-backend/alpha'));

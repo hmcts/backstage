@@ -3,7 +3,7 @@
 #
 # Before building this image, be sure to have run the following commands in the repo root:
 #
-# yarn install
+# yarn install --immutable
 # yarn tsc
 # yarn build:backend
 #
@@ -13,18 +13,29 @@ FROM node:20-bookworm-slim
 
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON=/usr/bin/python3
-RUN apt-get update -y && \
-  apt-get install -y --no-install-recommends \
-    mkdocs \
+
+# Install isolate-vm dependencies, these are needed by the @backstage/plugin-scaffolder-backend.
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
     python3 \
+    g++ \
+    build-essential \
+    mkdocs \
     python3-pip \
-    openjdk-11-jre-headless && \
-  pip3 install mkdocs-techdocs-core
+    default-jre-headless && \
+    python3 -m pip config set global.break-system-packages true && \
+    pip3 install mkdocs-techdocs-core && \
+    rm -rf /var/lib/apt/lists/*
 
 # From here on we use the least-privileged `node` user to run the backend.
-WORKDIR /app
-RUN chown node:node /app
 USER node
+
+# This should create the app dir as `node`.
+# If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
+# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created as `node`.
+WORKDIR /app
 
 # Copy files needed by Yarn
 COPY --chown=node:node .yarn ./.yarn
@@ -42,8 +53,10 @@ ENV NODE_OPTIONS="--no-node-snapshot"
 COPY --chown=node:node yarn.lock package.json packages/backend/dist/skeleton.tar.gz ./
 RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
 
-# Note that this install is not immutable, which is one of the reasons we don't recommend Yarn 3 yet
-RUN yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
+RUN echo "{ \"version\": \"1.35.0\" }" >> backstage.json
+
+RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
+    yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
 
 # Then copy the rest of the backend bundle, along with any other files we might want.
 COPY --chown=node:node packages/backend/dist/bundle.tar.gz app-config*.yaml ./

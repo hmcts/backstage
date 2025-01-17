@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-import { createStatusCheckRouter } from '@backstage/backend-common';
-import { Router } from 'express';
-import { PluginEnvironment } from '../types';
+import { test, expect } from '@playwright/test';
 
-export default async function createRouter({
-  logger,
-}: PluginEnvironment): Promise<Router> {
-  return await createStatusCheckRouter({ logger, path: '/healthcheck' });
-}
+test('App should render the welcome page', async ({ page }) => {
+  await page.goto('/');
+
+  const enterButton = page.getByRole('button', { name: 'Enter' });
+  await expect(enterButton).toBeVisible();
+  await enterButton.click();
+
+  await expect(page.getByText('My Company Catalog')).toBeVisible();
+});

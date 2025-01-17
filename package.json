@@ -34,13 +34,13 @@
   },
   "devDependencies": {
     "@backstage/cli": "backstage:^",
-    "@spotify/prettier-config": "14.1.0",
-    "concurrently": "6.5.1",
-    "lerna": "5.5.1",
+    "@backstage/e2e-test-utils": "backstage:^",
+    "@playwright/test": "^1.49.1",
+    "@spotify/prettier-config": "14.1.6",
     "lint-staged": "12.5.0",
-    "node-gyp": "^10.0.0",
-    "prettier": "2.7.1",
-    "typescript": "~5.4.0"
+    "node-gyp": "^11.0.0",
+    "prettier": "2.8.8",
+    "typescript": "~5.7.3"
   },
   "resolutions": {
     "@types/react": "^18",
