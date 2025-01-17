@@ -106,7 +106,7 @@ Finally before you can start the application you need to setup environment varia
 ```sh
 export AUTH_MICROSOFT_CLIENT_ID="< Found in Key Vault dtscftptl>"
 export AUTH_MICROSOFT_CLIENT_SECRET="< Found in Key Vault dtscftptl>"
-export AUTH_MICROSOFT_TENANT_ID="531ff96d-0ae9-462a-8d2d-bec7c0b42082"
+export AUTH_MICROSOFT_TENANT_ID="<Tenant ID>"
 ```
 
 The following are based on the `docker-compose.yaml` file settings:
