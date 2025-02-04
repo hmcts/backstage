@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [20.x]
 
     steps:
       - uses: actions/checkout@v3
@@ -74,5 +74,3 @@ jobs:
           docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-$CONTAINER_ID
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-$CONTAINER_ID
         if: github.ref == 'refs/heads/master'
-
-

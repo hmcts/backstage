@@ -6,125 +6,56 @@
  * Happy hacking!
  */
 
-import Router from 'express-promise-router';
-import {
-  createServiceBuilder,
-  loadBackendConfig,
-  getRootLogger,
-  useHotMemoize,
-  notFoundHandler,
-  CacheManager,
-  DatabaseManager,
-  SingleHostDiscovery,
-  UrlReaders,
-  ServerTokenManager,
-} from '@backstage/backend-common';
-import { TaskScheduler } from '@backstage/backend-tasks';
-import { Config } from '@backstage/config';
-import app from './plugins/app';
-import auth from './plugins/auth';
-import catalog from './plugins/catalog';
-import codeCoverage from './plugins/codecoverage';
-import scaffolder from './plugins/scaffolder';
-import proxy from './plugins/proxy';
-import techdocs from './plugins/techdocs';
-import search from './plugins/search';
-import todo from './plugins/todo';
-import badges from './plugins/badges';
-import jenkins from './plugins/jenkins';
-import { PluginEnvironment } from './types';
-import { ServerPermissionClient } from '@backstage/plugin-permission-node';
-import { DefaultIdentityClient } from '@backstage/plugin-auth-node';
+import { createBackend } from '@backstage/backend-defaults';
 
-function makeCreateEnv(config: Config) {
-  const root = getRootLogger();
-  const reader = UrlReaders.default({ logger: root, config });
-  const discovery = SingleHostDiscovery.fromConfig(config);
-  const cacheManager = CacheManager.fromConfig(config);
-  const databaseManager = DatabaseManager.fromConfig(config, { logger: root });
-  const tokenManager = ServerTokenManager.noop();
-  const taskScheduler = TaskScheduler.fromConfig(config);
+const backend = createBackend();
 
-  const identity = DefaultIdentityClient.create({
-    discovery,
-  });
+backend.add(import('@backstage-community/plugin-code-coverage-backend'));
+backend.add(import('@backstage-community/plugin-badges-backend'));
+backend.add(import('@backstage-community/plugin-jenkins-backend'));
+backend.add(import('@backstage-community/plugin-todo-backend'));
+backend.add(import('@backstage/plugin-app-backend/alpha'));
+backend.add(import('@backstage/plugin-proxy-backend/alpha'));
+backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
+backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
 
-  const permissions = ServerPermissionClient.fromConfig(config, {
-    discovery,
-    tokenManager,
-  });
+// auth plugin
+backend.add(import('@backstage/plugin-auth-backend'));
+// backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
+backend.add(import('@backstage/plugin-auth-backend-module-microsoft-provider'));
+// See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
 
-  root.info(`Created UrlReader ${reader}`);
+// catalog plugin
+backend.add(import('@backstage/plugin-catalog-backend/alpha'));
+backend.add(import('@backstage/plugin-catalog-backend-module-azure'));
+backend.add(import('@backstage/plugin-catalog-backend-module-github'));
+backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
+backend.add(import('./plugins/catalog'));
+backend.add(
+  import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
+);
 
-  return (plugin: string): PluginEnvironment => {
-    const logger = root.child({ type: 'plugin', plugin });
-    const database = databaseManager.forPlugin(plugin);
-    const cache = cacheManager.forPlugin(plugin);
-    const scheduler = taskScheduler.forPlugin(plugin);
-    return {
-      logger,
-      database,
-      cache,
-      config,
-      reader,
-      discovery,
-      tokenManager,
-      scheduler,
-      permissions,
-      identity,
-    };
-  };
-}
+// See https://backstage.io/docs/features/software-catalog/configuration#subscribing-to-catalog-errors
+backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 
-async function main() {
-  const config = await loadBackendConfig({
-    argv: process.argv,
-    logger: getRootLogger(),
-  });
-  const createEnv = makeCreateEnv(config);
+// permission plugin
+// backend.add(import('@backstage/plugin-permission-backend/alpha'));
 
-  const catalogEnv = useHotMemoize(module, () => createEnv('catalog'));
-  const codeCoverageEnv = useHotMemoize(module, () =>
-    createEnv('code-coverage'),
-  );
-  const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
-  const authEnv = useHotMemoize(module, () => createEnv('auth'));
-  const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
-  const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
-  const todoEnv = useHotMemoize(module, () => createEnv('todo'));
-  const searchEnv = useHotMemoize(module, () => createEnv('search'));
-  const appEnv = useHotMemoize(module, () => createEnv('app'));
-  const badgesEnv = useHotMemoize(module, () => createEnv('badges'));
-  const jenkinsEnv = useHotMemoize(module, () => createEnv('jenkins'));
+// search plugin
+backend.add(import('@backstage/plugin-search-backend/alpha'));
 
-  const apiRouter = Router();
-  apiRouter.use('/catalog', await catalog(catalogEnv));
-  apiRouter.use('/code-coverage', await codeCoverage(codeCoverageEnv));
-  apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
-  apiRouter.use('/auth', await auth(authEnv));
-  apiRouter.use('/techdocs', await techdocs(techdocsEnv));
-  apiRouter.use('/proxy', await proxy(proxyEnv));
-  apiRouter.use('/search', await search(searchEnv));
-  apiRouter.use('/todo', await todo(todoEnv));
-  apiRouter.use('/badges', await badges(badgesEnv));
-  apiRouter.use('/jenkins', await jenkins(jenkinsEnv));
+// search engine
+// See https://backstage.io/docs/features/search/search-engines
+backend.add(import('@backstage/plugin-search-backend-module-pg/alpha'));
 
-  // Add backends ABOVE this line; this 404 handler is the catch-all fallback
-  apiRouter.use(notFoundHandler());
+// search collators
+backend.add(import('@backstage/plugin-search-backend-module-catalog'));
+backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
 
-  const service = createServiceBuilder(module)
-      .loadConfig(config)
-      .addRouter('/api', apiRouter)
-      .addRouter('', await app(appEnv));
+// kubernetes
+backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
 
-  await service.start().catch(err => {
-    console.log(err);
-    process.exit(1);
-  });
-}
-
-module.hot?.accept();
-main().catch(error => {
+backend.start().catch(error => {
   console.error('Backend failed to start up', error);
   process.exit(1);
 });
