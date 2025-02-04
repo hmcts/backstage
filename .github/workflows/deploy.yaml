@@ -43,9 +43,17 @@ jobs:
       - name: Generate build ID
         id: prep
         run: |
+          pr_ref="${GITHUB_REF_NAME%%/*}"
+          sha=${GITHUB_SHA::8}
+          ts=$(date +%s)
+          echo "::set-output name=BUILD_ID::${pr_ref}-${sha}-${ts}"
+        if: startsWith(github.ref, 'refs/pull')
+        run: |
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
           echo "::set-output name=BUILD_ID::${sha}-${ts}"
+        if: github.ref == 'refs/heads/master'
+
       - name: remove dummy credentials file
         run: rm -f github-app-backstage-hmcts-credentials.yaml
 
