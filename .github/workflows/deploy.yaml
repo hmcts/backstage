@@ -40,19 +40,20 @@ jobs:
       - name: build
         run: yarn build
 
-      - name: Generate build ID
-        id: prep
+      - name: Generate build ID for PR
+        if: startsWith(github.ref, 'refs/pull')
         run: |
           pr_ref="${GITHUB_REF_NAME%%/*}"
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
-          echo "::set-output name=BUILD_ID::${pr_ref}-${sha}-${ts}"
-        if: startsWith(github.ref, 'refs/pull')
+          echo "CONTAINER_ID=${pr_ref}-${sha}-${ts}" >> $GITHUB_ENV
+
+      - name: Generate build ID for master
+        if: github.ref == 'refs/heads/master'
         run: |
           sha=${GITHUB_SHA::8}
           ts=$(date +%s)
-          echo "::set-output name=BUILD_ID::${sha}-${ts}"
-        if: github.ref == 'refs/heads/master'
+          echo "CONTAINER_ID=${sha}-${ts}" >> $GITHUB_ENV
 
       - name: remove dummy credentials file
         run: rm -f github-app-backstage-hmcts-credentials.yaml
@@ -65,13 +66,13 @@ jobs:
           password: ${{ secrets.REGISTRY_PASSWORD }}
       - run: |
           yarn workspace backend build-image
-          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-${{ steps.prep.outputs.BUILD_ID }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-${{ steps.prep.outputs.BUILD_ID }}
+          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-$CONTAINER_ID
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:pr-$CONTAINER_ID
         if: startsWith(github.ref, 'refs/pull')
       - run: |
           yarn workspace backend build-image
-          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-${{ steps.prep.outputs.BUILD_ID }}
-          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-${{ steps.prep.outputs.BUILD_ID }}
+          docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-$CONTAINER_ID
+          docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-$CONTAINER_ID
         if: github.ref == 'refs/heads/master'
 
 
