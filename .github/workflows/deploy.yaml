@@ -74,5 +74,3 @@ jobs:
           docker tag backstage:latest ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-$CONTAINER_ID
           docker push ${{ secrets.REGISTRY_LOGIN_SERVER }}/backstage/backend:prod-$CONTAINER_ID
         if: github.ref == 'refs/heads/master'
-
-
