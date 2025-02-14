@@ -137,14 +137,14 @@ catalog:
           # See https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
           # and for the syntax https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter
           # This and userGroupMemberFilter are mutually exclusive, only one can be specified
-          filter: accountEnabled eq true
+          filter: accountEnabled eq true and userType eq 'member'
         group:
           # Optional parameter to include the expanded resource or collection referenced
           # by a single relationship (navigation property) in your results.
           # Only one relationship can be expanded in a single request.
           # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
           # Can be combined with userGroupMember[...] instead of userFilter.
-          expand: member
+          #expand: member
           # Optional filter for group, see Microsoft Graph API for the syntax
           # See https://docs.microsoft.com/en-us/graph/api/resources/group?view=graph-rest-1.0#properties
           filter: securityEnabled eq true
@@ -154,7 +154,7 @@ catalog:
           select: ['id', 'displayName', 'description']
         schedule:
           frequency: PT1H
-          timeout: PT50M
+          timeout: PT55M
 
   locations:
     - type: url
