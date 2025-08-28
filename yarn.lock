@@ -8603,6 +8603,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@hmcts/backstage@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@hmcts/backstage@workspace:."
+  dependencies:
+    "@backstage/cli": "backstage:^"
+    "@backstage/e2e-test-utils": "backstage:^"
+    "@playwright/test": "npm:^1.49.1"
+    "@spotify/prettier-config": "npm:14.1.6"
+    lint-staged: "npm:12.5.0"
+    node-gyp: "npm:^11.0.0"
+    prettier: "npm:2.8.8"
+    typescript: "npm:~5.7.3"
+  languageName: unknown
+  linkType: soft
+
 "@httptoolkit/httpolyglot@npm:^2.2.1":
   version: 2.2.2
   resolution: "@httptoolkit/httpolyglot@npm:2.2.2"
@@ -32238,21 +32253,6 @@ __metadata:
   checksum: 10/f5d240a76a8c3cd7918f7dc97b7eaec5d97d27b3901e3843f74e18b4e9195c77abe8aa61575cd64ad7897f6a6dea6c68a7ad1a8073e3cf3139529e9fa7d06c2b
   languageName: node
   linkType: hard
-
-"root@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "root@workspace:."
-  dependencies:
-    "@backstage/cli": "backstage:^"
-    "@backstage/e2e-test-utils": "backstage:^"
-    "@playwright/test": "npm:^1.49.1"
-    "@spotify/prettier-config": "npm:14.1.6"
-    lint-staged: "npm:12.5.0"
-    node-gyp: "npm:^11.0.0"
-    prettier: "npm:2.8.8"
-    typescript: "npm:~5.7.3"
-  languageName: unknown
-  linkType: soft
 
 "rrweb-cssom@npm:^0.8.0":
   version: 0.8.0

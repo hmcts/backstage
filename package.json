@@ -1,5 +1,5 @@
 {
-  "name": "root",
+  "name": "@hmcts/backstage",
   "version": "1.0.0",
   "private": true,
   "engines": {
@@ -33,18 +33,18 @@
     ]
   },
   "devDependencies": {
-    "@backstage/cli": "backstage:^",
-    "@backstage/e2e-test-utils": "backstage:^",
-    "@playwright/test": "^1.49.1",
-    "@spotify/prettier-config": "14.1.6",
-    "lint-staged": "12.5.0",
-    "node-gyp": "^11.0.0",
-    "prettier": "2.8.8",
-    "typescript": "~5.7.3"
+    "@backstage/cli": "^0.25.0",
+    "@backstage/e2e-test-utils": "^0.5.0",
+    "@playwright/test": "^1.44.1",
+    "@spotify/prettier-config": "^15.0.0",
+    "lint-staged": "^15.2.0",
+    "node-gyp": "^10.0.1",
+    "prettier": "^3.2.5",
+    "typescript": "^5.4.5"
   },
   "resolutions": {
-    "@types/react": "^18",
-    "@types/react-dom": "^18"
+    "@types/react": "^18.2.21",
+    "@types/react-dom": "^18.2.7"
   },
   "prettier": "@spotify/prettier-config",
   "lint-staged": {
