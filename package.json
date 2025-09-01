@@ -6,7 +6,7 @@
     "node": "20"
   },
   "scripts": {
-    "dev": "LOG_LEVEL=debug yarn workspaces foreach -A --include backend --include app --parallel -v -i run start",
+    "dev": "LOG_LEVEL=debug yarn workspaces foreach -A --include backend --include app  --parallel -v -i run start",
     "start": "yarn workspace app start",
     "start-backend": "yarn workspace backend start",
     "build:backend": "yarn workspace backend build",
@@ -33,17 +33,17 @@
     ]
   },
   "devDependencies": {
-    "@backstage/cli": "^0.25.0",
-    "@backstage/e2e-test-utils": "^0.5.0",
-    "@playwright/test": "^1.44.1",
+    "@backstage/cli": "^0.34.1",
+    "@backstage/e2e-test-utils": "^0.1.1",
+    "@playwright/test": "^1.55.0",
     "@spotify/prettier-config": "^15.0.0",
-    "lint-staged": "^15.2.0",
-    "node-gyp": "^10.0.1",
-    "prettier": "^3.2.5",
+    "lint-staged": "^16.1.5",
+    "node-gyp": "^11.4.2",
+    "prettier": "^3.6.2",
     "typescript": "^5.4.5"
   },
   "resolutions": {
-    "@types/react": "^18.2.21",
+    "@types/react": "^18.2.7",
     "@types/react-dom": "^18.2.7"
   },
   "prettier": "@spotify/prettier-config",

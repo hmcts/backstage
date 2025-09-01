@@ -4,12 +4,12 @@ import {
   PluginEndpointDiscovery,
   TokenManager,
 } from '@backstage/backend-common';
-import { UrlReaderService } from '@backstage/backend-plugin-api/index';
 import { PluginTaskScheduler } from '@backstage/backend-tasks';
 import { Config } from '@backstage/config';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 import { PermissionEvaluator } from '@backstage/plugin-permission-common';
 import { Logger } from 'winston';
+import { UrlReaderService } from "@backstage/backend-plugin-api";
 
 export type PluginEnvironment = {
   logger: Logger;

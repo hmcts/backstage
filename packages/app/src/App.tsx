@@ -30,7 +30,6 @@ import { Root } from './components/Root';
 import {
   AlertDisplay,
   OAuthRequestDialog,
-  SignInProviderConfig,
   SignInPage,
 } from '@backstage/core-components';
 import { createApp } from '@backstage/app-defaults';
@@ -38,31 +37,38 @@ import { AppRouter, FlatRoutes } from '@backstage/core-app-api';
 import { CatalogGraphPage } from '@backstage/plugin-catalog-graph';
 import { RequirePermission } from '@backstage/plugin-permission-react';
 import { catalogEntityCreatePermission } from '@backstage/plugin-catalog-common/alpha';
-
 import {microsoftAuthApiRef} from '@backstage/core-plugin-api';
 
 import { HomepageCompositionRoot } from '@backstage/plugin-home';
 import { HomePage } from './components/home/HomePage';
 
-const microsoftAuthProvider: SignInProviderConfig = {
-    id: 'azure-auth-provider',
-    title: 'Microsoft Active Directory',
-    message: 'Sign in to Backstage Application using your Active Directory account.',
-    apiRef: microsoftAuthApiRef,
-};
+// const microsoftAuthProvider: SignInProviderConfig = {
+//     id: 'azure-auth-provider',
+//     title: 'Microsoft Active Directory',
+//     message: 'Sign in to Backstage Application using your Active Directory account.',
+//     apiRef: microsoftAuthApiRef,
+// };
 
 const app = createApp({
-  apis,
+    apis,
     components: {
         SignInPage: props => (
             <SignInPage
                 {...props}
                 auto
-                provider={microsoftAuthProvider}
+                providers={[
+                    'guest',
+                    {
+                        id: 'azure-auth-provider',
+                        title: 'Microsoft Active Directory',
+                        message: 'Sign in to Backstage Application using your Active Directory account.',
+                        apiRef: microsoftAuthApiRef,
+                    },
+                ]}
             />
         ),
     },
-  bindRoutes({ bind }) {
+    bindRoutes({ bind }) {
     bind(catalogPlugin.externalRoutes, {
       createComponent: scaffolderPlugin.routes.root,
       viewTechDoc: techdocsPlugin.routes.docRoot,

@@ -1,8 +1,10 @@
-import { ScaffolderEntitiesProcessor } from '@backstage/plugin-scaffolder-backend';
 import { ApiCatalogProvider } from './apiCatalogProvider';
 
-import { createBackendModule } from '@backstage/backend-plugin-api';
+import { coreServices, createBackendModule } from '@backstage/backend-plugin-api';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
+import { ScaffolderEntitiesProcessor } from "@backstage/plugin-catalog-backend-module-scaffolder-entity-model";
+import logger = coreServices.logger
+import config = coreServices.rootConfig
 
 const catalogModuleCustomExtensions = createBackendModule({
   pluginId: 'catalog', // name of the plugin that the module is targeting
@@ -11,13 +13,12 @@ const catalogModuleCustomExtensions = createBackendModule({
     env.registerInit({
       deps: {
         catalog: catalogProcessingExtensionPoint,
+          config: config,
+          logger: logger
       },
-      async init({ catalog }) {
+      async init({ catalog, config, logger }) {
         catalog.addEntityProvider(
-          new ApiCatalogProvider(
-            null as unknown as any,
-            null as unknown as any,
-          ),
+          new ApiCatalogProvider(config, logger),
         );
         catalog.addProcessor(new ScaffolderEntitiesProcessor());
       },

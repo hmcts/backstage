@@ -46,7 +46,9 @@ backend:
   cache:
     store: memory
   cors:
-    origin: http://localhost:3000
+    origin:
+      - http://localhost:3000
+      - http://localhost:7007
     methods: [GET, HEAD, PATCH, POST, PUT, DELETE]
     credentials: true
   csp:
@@ -72,12 +74,12 @@ techdocs:
     type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
 
 integrations:
-  github:
+#  github:
     # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
     # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/github-apps/#including-in-integrations-config
-    - host: github.com
-      apps:
-        - $include: github-app-backstage-hmcts-credentials.yaml
+#    - host: github.com
+#      apps:
+#        - $include: github-app-backstage-hmcts-credentials.yaml
 
 # see https://backstage.io/docs/features/software-templates/configuration for software template options
 catalog:
@@ -195,6 +197,7 @@ auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
   environment: development
   providers:
+    guest: {}
     github:
       development:
         clientId: ${AUTH_GITHUB_CLIENT_ID}
@@ -267,9 +270,9 @@ homepage:
       timezone: 'Europe/Stockholm'
     - label: TYO
       timezone: 'Asia/Tokyo'
-jenkins:
-  instances:
-    - name: cft
-      baseUrl: ${JENKINS_CFT_URL}
-      username: ${JENKINS_CFT_USERNAME}
-      apiKey: ${JENKINS_CFT_API_KEY}
+#jenkins:
+#  instances:
+#    - name: cft
+#      baseUrl: ${JENKINS_CFT_URL}
+#      username: ${JENKINS_CFT_USERNAME}
+#      apiKey: ${JENKINS_CFT_API_KEY}

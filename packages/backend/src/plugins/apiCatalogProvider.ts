@@ -1,21 +1,18 @@
 import { Config } from '@backstage/config';
-import {
-  EntityProvider,
-  EntityProviderConnection,
-} from '@backstage/plugin-catalog-backend';
-import { Logger } from 'winston';
 import { locationSpecToLocationEntity } from '../util/conversion';
 import { getEntityLocationRef } from '../processing/util';
+import { EntityProvider, EntityProviderConnection } from "@backstage/plugin-catalog-node";
+import { LoggerService } from "@backstage/backend-plugin-api";
 
 /**
  * Provides entities to update API Swagger documentation.
  */
 export class ApiCatalogProvider implements EntityProvider {
   private readonly config: Config;
-  private logger: Logger;
+  private logger: LoggerService;
   private connection?: EntityProviderConnection;
 
-  constructor(config: Config, logger: Logger) {
+  constructor(config: Config, logger: LoggerService) {
     this.config = config;
     this.logger = logger;
   }
