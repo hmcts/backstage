@@ -6,6 +6,7 @@
     "node": "20 || 22"
   },
   "scripts": {
+    "dev": "LOG_LEVEL=debug yarn workspaces foreach -A --include backend --include app --parallel -v -i run start",
     "start": "backstage-cli repo start",
     "build:backend": "yarn workspace backend build",
     "build:all": "backstage-cli repo build --all",
@@ -29,12 +30,13 @@
     ]
   },
   "devDependencies": {
-    "@backstage/cli": "^0.34.0",
-    "@backstage/e2e-test-utils": "^0.1.1",
-    "@playwright/test": "^1.32.3",
-    "node-gyp": "^10.0.0",
-    "prettier": "^2.3.2",
-    "typescript": "~5.8.0"
+    "@backstage/cli": "backstage:^",
+    "@backstage/e2e-test-utils": "backstage:^",
+    "@playwright/test": "^1.49.1",
+    "lint-staged": "12.5.0",
+    "node-gyp": "^11.0.0",
+    "prettier": "2.8.8",
+    "typescript": "~5.7.3"
   },
   "resolutions": {
     "@types/react": "^18",
