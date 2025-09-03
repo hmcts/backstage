@@ -8,8 +8,10 @@
   "scripts": {
     "dev": "LOG_LEVEL=debug yarn workspaces foreach -A --include backend --include app --parallel -v -i run start",
     "start": "backstage-cli repo start",
+    "start-backend": "yarn workspace backend start",
     "build:backend": "yarn workspace backend build",
     "build:all": "backstage-cli repo build --all",
+    "build": "backstage-cli repo build --all",
     "build-image": "yarn workspace backend build-image",
     "tsc": "tsc",
     "tsc:full": "tsc --skipLibCheck false --incremental false",
@@ -52,5 +54,5 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@4.6.0"
 }
