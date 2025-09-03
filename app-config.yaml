@@ -105,7 +105,7 @@ catalog:
         catalogPath: '/catalog-info.yaml' # string
         filters:
           topic:
-            include: [ 'backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds' ]
+            include: ['backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds']
         schedule:
           frequency: PT1H
           timeout: PT50M
