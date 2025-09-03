@@ -16,7 +16,6 @@ logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-lerna-debug.log*
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
@@ -135,13 +134,22 @@ site
 # Sensitive credentials
 *-credentials.yaml
 
+# vscode database functionality support files
+*.session.sql
+
+# E2E test reports
+e2e-test-report/
+
+# Cache
+.cache/
+
 # e2e tests
 cypress/cypress/*
 
 # Possible leftover from build:api-reports
 tsconfig.tmp.json
 
-# Yarn 3 files
+# Yarn files
 .pnp.*
 .yarn/*
 !.yarn/patches

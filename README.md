@@ -70,8 +70,6 @@ You will need to run the following commands to setup the application locally fro
 
 ```sh
 yarn install
-yarn tsc
-yarn build
 ```
 Once built you will need to also bring online the docker postgres database before you can start Backstage.
 
@@ -122,7 +120,7 @@ export POSTGRES_PASSWORD=postgres
 At this point you can now run the following to start the frontend and backend packages:
 
 ```sh
-yarn dev
+yarn start
 ```
 
 A browser window should open and load `http://localhost:3000` for you to log into Backstage.
