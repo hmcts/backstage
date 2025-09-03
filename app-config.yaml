@@ -65,19 +65,20 @@ backend:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'local'
-    # dockerImage: my-org/techdocs # use a custom docker image
-    # pullImage: true # or false to disable automatic pulling of image (e.g. if custom docker login is required)
+    runIn: 'docker' # Alternatives - 'local'
   publisher:
-    type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 integrations:
   github:
-    # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-    # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/github-apps/#including-in-integrations-config
     - host: github.com
-      apps:
-        - $include: github-app-backstage-hmcts-credentials.yaml
+      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
+      token: ${GITHUB_TOKEN}
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
 
 # see https://backstage.io/docs/features/software-templates/configuration for software template options
 catalog:
@@ -104,7 +105,7 @@ catalog:
         catalogPath: '/catalog-info.yaml' # string
         filters:
           topic:
-            include: ['backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds']
+            include: [ 'backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds' ]
         schedule:
           frequency: PT1H
           timeout: PT50M
@@ -151,7 +152,7 @@ catalog:
           # Optional select for groups, this will allow you work with schemaExtensions
           # in order to add extra information to your groups that can be used on you custom groupTransformers
           # See  https://docs.microsoft.com/en-us/graph/api/resources/schemaextension?view=graph-rest-1.0
-          select: ['id', 'displayName', 'description']
+          select: [ 'id', 'displayName', 'description' ]
         schedule:
           frequency: PT1H
           timeout: PT55M
@@ -183,13 +184,8 @@ catalog:
 search:
   pg:
 
-scaffolder:
-# Use to customize default commit author info used when new components are created
-# defaultAuthor:
-#   name: Scaffolder
-#   email: scaffolder@backstage.io
-# Use to customize the default commit message when new components are created
-# defaultCommitMessage: 'Initial commit'
+kubernetes:
+  # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
