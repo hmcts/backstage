@@ -206,7 +206,7 @@ auth:
         tenantId: ${AUTH_MICROSOFT_TENANT_ID}
         signIn:
           resolvers:
-            - resolver: emailMatchingUserEntityProfileEmail
+            - resolver: userIdMatchingUserEntityAnnotation
 
 costInsights:
   engineerCost: 200000
