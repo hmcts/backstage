@@ -10,27 +10,28 @@ import { createBackend } from '@backstage/backend-defaults';
 
 const backend = createBackend();
 
-backend.add(import('@backstage-community/plugin-code-coverage-backend'));
-backend.add(import('@backstage-community/plugin-badges-backend'));
-backend.add(import('@backstage-community/plugin-jenkins-backend'));
-backend.add(import('@backstage-community/plugin-todo-backend'));
-backend.add(import('@backstage/plugin-app-backend/alpha'));
-backend.add(import('@backstage/plugin-proxy-backend/alpha'));
-backend.add(import('@backstage/plugin-scaffolder-backend/alpha'));
-backend.add(import('@backstage/plugin-techdocs-backend/alpha'));
+backend.add(import('@backstage/plugin-app-backend'));
+backend.add(import('@backstage/plugin-proxy-backend'));
+
+// scaffolder plugin
+backend.add(import('@backstage/plugin-scaffolder-backend'));
+backend.add(import('@backstage/plugin-scaffolder-backend-module-github'));
+backend.add(
+  import('@backstage/plugin-scaffolder-backend-module-notifications'),
+);
+
+// techdocs plugin
+backend.add(import('@backstage/plugin-techdocs-backend'));
 
 // auth plugin
 backend.add(import('@backstage/plugin-auth-backend'));
-// backend.add(import('@backstage/plugin-auth-backend-module-github-provider'));
-backend.add(import('@backstage/plugin-auth-backend-module-microsoft-provider'));
 // See https://backstage.io/docs/backend-system/building-backends/migrating#the-auth-plugin
+backend.add(import('@backstage/plugin-auth-backend-module-guest-provider'));
+backend.add(import('@backstage/plugin-auth-backend-module-microsoft-provider'));
+// See https://backstage.io/docs/auth/guest/provider
 
 // catalog plugin
-backend.add(import('@backstage/plugin-catalog-backend/alpha'));
-backend.add(import('@backstage/plugin-catalog-backend-module-azure'));
-backend.add(import('@backstage/plugin-catalog-backend-module-github'));
-backend.add(import('@backstage/plugin-catalog-backend-module-msgraph'));
-backend.add(import('./plugins/catalog'));
+backend.add(import('@backstage/plugin-catalog-backend'));
 backend.add(
   import('@backstage/plugin-catalog-backend-module-scaffolder-entity-model'),
 );
@@ -39,23 +40,28 @@ backend.add(
 backend.add(import('@backstage/plugin-catalog-backend-module-logs'));
 
 // permission plugin
-// backend.add(import('@backstage/plugin-permission-backend/alpha'));
+backend.add(import('@backstage/plugin-permission-backend'));
+// See https://backstage.io/docs/permissions/getting-started for how to create your own permission policy
+backend.add(
+  import('@backstage/plugin-permission-backend-module-allow-all-policy'),
+);
 
 // search plugin
-backend.add(import('@backstage/plugin-search-backend/alpha'));
+backend.add(import('@backstage/plugin-search-backend'));
 
 // search engine
 // See https://backstage.io/docs/features/search/search-engines
-backend.add(import('@backstage/plugin-search-backend-module-pg/alpha'));
+backend.add(import('@backstage/plugin-search-backend-module-pg'));
 
 // search collators
 backend.add(import('@backstage/plugin-search-backend-module-catalog'));
-backend.add(import('@backstage/plugin-search-backend-module-techdocs/alpha'));
+backend.add(import('@backstage/plugin-search-backend-module-techdocs'));
 
-// kubernetes
-backend.add(import('@backstage/plugin-kubernetes-backend/alpha'));
+// kubernetes plugin
+backend.add(import('@backstage/plugin-kubernetes-backend'));
 
-backend.start().catch(error => {
-  console.error('Backend failed to start up', error);
-  process.exit(1);
-});
+// notifications and signals plugins
+backend.add(import('@backstage/plugin-notifications-backend'));
+backend.add(import('@backstage/plugin-signals-backend'));
+
+backend.start();

@@ -121,7 +121,7 @@ export POSTGRES_PASSWORD=postgres
 At this point you can now run the following to start the frontend and backend packages:
 
 ```sh
-yarn dev
+yarn start
 ```
 
 A browser window should open and load `http://localhost:3000` for you to log into Backstage.
