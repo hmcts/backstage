@@ -28,6 +28,14 @@ import {
   EntityRelationWarning,
 } from '@backstage/plugin-catalog';
 import {
+    isGithubActionsAvailable,
+    EntityGithubActionsContent,
+} from '@backstage-community/plugin-github-actions';
+import {
+    EntityJenkinsContent,
+    isJenkinsAvailable,
+} from '@backstage-community/plugin-jenkins';
+import {
   EntityUserProfileCard,
   EntityGroupProfileCard,
   EntityMembersListCard,

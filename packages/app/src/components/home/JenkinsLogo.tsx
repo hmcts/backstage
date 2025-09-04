@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Logo from './jenkins-logo.svg'
 
 export const JenkinsLogo = () => {

@@ -2,7 +2,7 @@ import { Config } from '@backstage/config';
 import {
   EntityProvider,
   EntityProviderConnection,
-} from '@backstage/plugin-catalog-backend';
+} from '@backstage/plugin-catalog-node';
 import { Logger } from 'winston';
 import { locationSpecToLocationEntity } from '../util/conversion';
 import { getEntityLocationRef } from '../processing/util';

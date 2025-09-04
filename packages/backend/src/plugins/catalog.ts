@@ -1,4 +1,4 @@
-import { ScaffolderEntitiesProcessor } from '@backstage/plugin-scaffolder-backend';
+import { ScaffolderEntitiesProcessor } from '@backstage/plugin-catalog-backend-module-scaffolder-entity-model';
 import { ApiCatalogProvider } from './apiCatalogProvider';
 
 import { createBackendModule } from '@backstage/backend-plugin-api';
