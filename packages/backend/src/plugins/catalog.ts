@@ -1,34 +1,25 @@
-import { MicrosoftGraphOrgEntityProvider } from '@backstage/plugin-catalog-backend-module-msgraph';
-import {
-  createBackendModule,
-  coreServices,
-} from '@backstage/backend-plugin-api';
+import { ScaffolderEntitiesProcessor } from '@backstage/plugin-scaffolder-backend';
+import { ApiCatalogProvider } from './apiCatalogProvider';
+
+import { createBackendModule } from '@backstage/backend-plugin-api';
 import { catalogProcessingExtensionPoint } from '@backstage/plugin-catalog-node/alpha';
 
 const catalogModuleCustomExtensions = createBackendModule({
   pluginId: 'catalog', // name of the plugin that the module is targeting
-  moduleId: 'microsoft-graph-origin',
+  moduleId: 'custom-extensions',
   register(env) {
     env.registerInit({
       deps: {
         catalog: catalogProcessingExtensionPoint,
-        config: coreServices.rootConfig,
-        logger: coreServices.logger,
-        scheduler: coreServices.scheduler,
       },
-      async init({ catalog, config, logger, scheduler }) {
+      async init({ catalog }) {
         catalog.addEntityProvider(
-          MicrosoftGraphOrgEntityProvider.fromConfig(config, {
-            id: 'msgraph', // uniquely identify this provider
-            target: 'https://graph.microsoft.com/v1.0',
-            logger,
-            schedule: scheduler.createScheduledTaskRunner({
-              frequency: { hours: 1 },
-              timeout: { minutes: 50 },
-              initialDelay: { seconds: 15 },
-            }),
-          }),
+          new ApiCatalogProvider(
+            null as unknown as any,
+            null as unknown as any,
+          ),
         );
+        catalog.addProcessor(new ScaffolderEntitiesProcessor());
       },
     });
   },
