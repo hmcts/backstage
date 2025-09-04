@@ -12,15 +12,17 @@ const catalogModuleCustomExtensions = createBackendModule({
     env.registerInit({
       deps: {
         catalog: catalogProcessingExtensionPoint,
+        config: coreServices.rootConfig,
         logger: coreServices.logger,
+        scheduler: coreServices.scheduler,
       },
-      async init({ catalog }) {
+      async init({ catalog, config, logger, scheduler }) {
         catalog.addEntityProvider(
-          MicrosoftGraphOrgEntityProvider.fromConfig(env.config, {
-            id: 'production', // uniquely identify this provider
+          MicrosoftGraphOrgEntityProvider.fromConfig(config, {
+            id: 'msgraph', // uniquely identify this provider
             target: 'https://graph.microsoft.com/v1.0',
             logger,
-            schedule: env.scheduler.createScheduledTaskRunner({
+            schedule: scheduler.createScheduledTaskRunner({
               frequency: { hours: 1 },
               timeout: { minutes: 50 },
               initialDelay: { seconds: 15 },

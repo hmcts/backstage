@@ -3140,6 +3140,25 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@backstage/plugin-catalog-backend-module-msgraph@npm:^0.7.3":
+  version: 0.7.3
+  resolution: "@backstage/plugin-catalog-backend-module-msgraph@npm:0.7.3"
+  dependencies:
+    "@azure/identity": "npm:^4.0.0"
+    "@backstage/backend-plugin-api": "npm:^1.4.2"
+    "@backstage/catalog-model": "npm:^1.7.5"
+    "@backstage/config": "npm:^1.3.3"
+    "@backstage/plugin-catalog-common": "npm:^1.1.5"
+    "@backstage/plugin-catalog-node": "npm:^1.18.0"
+    "@microsoft/microsoft-graph-types": "npm:^2.6.0"
+    lodash: "npm:^4.17.21"
+    p-limit: "npm:^3.0.2"
+    qs: "npm:^6.9.4"
+    uuid: "npm:^11.0.0"
+  checksum: 10/7f939943d571bbb5482f366ab60ca56ac1f71727daa31d660301e4faaa2f0459431093e5df3de0b9b0c87d61483358a6a18ff632dc5db48daebd90fe48a14dab
+  languageName: node
+  linkType: hard
+
 "@backstage/plugin-catalog-backend-module-scaffolder-entity-model@npm:^0.2.11":
   version: 0.2.11
   resolution: "@backstage/plugin-catalog-backend-module-scaffolder-entity-model@npm:0.2.11"
@@ -7357,6 +7376,13 @@ __metadata:
   version: 2.0.1
   resolution: "@microsoft/fetch-event-source@npm:2.0.1"
   checksum: 10/c147055fafe83801efb9834136ba4b7944406a0bba3517afcea6ceeb56714b5ef78c2e89544bd9c1426ad1d2f964a087e3a719169ae04855836a23fb53269f8d
+  languageName: node
+  linkType: hard
+
+"@microsoft/microsoft-graph-types@npm:^2.6.0":
+  version: 2.40.0
+  resolution: "@microsoft/microsoft-graph-types@npm:2.40.0"
+  checksum: 10/40938d73867b13e78388e94f26ddde9433b325b546076783ebc6756af5b99ce52d126767fcb5eee1ee53730909111503388c868333dbd3dddf94d38679500fb4
   languageName: node
   linkType: hard
 
@@ -16090,6 +16116,7 @@ __metadata:
     "@backstage/plugin-auth-node": "npm:^0.6.6"
     "@backstage/plugin-catalog-backend": "npm:^3.0.1"
     "@backstage/plugin-catalog-backend-module-logs": "npm:^0.1.13"
+    "@backstage/plugin-catalog-backend-module-msgraph": "npm:^0.7.3"
     "@backstage/plugin-catalog-backend-module-scaffolder-entity-model": "npm:^0.2.11"
     "@backstage/plugin-catalog-node": "npm:^1.18.0"
     "@backstage/plugin-kubernetes-backend": "npm:^0.20.1"
