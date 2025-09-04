@@ -1,25 +1,16 @@
-import {
-  PluginCacheManager,
-  PluginDatabaseManager,
-  PluginEndpointDiscovery,
-  TokenManager,
-} from '@backstage/backend-common';
-import { UrlReaderService } from '@backstage/backend-plugin-api/index';
-import { PluginTaskScheduler } from '@backstage/backend-tasks';
+import { coreServices } from '@backstage/backend-plugin-api';
 import { Config } from '@backstage/config';
 import { IdentityApi } from '@backstage/plugin-auth-node';
 import { PermissionEvaluator } from '@backstage/plugin-permission-common';
-import { Logger } from 'winston';
 
 export type PluginEnvironment = {
-  logger: Logger;
-  database: PluginDatabaseManager;
-  cache: PluginCacheManager;
+  logger: typeof coreServices.logger;
+  database: typeof coreServices.database;
+  cache: typeof coreServices.cache;
   config: Config;
-  discovery: PluginEndpointDiscovery;
-  tokenManager: TokenManager;
-  scheduler: PluginTaskScheduler;
+  discovery: typeof coreServices.discovery;
+  scheduler: typeof coreServices.scheduler;
   permissions: PermissionEvaluator;
   identity: IdentityApi;
-  reader: UrlReaderService;
+  reader: typeof coreServices.urlReader;
 };
