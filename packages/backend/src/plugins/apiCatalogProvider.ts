@@ -3,7 +3,7 @@ import {
   EntityProvider,
   EntityProviderConnection,
 } from '@backstage/plugin-catalog-backend';
-import { Logger } from 'winston';
+import { LoggerService } from '@backstage/backend-plugin-api';
 import { locationSpecToLocationEntity } from '../util/conversion';
 import { getEntityLocationRef } from '../processing/util';
 
@@ -12,10 +12,10 @@ import { getEntityLocationRef } from '../processing/util';
  */
 export class ApiCatalogProvider implements EntityProvider {
   private readonly config: Config;
-  private logger: Logger;
+  private logger: LoggerService;
   private connection?: EntityProviderConnection;
 
-  constructor(config: Config, logger: Logger) {
+  constructor(config: Config, logger: LoggerService) {
     this.config = config;
     this.logger = logger;
   }

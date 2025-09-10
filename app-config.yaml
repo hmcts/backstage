@@ -21,7 +21,7 @@ organization:
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
-  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+  # See https://backstage.io/docs/auth/service-to-service-auth for
   # information on the format
   # auth:
   #   keys:
@@ -74,7 +74,7 @@ techdocs:
 integrations:
   github:
     # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-    # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
+    # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/github-apps/#including-in-integrations-config
     - host: github.com
       apps:
         - $include: github-app-backstage-hmcts-credentials.yaml
@@ -105,6 +105,9 @@ catalog:
         filters:
           topic:
             include: ['backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds']
+        schedule:
+          frequency: PT1H
+          timeout: PT50M
     microsoftGraphOrg:
       default:
         target: https://graph.microsoft.com/v1.0
@@ -134,14 +137,14 @@ catalog:
           # See https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
           # and for the syntax https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter
           # This and userGroupMemberFilter are mutually exclusive, only one can be specified
-          filter: accountEnabled eq true
+          filter: accountEnabled eq true and userType eq 'member'
         group:
           # Optional parameter to include the expanded resource or collection referenced
           # by a single relationship (navigation property) in your results.
           # Only one relationship can be expanded in a single request.
           # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
           # Can be combined with userGroupMember[...] instead of userFilter.
-          expand: member
+          #expand: member
           # Optional filter for group, see Microsoft Graph API for the syntax
           # See https://docs.microsoft.com/en-us/graph/api/resources/group?view=graph-rest-1.0#properties
           filter: securityEnabled eq true
@@ -149,6 +152,9 @@ catalog:
           # in order to add extra information to your groups that can be used on you custom groupTransformers
           # See  https://docs.microsoft.com/en-us/graph/api/resources/schemaextension?view=graph-rest-1.0
           select: ['id', 'displayName', 'description']
+        schedule:
+          frequency: PT1H
+          timeout: PT55M
 
   locations:
     - type: url
@@ -198,6 +204,9 @@ auth:
         clientId: ${AUTH_MICROSOFT_CLIENT_ID}
         clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
         tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+        signIn:
+          resolvers:
+            - resolver: userIdMatchingUserEntityAnnotation
 
 costInsights:
   engineerCost: 200000
