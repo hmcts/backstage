@@ -25,7 +25,7 @@ import app from './plugins/app';
 import auth from './plugins/auth';
 import catalog from './plugins/catalog';
 import codeCoverage from './plugins/codecoverage';
-import scaffolder from './plugins/scaffolder';
+// import scaffolder from './plugins/scaffolder';
 import proxy from './plugins/proxy';
 import techdocs from './plugins/techdocs';
 import search from './plugins/search';
@@ -87,7 +87,7 @@ async function main() {
   const codeCoverageEnv = useHotMemoize(module, () =>
     createEnv('code-coverage'),
   );
-  const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
+  // const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
   const authEnv = useHotMemoize(module, () => createEnv('auth'));
   const proxyEnv = useHotMemoize(module, () => createEnv('proxy'));
   const techdocsEnv = useHotMemoize(module, () => createEnv('techdocs'));
@@ -100,7 +100,7 @@ async function main() {
   const apiRouter = Router();
   apiRouter.use('/catalog', await catalog(catalogEnv));
   apiRouter.use('/code-coverage', await codeCoverage(codeCoverageEnv));
-  apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
+  // apiRouter.use('/scaffolder', await scaffolder(scaffolderEnv));
   apiRouter.use('/auth', await auth(authEnv));
   apiRouter.use('/techdocs', await techdocs(techdocsEnv));
   apiRouter.use('/proxy', await proxy(proxyEnv));
