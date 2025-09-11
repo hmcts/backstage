@@ -1,22 +1,22 @@
 version: "3.8"
 services:
 
-  backend:
-    image: backstage
-    environment:
-      ROLLBAR_ACCOUNT_TOKEN: 'x'
-      SENTRY_TOKEN: 'x'
-      AUTH_GITHUB_CLIENT_ID: ${AUTH_GITHUB_CLIENT_ID}
-      AUTH_GITHUB_CLIENT_SECRET: ${AUTH_GITHUB_CLIENT_SECRET}
-      GITHUB_TOKEN: ${GITHUB_TOKEN}
-      POSTGRES_HOST: db
-      POSTGRES_PASSWORD: postgres
-      POSTGRES_USER: postgres
-      AUTH_MICROSOFT_TENANT_ID: ${AUTH_MICROSOFT_TENANT_ID}
-      AUTH_MICROSOFT_CLIENT_ID: ${AUTH_MICROSOFT_CLIENT_ID}
-      AUTH_MICROSOFT_CLIENT_SECRET: ${AUTH_MICROSOFT_CLIENT_SECRET}
-    ports:
-      - "7007:7007"
+  # backend:
+  #   image: backstage
+  #   environment:
+  #     ROLLBAR_ACCOUNT_TOKEN: 'x'
+  #     SENTRY_TOKEN: 'x'
+  #     AUTH_GITHUB_CLIENT_ID: ${AUTH_GITHUB_CLIENT_ID}
+  #     AUTH_GITHUB_CLIENT_SECRET: ${AUTH_GITHUB_CLIENT_SECRET}
+  #     GITHUB_TOKEN: ${GITHUB_TOKEN}
+  #     POSTGRES_HOST: db
+  #     POSTGRES_PASSWORD: postgres
+  #     POSTGRES_USER: postgres
+  #     AUTH_MICROSOFT_TENANT_ID: ${AUTH_MICROSOFT_TENANT_ID}
+  #     AUTH_MICROSOFT_CLIENT_ID: ${AUTH_MICROSOFT_CLIENT_ID}
+  #     AUTH_MICROSOFT_CLIENT_SECRET: ${AUTH_MICROSOFT_CLIENT_SECRET}
+  #   ports:
+  #     - "7007:7007"
 
   db:
     image: postgres:14
@@ -24,7 +24,7 @@ services:
     environment:
       POSTGRES_PASSWORD: postgres
     ports:
-      - "5432:5432"
+      - "5433:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
       #- ./pg_hba.conf:/var/lib/postgresql/data/pg_hba.conf

@@ -1,0 +1,226 @@
+apiVersion: scaffolder.backstage.io/v1beta3
+kind: Template
+metadata:
+  name: createDNSRecord
+  title: Create a Public DNS Record 
+  description: PR to create a public DNS record
+  tags:
+    - infrastructure
+    - terraform
+    - azure
+    - dns
+  annotations:
+    backstage.io/techdocs-ref: https://backstage.io/docs/features/software-templates
+  links:
+    - title: Documentation
+      url: https://backstage.io/docs/features/software-templates
+      icon: docs
+    - title: Source
+      url: https://github.com.br/gabriel-dantas98/backstage-scaffolders/blob/main/basic-react-app/create-web-app.yaml
+      icon: github
+
+spec:
+  owner: cloud_platform
+  type: infra-as-code
+
+  # parameters:
+  # - title: Create a DNS record
+  #   required:
+  #       - dns_zone
+  #       - record_name
+  #       - record_value
+  #       - record_ttl
+  #   properties:
+  #     dns_zone:
+  #       title: DNS Zone name
+  #       type: string
+  #       enum:
+  #         - platforms.hmcts.net
+  #         - hmcts.net
+  #       ui:autofocus: true
+  #     record_name:
+  #       title: DNS record name
+  #       type: string
+  #       description: |
+  #         The name of the record to create
+  #     record_value:
+  #       title: DNS record value
+  #       type: string
+  #       description: |
+  #         The value of the record to create
+  #     record_ttl:
+  #       title: DNS record time to live
+  #       type: number
+  #       description: |
+  #         The TTL of the record
+  # - title: Which environments to deploy the record to?
+  #   required:
+  #     - environments
+  #   properties:
+  #     environments:
+  #       title: Select environments
+  #       type: array
+  #       items:
+  #         type: string
+  #         enum:
+  #           - sbox 
+  #           - dev 
+  #           - ithc
+  #           - demo
+  #           - staging
+  #           - prod
+  #       uniqueItems: true
+  #       ui:widget: checkboxes
+  # - title: Which platform is this for?
+  #   required:
+  #     - cft_sds
+  #   properties:
+  #     cft_sds:
+  #       title: Which platform does this DNS belong to? 
+  #       type: string
+  #       description: The DNS record should be assigned to a platform
+  #       enum:
+  #         - cft
+  #         - sds
+  #       ui:widget: radio
+  parameters:
+    - title: Create a DNS record
+      required:
+          - dns_zone
+          - record_name
+          - record_value
+          - record_ttl
+          - recordType
+      properties:
+        dns_zone:
+          title: DNS Zone name
+          type: string
+          enum:
+            - platforms.hmcts.net
+            - hmcts.net
+          ui:autofocus: true
+        record_name:
+          title: DNS record name
+          type: string
+          description: |
+            The name of the record to create
+        record_ttl:
+          title: DNS record time to live
+          type: string
+          description: |
+            The TTL of the record
+        recordType:
+          type: string
+          enum:
+            - A
+            - CNAME
+
+      # Creating a dependency based on the selected technology above
+      dependencies:
+        recordType:
+          oneOf:
+            - properties:
+                recordType:
+                  enum:
+                    - A
+                shutter_resource:
+                  type: "string"
+                  enum:
+                    - shutter_resource_Id
+                    - alias_target_resource_id
+
+              # Creating a dependency based on the selected java version (not necessary, just for example)
+              dependencies:
+                shutter_resource:
+                  oneOf:
+                    - properties: 
+                        shutter_resource:
+                          enum:
+                            - shutter_resource_Id
+                        shutter_resource_id:
+                          title: Shutter Resource Id
+                          type: string
+                          description: |
+                            The Id for a shutter resource to use for this A record
+                        record_value:
+                          title: DNS record value
+                          type: string
+                          description: |
+                            The value of the record to create
+                      required: 
+                        - shutter_resource_id
+                    - properties: 
+                        shutter_resource:
+                          enum:
+                            - alias_target_resource_id
+                        Alias_Target_Resource_Id:
+                          title: Alias Target Resource Id
+                          type: string
+                          description: |
+                            The Id for an Alias Target Resource when using Azure resources as targets e.g. Front Door
+                      required: 
+                        - Alias_Target_Resource_Id
+              required: 
+                - shutter_resource  
+    - title: Which environments to deploy the record to?
+      required:
+        - environments
+      properties:
+        environments:
+          title: Select environments
+          type: array
+          items:
+            type: string
+            enum:
+              - sbox 
+              - dev 
+              - ithc
+              - demo
+              - staging
+              - prod
+          uniqueItems: true
+          ui:widget: checkboxes
+    - title: Which platform is this for?
+      required:
+        - cft_sds
+      properties:
+        cft_sds:
+          title: Which platform does this DNS belong to? 
+          type: string
+          description: The DNS record should be assigned to a platform
+          enum:
+            - cft
+            - sds
+          ui:widget: radio
+
+  steps:
+
+    - id: log-message
+      name: Log Message
+      action: debug:log
+      input:
+        message: Template execution started
+
+    - id: trigger-ga
+      name: Trigger GA workflow
+      action: github:actions:dispatch
+      input:
+        repoUrl: github.com?repo=labs-mfox-nodejs&owner=hmcts
+        branchOrTagName: master
+        workflowId: backstage.yaml
+        workflowInputs:
+          dns_zone: ${{ parameters.dns_zone }}
+          record_name: ${{ parameters.record_name }}
+          record_value: ${{ parameters.record_value }}
+          record_ttl: ${{ parameters.record_ttl }}
+          record_type: ${{ parameters.recordType }}
+          shutter_resource_id: ${{ parameters.shutter_resource_id }}
+          alias_target_id: ${{ parameters.Alias_Target_Resource_Id }}
+          # environments: ${{ parameters.environments }}
+          cft_sds: ${{ parameters.cft_sds }}
+        # token:
+  
+  output:
+    links:
+      - title: Public DNS Repo
+        url: https://github.com/hmcts/labs-mfox-nodejs
