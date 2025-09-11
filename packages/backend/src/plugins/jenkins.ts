@@ -32,9 +32,11 @@ export default async function createPlugin({
 
   return await createRouter({
     logger,
+    discovery,
     jenkinsInfoProvider: DefaultJenkinsInfoProvider.fromConfig({
       catalog,
       config,
+      discovery,
     }),
     permissions: permissions
   });

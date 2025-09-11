@@ -23,10 +23,16 @@ import { PluginEnvironment } from '../types';
 export default async function createPlugin({
   config,
   discovery,
+  logger,
+  tokenManager,
+  identity,
 }: PluginEnvironment) {
   return await createRouter({
     config,
     discovery,
+    logger,
+    tokenManager,
+    identity,
     badgeFactories: createDefaultBadgeFactories(),
   });
 }
