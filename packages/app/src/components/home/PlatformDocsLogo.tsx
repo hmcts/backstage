@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Logo from './platform-docs-logo.svg'
 
 export const PlatformDocsLogo = () => {

@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [16.x]
+        node-version: [20.x]
 
     env:
       CI: true
@@ -37,13 +37,13 @@ jobs:
         run: touch github-app-backstage-hmcts-credentials.yaml
 
       - name: lint
-        run: yarn lerna run lint
+        run: yarn lint:all
 
       - name: type checking and declarations
         run: yarn tsc --incremental false
 
       - name: build
-        run: yarn build
+        run: yarn build:all
 
       - name: test
-        run: yarn lerna run test -- --coverage
+        run: yarn test:all

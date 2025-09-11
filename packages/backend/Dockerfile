@@ -3,33 +3,53 @@
 #
 # Before building this image, be sure to have run the following commands in the repo root:
 #
-# yarn install
+# yarn install --immutable
 # yarn tsc
-# yarn build
+# yarn build:backend
 #
 # Once the commands have been run, you can build the image using `yarn build-image`
+#
+# Alternatively, there is also a multi-stage Dockerfile documented here:
+# https://backstage.io/docs/deployment/docker#multi-stage-build
 
-FROM node:16-bullseye-slim
+FROM node:20-bookworm-slim
 
-RUN apt-get update -y && \
-  apt-get install -y --no-install-recommends \
-    mkdocs \
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON=/usr/bin/python3
+
+# Install isolate-vm dependencies, these are needed by the @backstage/plugin-scaffolder-backend.
+RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+    apt-get update && \
+    apt-get install -y --no-install-recommends \
     python3 \
+    g++ \
+    build-essential \
+    mkdocs \
     python3-pip \
-    openjdk-11-jre-headless && \
-  pip3 install mkdocs-techdocs-core
+    default-jre-headless && \
+    python3 -m pip config set global.break-system-packages true && \
+    pip3 install mkdocs-techdocs-core && \
+    rm -rf /var/lib/apt/lists/*
 
 # From here on we use the least-privileged `node` user to run the backend.
-WORKDIR /app
-RUN chown node:node /app
 USER node
 
-# This switches many Node.js dependencies to production mode.
-ENV NODE_ENV production
+# This should create the app dir as `node`.
+# If it is instead created as `root` then the `tar` command below will fail: `can't create directory 'packages/': Permission denied`.
+# If this occurs, then ensure BuildKit is enabled (`DOCKER_BUILDKIT=1`) so the app dir is correctly created as `node`.
+WORKDIR /app
 
-# Copy over Yarn 3 configuration, release, and plugins
+# Copy files needed by Yarn
 COPY --chown=node:node .yarn ./.yarn
 COPY --chown=node:node .yarnrc.yml ./
+COPY --chown=node:node backstage.json ./
+
+# This switches many Node.js dependencies to production mode.
+ENV NODE_ENV=production
+
+# This disables node snapshot for Node 20 to work with the Scaffolder
+ENV NODE_OPTIONS="--no-node-snapshot"
 
 # Copy repo skeleton first, to avoid unnecessary docker cache invalidation.
 # The skeleton contains the package.json of each package in the monorepo,
@@ -37,11 +57,13 @@ COPY --chown=node:node .yarnrc.yml ./
 COPY --chown=node:node yarn.lock package.json packages/backend/dist/skeleton.tar.gz ./
 RUN tar xzf skeleton.tar.gz && rm skeleton.tar.gz
 
-# Note that this install is not immutable, which is one of the reasons we don't recommend Yarn 3 yet
-RUN yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
+RUN echo "{ \"version\": \"1.42.5\" }" >> backstage.json
+
+RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
+    yarn workspaces focus --all --production && rm -rf "$(yarn cache clean)"
 
 # Then copy the rest of the backend bundle, along with any other files we might want.
-COPY --chown=node:node packages/backend/dist/bundle.tar.gz app-config.yaml ./
+COPY --chown=node:node packages/backend/dist/bundle.tar.gz app-config*.yaml ./
 RUN tar xzf bundle.tar.gz && rm bundle.tar.gz
 
 CMD ["node", "packages/backend", "--config", "app-config.yaml"]

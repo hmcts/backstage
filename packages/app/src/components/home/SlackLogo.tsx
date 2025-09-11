@@ -1,5 +1,3 @@
-import React from 'react';
-
 import Logo from './slack-logo.svg'
 
 export const SlackLogo = () => {

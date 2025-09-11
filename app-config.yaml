@@ -21,7 +21,7 @@ organization:
 
 backend:
   # Used for enabling authentication, secret is shared by all backend plugins
-  # See https://backstage.io/docs/tutorials/backend-to-backend-auth for
+  # See https://backstage.io/docs/auth/service-to-service-auth for
   # information on the format
   # auth:
   #   keys:
@@ -65,19 +65,20 @@ backend:
 techdocs:
   builder: 'local' # Alternatives - 'external'
   generator:
-    runIn: 'local'
-    # dockerImage: my-org/techdocs # use a custom docker image
-    # pullImage: true # or false to disable automatic pulling of image (e.g. if custom docker login is required)
+    runIn: 'docker' # Alternatives - 'local'
   publisher:
-    type: 'local' # Alternatives - 'googleGcs' or 'awsS3' or 'azureBlobStorage' or 'openStackSwift'. Read documentation for using alternatives.
+    type: 'local' # Alternatives - 'googleGcs' or 'awsS3'. Read documentation for using alternatives.
 
 integrations:
   github:
-    # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
-    # about setting up the GitHub integration here: https://backstage.io/docs/getting-started/configuration#setting-up-a-github-integration
     - host: github.com
-      apps:
-        - $include: github-app-backstage-hmcts-credentials.yaml
+      # This is a Personal Access Token or PAT from GitHub. You can find out how to generate this token, and more information
+      # about setting up the GitHub integration here: https://backstage.io/docs/integrations/github/locations#configuration
+      token: ${GITHUB_TOKEN}
+    ### Example for how to add your GitHub Enterprise instance using the API:
+    # - host: ghe.example.net
+    #   apiBaseUrl: https://ghe.example.net/api/v3
+    #   token: ${GHE_TOKEN}
 
 # see https://backstage.io/docs/features/software-templates/configuration for software template options
 catalog:
@@ -105,6 +106,9 @@ catalog:
         filters:
           topic:
             include: ['backstage', 'jenkins-cft-a-c', 'jenkins-cft-d-i', 'jenkins-cft-j-z', 'jenkins-sds']
+        schedule:
+          frequency: PT1H
+          timeout: PT50M
     microsoftGraphOrg:
       default:
         target: https://graph.microsoft.com/v1.0
@@ -134,21 +138,24 @@ catalog:
           # See https://docs.microsoft.com/en-us/graph/api/resources/user?view=graph-rest-1.0#properties
           # and for the syntax https://docs.microsoft.com/en-us/graph/query-parameters#filter-parameter
           # This and userGroupMemberFilter are mutually exclusive, only one can be specified
-          filter: accountEnabled eq true
+          filter: accountEnabled eq true and userType eq 'member'
         group:
           # Optional parameter to include the expanded resource or collection referenced
           # by a single relationship (navigation property) in your results.
           # Only one relationship can be expanded in a single request.
           # See https://docs.microsoft.com/en-us/graph/query-parameters#expand-parameter
           # Can be combined with userGroupMember[...] instead of userFilter.
-          expand: member
+          #expand: member
           # Optional filter for group, see Microsoft Graph API for the syntax
           # See https://docs.microsoft.com/en-us/graph/api/resources/group?view=graph-rest-1.0#properties
           filter: securityEnabled eq true
           # Optional select for groups, this will allow you work with schemaExtensions
           # in order to add extra information to your groups that can be used on you custom groupTransformers
           # See  https://docs.microsoft.com/en-us/graph/api/resources/schemaextension?view=graph-rest-1.0
-          select: ['id', 'displayName', 'description']
+          select: [ 'id', 'displayName', 'description' ]
+        schedule:
+          frequency: PT1H
+          timeout: PT55M
 
   locations:
     - type: url
@@ -177,13 +184,8 @@ catalog:
 search:
   pg:
 
-scaffolder:
-# Use to customize default commit author info used when new components are created
-# defaultAuthor:
-#   name: Scaffolder
-#   email: scaffolder@backstage.io
-# Use to customize the default commit message when new components are created
-# defaultCommitMessage: 'Initial commit'
+kubernetes:
+  # see https://backstage.io/docs/features/kubernetes/configuration for kubernetes configuration options
 
 auth:
   # see https://backstage.io/docs/auth/ to learn about auth providers
@@ -198,6 +200,9 @@ auth:
         clientId: ${AUTH_MICROSOFT_CLIENT_ID}
         clientSecret: ${AUTH_MICROSOFT_CLIENT_SECRET}
         tenantId: ${AUTH_MICROSOFT_TENANT_ID}
+        signIn:
+          resolvers:
+            - resolver: userIdMatchingUserEntityAnnotation
 
 costInsights:
   engineerCost: 200000
