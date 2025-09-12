@@ -16,7 +16,11 @@ RUN apt-get update -y && \
     mkdocs \
     python3 \
     python3-pip \
-    openjdk-11-jre-headless && \
+    openjdk-11-jre-headless \
+    g++ \
+    make \
+    build-essential \
+    libsqlite3-dev && \
   pip3 install mkdocs-techdocs-core
 
 # From here on we use the least-privileged `node` user to run the backend.
