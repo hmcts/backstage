@@ -3497,7 +3497,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/backend-common@npm:^0.23.0, @backstage/backend-common@npm:^0.23.2, @backstage/backend-common@npm:^0.23.3":
+"@backstage/backend-common@npm:^0.23.2, @backstage/backend-common@npm:^0.23.3":
   version: 0.23.3
   resolution: "@backstage/backend-common@npm:0.23.3"
   dependencies:
@@ -3573,7 +3573,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/backend-common@npm:^0.24.1":
+"@backstage/backend-common@npm:^0.24.0, @backstage/backend-common@npm:^0.24.1":
   version: 0.24.1
   resolution: "@backstage/backend-common@npm:0.24.1"
   dependencies:
@@ -5155,7 +5155,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-backend@npm:^1.24.0, @backstage/plugin-catalog-backend@npm:^1.32.1":
+"@backstage/plugin-catalog-backend@npm:^1.32.1":
   version: 1.32.1
   resolution: "@backstage/plugin-catalog-backend@npm:1.32.1"
   dependencies:
@@ -14929,7 +14929,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend@workspace:packages/backend"
   dependencies:
-    "@backstage/backend-common": ^0.23.0
+    "@backstage/backend-common": ^0.24.0
     "@backstage/backend-tasks": ^0.6.0
     "@backstage/catalog-client": ^1.6.0
     "@backstage/catalog-model": ^1.6.0
@@ -14941,7 +14941,7 @@ __metadata:
     "@backstage/plugin-auth-backend": ^0.22.0
     "@backstage/plugin-auth-node": ^0.5.0
     "@backstage/plugin-badges-backend": ^0.3.0
-    "@backstage/plugin-catalog-backend": ^1.24.0
+    "@backstage/plugin-catalog-backend": ^1.32.1
     "@backstage/plugin-catalog-backend-module-github": ^0.8.0
     "@backstage/plugin-catalog-backend-module-msgraph": ^0.6.0
     "@backstage/plugin-code-coverage-backend": ^0.2.4
