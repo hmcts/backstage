@@ -32,7 +32,7 @@
     "@backstage/cli": "0.25.2",
     "@spotify/prettier-config": "14.1.0",
     "concurrently": "6.5.1",
-    "lerna": "5.5.1",
+    "lerna": "5.6.2",
     "lint-staged": "12.5.0",
     "node-gyp": "9.1.0",
     "prettier": "2.7.1",
