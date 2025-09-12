@@ -42,6 +42,13 @@ jobs:
       - name: type checking and declarations
         run: yarn tsc --incremental false
 
+      - name: knex migrate status
+        env:
+          POSTGRES_USER: "pgadmin"
+          POSTGRES_HOST: "hmcts-backstage-flex-ptl.postgres.database.azure.com"
+          POSTGRES_PASSWORD: ${{ secrets.PTL_BACKSTAGE_DB_PASSWORD }}
+        run: node_modules/.bin/knex migrate:status --connection "postgresql://$POSTGRES_USER:$POSTGRES_PASSWORD@$POSTGRES_HOST/backstage_plugin_app" --client pg --migrations-directory node_modules/@backstage/plugin-catalog-backend/migrations/
+
       - name: build
         run: yarn build
 
