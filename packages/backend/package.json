@@ -27,7 +27,11 @@
     "@backstage/plugin-auth-backend": "^0.22.0",
     "@backstage/plugin-auth-node": "^0.5.0",
     "@backstage/plugin-badges-backend": "^0.3.0",
+<<<<<<< Updated upstream
     "@backstage/plugin-catalog-backend": "^1.24.0",
+=======
+    "@backstage/plugin-catalog-backend": "^3.0.1",
+>>>>>>> Stashed changes
     "@backstage/plugin-catalog-backend-module-github": "^0.8.0",
     "@backstage/plugin-catalog-backend-module-msgraph": "^0.6.0",
     "@backstage/plugin-code-coverage-backend": "^0.2.4",

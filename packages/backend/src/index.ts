@@ -8,17 +8,17 @@
 
 import Router from 'express-promise-router';
 import {
-  createServiceBuilder,
-  loadBackendConfig,
-  getRootLogger,
-  useHotMemoize,
   notFoundHandler,
   CacheManager,
   DatabaseManager,
   SingleHostDiscovery,
-  UrlReaders,
   ServerTokenManager,
+  loadBackendConfig,
+  getRootLogger,
+  useHotMemoize,
+  createServiceBuilder,
 } from '@backstage/backend-common';
+import { UrlReaders } from '@backstage/backend-defaults/dist/urlReader';
 import { TaskScheduler } from '@backstage/backend-tasks';
 import { Config } from '@backstage/config';
 import app from './plugins/app';
