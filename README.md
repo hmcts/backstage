@@ -129,4 +129,3 @@ A browser window should open and load `http://localhost:3000` for you to log int
 ## Try out the Live deployment
 
 Try it out at https://backstage.hmcts.net
-
