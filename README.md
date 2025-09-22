@@ -1,4 +1,5 @@
-**NOTE: This instance of Backstage has been superseded by https://github.com/hmcts/backstage-portal. Please DO NOT use this repo going forward. **
+**Please DO NOT use this repo going forward.**
+**This instance of Backstage has been superseded by https://github.com/hmcts/backstage-portal.**
 
 # [Backstage](https://backstage.io)
 
