@@ -1,3 +1,5 @@
+**NOTE: This instance of Backstage has been superseded by https://github.com/hmcts/backstage-portal. Please DO NOT use this repo going forward. **
+
 # [Backstage](https://backstage.io)
 
 This repository contains all things Backstage within HMCTS.
