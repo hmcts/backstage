@@ -52,5 +52,8 @@
       "prettier --write"
     ]
   },
-  "packageManager": "yarn@3.2.3"
+  "packageManager": "yarn@3.2.3",
+  "dependencies": {
+    "@backstage/backend-defaults": "^0.12.0"
+  }
 }
